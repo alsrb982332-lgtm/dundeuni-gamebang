@@ -17,6 +17,30 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- 앱이 켜지다 멈추면 빈 화면 대신 원인을 보여 줌 (어른이 사진 찍어 알려 주기 쉽게) -->
+    <script>
+      (function () {
+        var shown = false
+        function show(msg) {
+          if (shown) return
+          var root = document.getElementById('root')
+          if (root && root.children.length) return
+          shown = true
+          var box = document.createElement('div')
+          box.setAttribute('style', 'position:fixed;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;padding:24px;z-index:99;font-family:sans-serif')
+          box.innerHTML = '<div style="background:#fff;border-radius:20px;padding:20px;max-width:640px;box-shadow:0 6px 0 rgba(0,0,0,.15);color:#1F2A44;-webkit-user-select:text;user-select:text">' +
+            '<h2 style="margin:0 0 8px">든든이 게임방을 열지 못했어요</h2>' +
+            '<p style="margin:0 0 8px;color:#5D6B85">이 화면을 사진으로 찍어서 알려 주세요. 브라우저(크롬·사파리)를 최신으로 업데이트하면 해결되는 경우가 많아요.</p>' +
+            '<pre style="white-space:pre-wrap;font-size:13px;background:#F3F6F1;padding:10px;border-radius:10px;margin:0"></pre></div>'
+          box.querySelector('pre').textContent = String(msg) + '\n\n' + navigator.userAgent
+          document.body.appendChild(box)
+        }
+        window.addEventListener('error', function (e) { show((e.message || '오류') + (e.filename ? '\n' + e.filename.split('/').pop() + ':' + e.lineno : '')) })
+        window.addEventListener('unhandledrejection', function (e) { show('Promise: ' + (e.reason && (e.reason.message || e.reason))) })
+        /* 스크립트가 아예 안 돌았을 때 (문법을 모르는 아주 오래된 브라우저) */
+        setTimeout(function () { show('앱 코드가 실행되지 않았어요 (8초).') }, 8000)
+      })()
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

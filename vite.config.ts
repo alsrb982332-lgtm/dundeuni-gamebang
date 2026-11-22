@@ -11,6 +11,8 @@ const BG = '#E3F4DA' // 파스텔 연두 (든든이 시리즈 바탕색)
 export default defineConfig(({ command, isPreview }) => ({
   base: command === 'build' || isPreview ? `/${REPO}/` : '/',
   server: { host: true },
+  /* 오래된 태블릿 브라우저(크롬 80·사파리 13.1 무렵)에서도 돌도록 최신 문법을 낮춰서 빌드 */
+  build: { target: ['es2019', 'chrome79', 'safari13', 'edge79', 'firefox78'] },
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
     __BUILD_DATE__: JSON.stringify(new Date().toISOString().slice(0, 10)),

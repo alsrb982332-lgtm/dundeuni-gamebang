@@ -27,6 +27,9 @@ export const raw = {
 
 export type Versioned = { version: number }
 
+/* 기본값 복사 (structuredClone 은 오래된 태블릿 브라우저에 없어서 JSON 으로) */
+const clone = <T,>(v: T): T => JSON.parse(JSON.stringify(v)) as T
+
 /** 저장된 값을 읽어 현재 버전으로 맞춤. 모르는 값이면 기본값 */
 export function loadVersioned<T extends Versioned>(
   key: string,
@@ -34,10 +37,10 @@ export function loadVersioned<T extends Versioned>(
   migrate?: (old: Record<string, unknown>, fromVersion: number) => Partial<T>,
 ): T {
   const saved = raw.get<Record<string, unknown> | null>(key, null)
-  if (!saved || typeof saved !== 'object') return structuredClone(defaults)
+  if (!saved || typeof saved !== 'object') return clone(defaults)
   const from = typeof saved.version === 'number' ? saved.version : 0
   const body = from < defaults.version && migrate ? migrate(saved, from) : (saved as Partial<T>)
-  return { ...structuredClone(defaults), ...body, version: defaults.version }
+  return { ...clone(defaults), ...body, version: defaults.version }
 }
 
 /** 작은 저장소: 값 + 구독 + React 훅 (여러 화면이 같은 값을 함께 봄) */

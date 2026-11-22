@@ -216,7 +216,8 @@ async function buildViteGames() {
       base: './',
       logLevel: 'warn',
       plugins: [react(), audioList(work)],
-      build: { outDir: out, emptyOutDir: true, chunkSizeWarningLimit: 2000 },
+      /* 오래된 태블릿 브라우저에서도 돌게 (게임방 vite.config.ts 와 같은 기준) */
+      build: { outDir: out, emptyOutDir: true, chunkSizeWarningLimit: 2000, target: ['es2019', 'chrome79', 'safari13', 'edge79', 'firefox78'] },
     })
     fs.rmSync(path.join(out, 'audio'), { recursive: true, force: true })
     console.log(`✔ legacy/${g.src}/ → public/legacy/${g.id}/`)
