@@ -18,6 +18,15 @@ if [ ! -s "$words" ]; then
   exit 1
 fi
 
+# 단어 → 찾기 규칙. 영어 단어는 앞 글자가 알파벳이 아닐 때만 (예: 'cat' 은 잡고 'concat' 은 안 잡음)
+pats=$(mktemp)
+trap 'rm -f "$list" "$pats"' EXIT
+tr -d '\r' < "$words" | while IFS= read -r w; do
+  [ -z "$w" ] && continue
+  if printf '%s' "$w" | grep -q '^[A-Za-z0-9_-]*$'; then printf '(^|[^A-Za-z])%s\n' "$w"
+  else printf '%s\n' "$w"; fi
+done > "$pats"
+
 fail=0
 while IFS= read -r f; do
   case "$f" in
@@ -27,12 +36,12 @@ while IFS= read -r f; do
   if git show ":$f" | grep -qiE 'data:image/(jpe?g|heic|webp);base64'; then
     echo "❌ 글자로 바꿔 넣은 사진(base64): $f"; fail=1
   fi
-  hit=$(git show ":$f" | grep -niF -f "$words" | head -3)
+  hit=$(git show ":$f" | grep -niE -f "$pats" | head -3)
   if [ -n "$hit" ]; then
     echo "❌ 개인정보 단어: $f"; echo "$hit" | cut -c1-120; fail=1
   fi
   # 파일 이름 자체에 들어간 경우
-  if printf '%s\n' "$f" | grep -qiF -f "$words"; then
+  if printf '%s\n' "$f" | grep -qiE -f "$pats"; then
     echo "❌ 파일 이름에 개인정보 단어: $f"; fail=1
   fi
 done < "$list"

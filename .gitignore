@@ -6,11 +6,12 @@ dist/
 
 # 개인정보 (CLAUDE.md 5장) — 저장소에 올리지 않음
 # 의뢰서: 아이 실명·생년월 포함
-docs/
+/docs/
 # 원본 게임: 아이 사진·실명 포함 (읽기 전용 보관)
-legacy/
+/legacy/
 # 개인정보 검사용 단어 목록
 .private-words.txt
+.private-names.json
 
 # 기타
 .env
@@ -18,3 +19,6 @@ legacy/
 .claude/settings.local.json
 .DS_Store
 Thumbs.db
+
+# 1단계 복사본을 만들 때 쓰는 임시 폴더 (scripts/build-legacy.mjs)
+.work/
