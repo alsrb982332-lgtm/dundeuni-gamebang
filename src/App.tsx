@@ -10,6 +10,7 @@ import { ParentHome } from './parent/ParentHome'
 import { isParentOpen } from './parent/access'
 import { BackGuard } from './kids-mode/BackGuard'
 import { PlayClock } from './kids-mode/PlayClock'
+import { UpdateWatcher } from './kids-mode/UpdateWatcher'
 import { useSettings } from './shared/settings'
 import { profileStore, whoName } from './shared/useProfile'
 import { nameOf } from './shared/settings'
@@ -45,6 +46,7 @@ export default function App() {
     <HashRouter>
       <BackGuard />
       <PlayClock />
+      <UpdateWatcher />
       <VoiceSync />
       <Routes>
         <Route path="/" element={<Start />} />
