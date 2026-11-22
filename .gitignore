@@ -1,0 +1,20 @@
+# 빌드·패키지
+node_modules/
+dist/
+*.tsbuildinfo
+.vite/
+
+# 개인정보 (CLAUDE.md 5장) — 저장소에 올리지 않음
+# 의뢰서: 아이 실명·생년월 포함
+docs/
+# 원본 게임: 아이 사진·실명 포함 (읽기 전용 보관)
+legacy/
+# 개인정보 검사용 단어 목록
+.private-words.txt
+
+# 기타
+.env
+.env.*
+.claude/settings.local.json
+.DS_Store
+Thumbs.db
