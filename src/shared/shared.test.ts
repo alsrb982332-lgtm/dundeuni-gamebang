@@ -67,3 +67,14 @@ describe('뒤로 가기', () => {
     expect(backTarget('/')).toBe('/')
   })
 })
+
+import { deviceKind } from '../kids-mode/device'
+describe('기기 판별 (화면 고정 안내)', () => {
+  it('안드로이드 / 아이패드(맥처럼 보이는 것 포함) / 아이폰 / 기타', () => {
+    expect(deviceKind('Mozilla/5.0 (Linux; Android 14; SM-X710) AppleWebKit/537.36 Chrome/131 Safari/537.36', 5)).toBe('android')
+    expect(deviceKind('Mozilla/5.0 (iPad; CPU OS 16_0 like Mac OS X) AppleWebKit/605.1.15', 5)).toBe('ipad')
+    expect(deviceKind('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/18.0 Safari/605.1.15', 5)).toBe('ipad')
+    expect(deviceKind('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/18.0 Safari/605.1.15', 0)).toBe('other')
+    expect(deviceKind('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)', 5)).toBe('iphone')
+  })
+})

@@ -3,6 +3,7 @@ import { BigButton } from '../shared/BigButton'
 import { unlockAudio, sfx } from '../shared/sfx'
 import { requestAppFullscreen } from '../kids-mode/device'
 import { useGo } from '../kids-mode/BackGuard'
+import { FirstRunPrompt } from '../parent/FirstRunPrompt'
 import css from './app.module.css'
 
 const DECO = ['⭐', '🦕', '☀️', '🧱', '✏️', '🌈', '🐻', '🐰', '✨', '🎈']
@@ -28,6 +29,7 @@ export function Start() {
         sfx.pop()
         go('/who')
       }}>🎈 놀러 가기</BigButton>
+      <FirstRunPrompt />
     </main>
   )
 }

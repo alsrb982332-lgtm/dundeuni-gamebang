@@ -7,6 +7,7 @@ import { StickerBoard } from './app/StickerBoard'
 import { Play } from './app/Play'
 import { Sleepy } from './app/Sleepy'
 import { ParentHome } from './parent/ParentHome'
+import { PinGuide } from './parent/PinGuide'
 import { isParentOpen } from './parent/access'
 import { BackGuard } from './kids-mode/BackGuard'
 import { PlayClock } from './kids-mode/PlayClock'
@@ -24,7 +25,8 @@ import { setSfxVolume } from './shared/sfx'
    /stickers    우리 스티커판
    /play/:id    게임 (src/games/registry.ts)
    /sleep       놀이 시간 끝
-   /parent      부모 설정 (어른 확인 후) */
+   /parent      부모 설정 (어른 확인 후), /parent/pin 화면 고정 안내
+   /pin         화면 고정 안내 (처음 설치 안내에서 바로 열기, 설정은 못 바꿈) */
 
 function ParentOnly({ children }: { children: ReactNode }) {
   return isParentOpen() ? <>{children}</> : <Navigate to="/main" replace />
@@ -55,6 +57,7 @@ export default function App() {
         <Route path="/stickers" element={<StickerBoard />} />
         <Route path="/play/:id" element={<Play />} />
         <Route path="/sleep" element={<Sleepy />} />
+        <Route path="/pin" element={<PinGuide />} />
         <Route path="/parent/*" element={<ParentOnly><ParentHome /></ParentOnly>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

@@ -10,9 +10,16 @@ const LINES: Record<string, string> = {}
 let volume = 1
 let vars: Record<string, string> = {}
 
-/** 게임마다 문장 모음(voice.json)을 등록. 이름표가 겹치면 나중 것이 우선 */
-export function registerLines(lines: Record<string, string>) { Object.assign(LINES, lines) }
+const GROUPS = new Map<string, string[]>()
+
+/** 게임마다 문장 모음(voice.json)을 등록. 이름표가 겹치면 나중 것이 우선. group 은 부모 녹음 화면의 묶음 이름 */
+export function registerLines(lines: Record<string, string>, group = '게임방') {
+  Object.assign(LINES, lines)
+  GROUPS.set(group, [...new Set([...(GROUPS.get(group) || []), ...Object.keys(lines)])])
+}
 export const allLines = () => ({ ...LINES })
+/** 부모 녹음 화면용: [묶음 이름, [이름표, 문장][]][] */
+export const voiceGroups = () => [...GROUPS.entries()].map(([g, keys]) => [g, keys.map((k) => [k, LINES[k]] as [string, string])] as const)
 
 /* ---------- 이름 자리표시자 + 조사 ---------- */
 const PAIRS: [string, string][] = [
