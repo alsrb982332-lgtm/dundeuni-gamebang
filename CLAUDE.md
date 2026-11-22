@@ -36,9 +36,20 @@
 ├─ legacy/             원본 게임 6개 — 읽기 전용 (저장소 제외)
 │  ├─ 든든 공룡나라.html / 든든 따라쓰기.html / 든든 블록.html (+ 든든 블록.bat)
 │  └─ maeum-nalssi/ hyeonga-rang-gachi/ banjjak-habits/   (Vite 프로젝트)
-├─ scripts/check-privacy.sh   커밋 전 개인정보 검사
-└─ (1단계부터) public/ src/ package.json … — 00번 8장 「폴더 구조」대로
+├─ scripts/
+│  ├─ check-privacy.sh  커밋 전 개인정보 검사 (pre-commit 훅)
+│  └─ build-legacy.mjs  원본 → public/legacy/<id>/ 복사본 만들기 (npm run legacy, 이 PC에서만)
+├─ public/legacy/<id>/  1단계 복사본 (저장소에 커밋. 직접 고치지 말고 build-legacy 로 다시 만듦)
+├─ public/fonts/        Jua 글꼴 (게임방·복사본 공용, 오프라인)
+├─ src/app · parent · shared · kids-mode · games   — 00번 8장 「폴더 구조」대로
+│  └─ games/registry.ts  게임 목록 / games/<id>/ 2단계로 옮긴 게임
+└─ .github/workflows/deploy.yml   main 에 push → 시험 → 빌드 → Pages
 ```
+
+- 지금 단계: 1~9단계 중 마음 날씨까지 2단계 완료. 공룡나라·따라 쓰기·블록·형아랑 같이·생활 습관 놀이는 1단계(복사본).
+- 명령: `npm run dev` / `npm run dev -- --host`(태블릿) / `npm test` / `npm run build` / `npm run legacy`
+- 게임방 공통 저장 키는 `dundeuni:` 접두어 + `version`. 1단계 복사본은 각자 키(`dino.*`, `trace.*` …)를 씀 → 기록 백업(`src/parent/backup.ts`)에 포함.
+- 스타일: 게임방·옮긴 게임은 CSS Modules. 색·크기 토큰과 유아용 기본 부품은 `src/shared/styles/base.css`(전역).
 
 게임 id (폴더 이름·`registry.ts`에 공통으로 사용):
 
@@ -59,6 +70,8 @@
   - 1단계(그대로 넣기): `public/legacy/<id>/`
   - 2단계(업그레이드): `src/games/<id>/`
 - 복사본 HTML·주요 파일 맨 위에 출처 주석을 남깁니다: 원본 경로, 복사한 날짜, 바꾼 내용 요약.
+- 원본에 있는 아이 이름은 스크립트에 쓰지 않고 `.private-names.json`(저장소 제외)에서 읽습니다.
+- 2단계로 옮긴 게임은 `registry.ts` 에서 `kind: 'module'` 로 바꾸고, `public/legacy/<id>/` 복사본과 build-legacy 목록에서 뺍니다.
 
 ## 4. 유아용 UX 원칙 (모든 게임 공통)
 
@@ -87,6 +100,7 @@
 - **커밋 전 검사**: `sh scripts/check-privacy.sh` (pre-commit 훅으로 자동 실행). 검사 단어 목록은 `.private-words.txt`(저장소 제외, 이 PC에만 있음).
   - 이 검사를 `--no-verify` 등으로 건너뛰지 않습니다. 검사에 걸리면 고친 뒤 다시 커밋합니다.
   - `.private-words.txt`가 없으면 커밋하지 말고 사용자에게 알립니다.
+  - 영어 단어는 앞 글자가 알파벳이 아닐 때만 걸리게 검사합니다 (빌드된 코드 속 다른 낱말 오탐 방지).
 
 ## 6. 작업 방식
 
