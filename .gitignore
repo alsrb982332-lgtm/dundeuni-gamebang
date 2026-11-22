@@ -22,3 +22,5 @@ Thumbs.db
 
 # 1단계 복사본을 만들 때 쓰는 임시 폴더 (scripts/build-legacy.mjs)
 .work/
+# 추가 의뢰서: 아이 실명 포함
+/추가 개발 앱/

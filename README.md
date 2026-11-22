@@ -97,6 +97,18 @@ npm run build           (배포용 파일 만들기)
 
 **생활 습관(반짝반짝 습관 놀이)** — 아직 1단계(그대로 넣기)라서 원본 `legacy/banjjak-habits/src/data/habits.json` 을 고친 뒤 `npm run legacy` 로 복사본을 다시 만들어요. (2단계로 옮기면 `src/games/banjjak-habits/data/` 에서 바로 고치게 돼요)
 
+**공룡 도와주기 친구** — `public/legacy/dino/rescue.json` 의 `friends` 에 하나 추가하면 코드 수정 없이 나와요.
+
+```json
+{ "id": "parasaurolophus", "dino": "파라사우롤로푸스", "world": "forest", "need": "hungry", "tools": ["leaf"], "action": "feed", "modes": ["dong", "hyeong"],
+  "intro": "어? 파라사우롤로푸스가 뒤집혀서 못 일어나나 봐.", "needSay": "배가 고파서 기운이 없대. 뭘 주면 좋을까?",
+  "hint": "음~ 파라사우롤로푸스는 나뭇잎을 좋아해.", "thanks": "고마워, {이름}! 이제 힘이 나!" }
+```
+
+- `dino`: 공룡 도감에 있는 이름 · `world`: grassland(초원)·forest(숲)·sea(바다)·volcano(화산 마을)·sky(하늘)
+- `tools`: grass·leaf·meat·fish·water·medicine·shot·bandage·blanket·ointment·hug·scissors (여러 개면 그중 아무거나 정답)
+- `action`: feed(먹이기)·heal(치료)·rub(문지르기)·cover(덮어 주기)·hug(안아 주기)·free(풀어 주기) · `modes`: dong(동생)·hyeong(형)
+
 ## 8. 문제가 생겼을 때
 
 | 증상 | 해결 |

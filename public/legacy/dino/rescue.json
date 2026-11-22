@@ -1,0 +1,29 @@
+{
+  "_설명": "공룡 도와주기 친구 목록. 여기에 친구를 추가하면 코드 수정 없이 게임에 나와요. dino 는 도감 이름(없으면 art 로 그림 이름), world 는 grassland·forest·sea·volcano·sky, tools 는 정답 도구(여러 개면 그중 아무거나), action 은 feed·heal·rub·cover·hug·free, modes 는 dong(동생)·hyeong(형). 문장의 {이름} 은 노는 아이 이름.",
+  "friends": [
+    { "id": "triceratops", "dino": "트리케라톱스", "world": "grassland", "need": "hungry", "tools": ["grass"], "action": "feed", "modes": ["dong", "hyeong"],
+      "intro": "어? 트리케라톱스가 뒤집혀서 못 일어나나 봐.", "needSay": "배가 고파서 기운이 없대. 뭘 주면 좋을까?", "hint": "음~ 트리케라톱스는 풀을 좋아해. 다른 걸 줘 볼까?", "thanks": "고마워, {이름}! 풀을 먹었더니 힘이 나!" },
+    { "id": "brachiosaurus", "dino": "브라키오사우루스", "world": "forest", "need": "hungry", "tools": ["leaf"], "action": "feed", "modes": ["dong", "hyeong"],
+      "intro": "어? 브라키오사우루스가 뒤집혀서 누워 있어.", "needSay": "배가 고파서 기운이 없대. 뭘 주면 좋을까?", "hint": "음~ 브라키오사우루스는 높은 나무의 나뭇잎을 좋아해.", "thanks": "고마워, {이름}! 나뭇잎이 정말 맛있어!" },
+    { "id": "trex", "dino": "티라노사우루스", "world": "volcano", "need": "hungry", "tools": ["meat"], "action": "feed", "modes": ["dong", "hyeong"],
+      "intro": "어? 티라노사우루스가 배를 보이고 누워 있어.", "needSay": "배가 너무 고파서 기운이 없대. 뭘 주면 좋을까?", "hint": "음~ 티라노사우루스는 고기를 좋아해. 다른 걸 줘 볼까?", "thanks": "고마워, {이름}! 이제 힘이 펄펄 나!" },
+    { "id": "turtle", "dino": "아르켈론", "name": "바다거북", "world": "sea", "need": "thirsty", "tools": ["water"], "action": "feed", "modes": ["dong", "hyeong"],
+      "intro": "어? 바다거북이 뒤집혀서 버둥버둥해.", "needSay": "바닷물이 탁해서 목이 마르대. 뭘 주면 좋을까?", "hint": "음~ 바다거북은 깨끗한 물이 필요해.", "thanks": "고마워, {이름}! 물이 시원해!" },
+    { "id": "stegosaurus", "dino": "스테고사우루스", "world": "grassland", "need": "sick", "tools": ["medicine", "shot"], "action": "heal", "modes": ["hyeong"],
+      "intro": "어? 스테고사우루스가 끙끙 누워 있어.", "needSay": "배가 아파서 기운이 없대. 뭐가 필요할까?", "hint": "음~ 아플 때는 약이 필요해. 다른 걸 줘 볼까?", "thanks": "고마워, {이름}! 하나도 안 아파!" },
+    { "id": "ankylosaurus", "dino": "안킬로사우루스", "world": "forest", "need": "hurt", "tools": ["bandage"], "action": "heal", "modes": ["hyeong"],
+      "intro": "어? 안킬로사우루스가 넘어져서 못 일어나.", "needSay": "무릎이 까졌대. 아야 아야! 뭐가 필요할까?", "hint": "음~ 까진 곳에는 반창고를 붙여 주자.", "thanks": "고마워, {이름}! 반창고 덕분에 다 나았어!" },
+    { "id": "plesiosaurus", "dino": "플레시오사우루스", "world": "sea", "need": "hungry", "tools": ["fish"], "action": "feed", "modes": ["hyeong"],
+      "intro": "어? 플레시오사우루스가 기운 없이 둥둥 떠 있어.", "needSay": "배가 고프대. 바다 친구는 뭘 먹을까?", "hint": "음~ 플레시오사우루스는 물고기를 좋아해.", "thanks": "고마워, {이름}! 물고기 냠냠!" },
+    { "id": "mosasaurus", "dino": "모사사우루스", "world": "sea", "need": "sick", "tools": ["medicine", "shot"], "action": "heal", "modes": ["hyeong"],
+      "intro": "어? 모사사우루스가 끙끙 누워 있어.", "needSay": "몸이 아파서 기운이 없대. 뭐가 필요할까?", "hint": "음~ 아플 때는 약이 필요해.", "thanks": "고마워, {이름}! 이제 쌩쌩 헤엄칠 수 있어!" },
+    { "id": "pteranodon", "dino": "프테라노돈", "world": "sky", "need": "cold", "tools": ["blanket"], "action": "cover", "modes": ["hyeong"],
+      "intro": "어? 프테라노돈이 날개를 접고 덜덜 떨고 있어.", "needSay": "바람이 차가워서 춥대. 뭐가 필요할까?", "hint": "음~ 추울 때는 포근한 담요를 덮어 주자.", "thanks": "고마워, {이름}! 따뜻해서 다시 날 수 있어!" },
+    { "id": "pachycephalosaurus", "dino": "파키케팔로사우루스", "world": "volcano", "need": "headache", "tools": ["ointment"], "action": "rub", "modes": ["hyeong"],
+      "intro": "어? 파키케팔로사우루스가 쿵! 하고 넘어졌어.", "needSay": "머리를 부딪혀서 아프대. 뭐가 필요할까?", "hint": "음~ 아픈 머리에는 연고를 쓱쓱 발라 주자.", "thanks": "고마워, {이름}! 머리가 하나도 안 아파!" },
+    { "id": "maiasaura", "dino": "마이아사우라", "world": "forest", "need": "lonely", "tools": ["hug"], "action": "hug", "modes": ["hyeong"],
+      "intro": "어? 아기 마이아사우라가 엎드려서 훌쩍훌쩍.", "needSay": "엄마가 보고 싶대. 어떻게 해 줄까?", "hint": "음~ 마음이 슬플 때는 꼭 안아 주자.", "thanks": "고마워, {이름}! 안아 줘서 마음이 따뜻해!" },
+    { "id": "whale", "dino": "", "art": "whale", "name": "고래", "world": "sea", "need": "net", "tools": ["scissors"], "action": "free", "modes": ["hyeong"],
+      "intro": "어? 고래가 그물에 걸려서 못 움직여.", "needSay": "그물을 풀어 줄까? 뭐가 필요할까?", "hint": "음~ 그물은 가위로 풀어 주자. 그물을 톡톡 세 번!", "thanks": "고마워, {이름}! 이제 마음껏 헤엄칠 수 있어!" }
+  ]
+}

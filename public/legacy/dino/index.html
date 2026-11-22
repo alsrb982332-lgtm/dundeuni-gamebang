@@ -619,6 +619,96 @@ body > .fos{z-index:50}
 .pboard .map{overflow:hidden;border-radius:18px}
 .pboard .mom{width:calc(var(--cs) * 2.5);height:calc(var(--cs) * 2.5);margin-left:calc(var(--cs) * -.85);margin-top:calc(var(--cs) * -1.5)}
 .cry{right:80%;top:18%}
+
+/* ===== 공룡탐험대: 공룡 도와주기 (게임방 2차) ===== */
+.rescueS{gap:clamp(8px,1.6vh,16px)}
+.rs-tile{position:relative;display:flex;align-items:center;justify-content:center;height:100%}
+.rs-tile svg{transform:rotate(180deg);filter:grayscale(.5)}
+.rs-tile b{position:absolute;right:4%;top:0;font-weight:normal;font-size:.8em}
+.rs-heart{position:absolute;right:6px;top:4px;font-size:18px;z-index:2}
+.dex{position:relative}
+.rs-load{font-size:60px;margin:auto;animation:twinkle 1.2s ease-in-out infinite}
+.rs-who{display:flex;gap:24px;justify-content:center;margin:auto}
+.rs-who button{width:min(38vw,260px);aspect-ratio:4/5;border-radius:36px;background:var(--sheet);box-shadow:0 8px 0 var(--toy),inset 0 0 0 5px var(--kc);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:30px}
+.rs-who button span{font-size:90px}
+.rs-stage{position:relative;width:100%;flex:1;min-height:0;max-height:58vh;border-radius:30px;overflow:hidden;box-shadow:0 7px 0 var(--toy),inset 0 0 0 5px rgba(255,255,255,.6)}
+.rs-world{position:absolute;inset:0}
+.rs-world .w{position:absolute;inset:0}
+.rs-world .w svg{width:100%;height:100%;display:block}
+.rs-world .dead{filter:grayscale(.85) brightness(1.05) contrast(.9)}
+.rs-world .dead .al{display:none}
+.rs-world .alive .dd{display:none}
+.rs-world .alive{clip-path:circle(0% at var(--fx,50%) var(--fy,60%));transition:clip-path 2.8s ease-in-out}
+.rs-world.on .alive{clip-path:circle(150% at var(--fx,50%) var(--fy,60%))}
+.rs-world.on .fly{animation:rsFly 3.2s ease-in-out infinite}
+.rs-world.on .fly2{animation:rsFly 3.8s ease-in-out -1s infinite}
+.rs-world.on .swim{animation:rsSwim 4s ease-in-out infinite}
+.rs-world.on .swim2{animation:rsSwim 5s ease-in-out -2s infinite reverse}
+.rs-world.on .wave{animation:rsWave 2.6s ease-in-out infinite}
+.rs-world.on .steam{animation:rsSteam 2.4s ease-in-out infinite}
+.rs-world.on .float{animation:rsFloat 6s ease-in-out infinite}
+.rs-world.on .float2{animation:rsFloat 7s ease-in-out -3s infinite reverse}
+@keyframes rsFly{50%{transform:translate(18px,-14px)}}
+@keyframes rsSwim{50%{transform:translateX(40px)}}
+@keyframes rsWave{50%{transform:translateX(-25px)}}
+@keyframes rsSteam{0%{opacity:.2;transform:translateY(8px)}50%{opacity:.9}100%{opacity:.2;transform:translateY(-10px)}}
+@keyframes rsFloat{50%{transform:translateX(30px)}}
+.rs-world .tp{transform-box:fill-box;transform-origin:center bottom}
+.rs-stage.free .tp{cursor:pointer}
+.tp.boing,.rs-friend.boing{animation:rsBoing .5s ease}
+@keyframes rsBoing{30%{transform:scale(1.15) rotate(-6deg)}60%{transform:scale(.95) rotate(4deg)}}
+.rs-friend{position:absolute;left:50%;bottom:6%;width:min(62%,430px);aspect-ratio:5/4;transform:translateX(-50%);z-index:3;filter:grayscale(var(--sat,0)) brightness(calc(1 + var(--sat,0) * .08));transition:filter 1s ease;cursor:pointer;touch-action:none}
+.rs-friend>svg{width:100%;height:100%;display:block;transition:transform .5s ease}
+.rs-friend.down>svg{transform:rotate(180deg);animation:rsRock 2.4s ease-in-out infinite}
+@keyframes rsRock{50%{transform:rotate(172deg) translateY(-2%)}}
+.rs-friend.hot{filter:grayscale(var(--sat,0)) drop-shadow(0 0 16px rgba(255,214,77,.9))}
+.rs-friend.nope>svg{animation:rsNope .5s ease}
+@keyframes rsNope{25%{transform:rotate(180deg) translateX(-14px)}75%{transform:rotate(180deg) translateX(14px)}}
+.rs-friend.wiggle>svg{animation:rsWiggle .45s ease}
+@keyframes rsWiggle{30%{transform:rotate(186deg)}70%{transform:rotate(174deg)}}
+.rs-friend.wake>svg{animation:rsWiggle .3s ease 3}
+.rs-friend.roll>svg{animation:rsRoll .8s ease-in-out forwards}
+@keyframes rsRoll{from{transform:rotate(180deg)}to{transform:rotate(360deg) translateY(-6%)}}
+.rs-friend.happy>svg{animation:rsHappy .7s cubic-bezier(.3,1.6,.5,1) 3}
+@keyframes rsHappy{40%{transform:translateY(-14%) rotate(-4deg)}70%{transform:translateY(0) scale(1.05,.95)}}
+.rs-friend .net{position:absolute;inset:-4%;pointer-events:none;transition:opacity .3s}
+.rs-friend .net svg{width:100%;height:100%}
+.rs-bubble{position:absolute;left:50%;top:6%;transform:translateX(10%);background:var(--sheet);border-radius:28px;padding:8px 14px;display:flex;gap:8px;font-size:clamp(38px,6vh,60px);line-height:1;box-shadow:0 5px 0 var(--toy);z-index:4}
+.rs-bubble::after{content:"";position:absolute;left:18%;bottom:-14px;border:10px solid transparent;border-top:14px solid var(--sheet)}
+.rs-bubble span.got{opacity:.35}
+.rs-bubble .rs-shot,.rs-tool .rs-shot,.rs-fly .rs-shot{width:1em;height:1em;display:block}
+.rs-fx{position:absolute;left:50%;top:36%;transform:translate(-50%,-50%);font-size:clamp(28px,4.6vh,44px);color:#fff;text-shadow:0 3px 0 rgba(0,0,0,.25);opacity:0;pointer-events:none;z-index:5;white-space:nowrap}
+.rs-fx.on{animation:rsFx 1.4s ease forwards}
+@keyframes rsFx{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}100%{opacity:0;transform:translate(-50%,-90%)}}
+.rs-fly{position:absolute;z-index:6;font-size:52px;line-height:1;pointer-events:none;animation:rsFlyTo .8s cubic-bezier(.4,0,.4,1) forwards}
+@keyframes rsFlyTo{to{transform:translate(var(--dx),var(--dy)) scale(.6);opacity:.2}}
+.rs-gauge{position:absolute;left:50%;bottom:3%;transform:translateX(-50%);width:50%;height:22px;border-radius:999px;background:rgba(255,255,255,.85);box-shadow:inset 0 0 0 3px var(--grid);z-index:5;overflow:hidden}
+.rs-gauge i{display:block;height:100%;width:0;background:linear-gradient(90deg,#FFD84D,#FF9EB8);border-radius:999px;transition:width .2s}
+.rs-next{position:absolute;left:0;right:0;top:4%;display:flex;justify-content:center;z-index:7;pointer-events:none}
+.rs-nextbtn{pointer-events:auto;background:var(--green);color:#fff;font-size:clamp(26px,4vh,36px);padding:16px 40px;border-radius:999px;box-shadow:0 8px 0 var(--toy);animation:rsUp .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes rsUp{from{transform:translateY(60px);opacity:0}}
+.rs-tools{display:flex;gap:clamp(10px,2vw,18px);justify-content:center;flex-wrap:wrap;width:100%}
+.rs-tool{min-width:clamp(110px,20vw,150px);min-height:clamp(110px,15vh,150px);border-radius:28px;background:var(--sheet);box-shadow:0 7px 0 var(--toy),inset 0 0 0 4px var(--grid);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;touch-action:none;transition:transform .15s}
+.rs-tool .ti{font-size:clamp(50px,7vh,72px);line-height:1}
+.rs-tool .tn{font-size:clamp(17px,2.4vh,22px)}
+.rs-tool.sel{box-shadow:0 7px 0 var(--toy),inset 0 0 0 6px var(--kc);transform:translateY(-6px)}
+.rs-tool.hint{animation:rsHint .5s ease-in-out 3}
+@keyframes rsHint{25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+.rs-tool.back{animation:backpop .35s ease}
+.rs-tools.dong .rs-tool{min-width:clamp(140px,26vw,190px)}
+.rs-tools.done{opacity:.4;pointer-events:none}
+.rs-finish{display:flex;flex-direction:column;align-items:center;gap:14px;margin:auto;width:100%}
+.rs-finish h2{font-size:clamp(32px,5vh,46px)}
+.rs-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;width:min(100%,760px)}
+.rs-card{position:relative;aspect-ratio:4/3;border-radius:22px;overflow:hidden;box-shadow:0 5px 0 var(--toy);animation:rsUp .5s cubic-bezier(.3,1.6,.5,1) both;animation-delay:calc(var(--i) * 150ms)}
+.rs-card .rs-mini{position:absolute;inset:0}
+.rs-card .rs-cf{position:absolute;left:15%;right:15%;bottom:4%;top:30%}
+.rs-card .rs-cf svg{width:100%;height:100%}
+.rs-card span{position:absolute;left:8px;top:8px;background:rgba(255,255,255,.85);border-radius:999px;padding:2px 10px;font-size:16px}
+.rs-btns{display:flex;gap:12px}
+.rs-btns button{font-size:24px;padding:14px 28px;border-radius:999px;background:var(--chip);box-shadow:0 5px 0 var(--toy)}
+.rs-btns .primary{background:var(--green);color:#fff}
+@media (prefers-reduced-motion: reduce){.rs-world .alive{transition-duration:.01ms}}
 </style>
 </head>
 <body>
@@ -1728,6 +1818,7 @@ body > .fos{z-index:50}
 ================================================================
 
 </script>
+<script src="rescue-logic.js"></script>
 <script>
 (()=>{
 'use strict';
@@ -1904,6 +1995,9 @@ function palette(pal,mode,c){
   if(mode==='shadow') return {b:c,d:c,l:c,h:c,h2:c,o:c,w:c,p:c,k:null,t:c};
   return {b:pal.b,d:pal.d,l:pal.l,h:pal.h,h2:pal.h2||'#FFF4DC',o:OUT,w:'#FFFFFF',p:'#2A2440',k:'#FF8AB8',t:'#FFFFFF'};
 }
+/* 게임방 2차: 공룡 도와주기용 — SLEEPY 가 켜져 있으면 눈을 감은 모양(︶)으로 그림 */
+let SLEEPY=false;
+const closedEye=(x,y,r,c)=>'<path d="M'+(x-r)+' '+(y-1)+' Q'+x+' '+(y+r*.95)+' '+(x+r)+' '+(y-1)+'" fill="none" stroke="'+(c||'#3B3651')+'" stroke-width="'+Math.max(2.6,r*.45)+'" stroke-linecap="round"/>';
 const DRAW={};
 (function(){
   let p;
@@ -1916,7 +2010,8 @@ const DRAW={};
   const P=(d,f)=>el('path','d="'+d+'"',f);
   const line=(d,c,w)=>'<path d="'+d+'" fill="none" stroke="'+c+'" stroke-width="'+(w||3)+'" stroke-linecap="round"/>';
   const limb=(d,c,w)=>line(d,p.o,w+6)+line(d,c,w);
-  const eye=(x,y,r,o)=>'<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+p.w+'" '+st()+'/><circle cx="'+(x+1)+'" cy="'+y+'" r="'+(r*.55)+'" fill="'+(o&&o.angry&&!p.bone?'#C0392B':p.p)+'"/>'+(p.bone?'':'<circle cx="'+(x+2.2)+'" cy="'+(y-2.2)+'" r="'+(r*.22)+'" fill="'+p.w+'"/>')+
+  const eye=(x,y,r,o)=>SLEEPY&&!p.bone&&!p.shadow?closedEye(x,y,r,p.o):eye0(x,y,r,o);
+  const eye0=(x,y,r,o)=>'<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+p.w+'" '+st()+'/><circle cx="'+(x+1)+'" cy="'+y+'" r="'+(r*.55)+'" fill="'+(o&&o.angry&&!p.bone?'#C0392B':p.p)+'"/>'+(p.bone?'':'<circle cx="'+(x+2.2)+'" cy="'+(y-2.2)+'" r="'+(r*.22)+'" fill="'+p.w+'"/>')+
     (o&&o.angry?line('M'+(x-r-2)+' '+(y-r-6)+' L'+(x+r+2)+' '+(y-r+1),p.o,4):'');
   const cheek=(x,y)=>p.k?'<ellipse cx="'+x+'" cy="'+y+'" rx="6" ry="4" fill="'+p.k+'" opacity=".55"/>':'';
   const smile=d=>line(d,p.o,3);
@@ -2098,6 +2193,7 @@ const drawSpecies=(function(){
     '<linearGradient id="'+id+'a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+p.a+'"/><stop offset="1" stop-color="'+p.a2+'"/></linearGradient></defs>';
   const shadow=(cx,rx,cy)=>p.flat?'':En(cx,cy||151,rx,5.5,'rgba(0,0,0,.11)');
   const eye=(x,y,r,o)=>{
+    if(SLEEPY&&!p.bone&&!p.shadow) return closedEye(x,y,r,p.o);
     if(p.bone) return '<circle cx="'+x+'" cy="'+y+'" r="'+(r*.85)+'" fill="'+p.o+'" opacity=".55"/>';
     if(p.shadow) return '';
     return '<ellipse cx="'+x+'" cy="'+y+'" rx="'+r+'" ry="'+(r*1.12)+'" fill="#fff" '+st()+'/>'+
@@ -2620,6 +2716,11 @@ const DINOS=parseDex(document.getElementById('dexTxt').textContent).map(r=>{
   return d;
 });
 const D=Object.fromEntries(DINOS.map(d=>[d.id,d]));
+/* 게임방 2차: 아이들에게 익숙한 공룡 40마리만 보여 줌 (인터넷 검색 인기 순으로 고름)
+   100마리 자료는 그대로 두고(길찾기 등 안쪽에서 씀), 도감·놀이에는 이 친구들만 나옴. 숫자는 도감 번호 */
+const FAMOUS=[50,71,60,20,26,57,77,98,27,80,23,54,29,28,56,82,81,14,92,46,44,34,66,67,33,88,70,58,61,72,74,84,83,99,51,63,24,47,94,21];
+const ALL_DINOS=DINOS.slice();
+DINOS.splice(0,DINOS.length,...FAMOUS.map(n=>D['d'+String(n).padStart(3,'0')]).filter(Boolean).sort((a,b)=>a.no-b.no));
 Object.assign(DX,D);
 const byNo=no=>D['d'+String(no).padStart(3,'0')];
 /* 예전 기록(10마리 시절) 옮기기 */
@@ -2670,6 +2771,7 @@ const GAMES={
   size:{z:'explore',name:'크기 순서 줄 세우기',icon:'📏'},
   foot:{z:'explore',name:'발자국 주인 찾기',icon:'🐾'},
   spot:{z:'explore',name:'특징 찾기 탐정',icon:'🕵️'},
+  rescue:{z:'explore',name:'공룡 도와주기',icon:'💗'},
   dig:{z:'fossil',name:'모래 파고 뼈대 맞추기',icon:'🦴'},
   egg:{z:'fossil',name:'알 무늬 이어가기',icon:'🥚'},
   shape:{z:'fossil',name:'모양 화석 찾기',icon:'🔺'}
@@ -2678,9 +2780,9 @@ const ROUNDS=5;
 const BADGES=[
   {k:'food',e:'🌿',n:'풀숲 배지'},{k:'size',e:'📏',n:'키재기 배지'},{k:'foot',e:'🐾',n:'발자국 배지'},{k:'spot',e:'🕵️',n:'탐정 배지'},
   {k:'dig',e:'🦴',n:'발굴 배지'},{k:'egg',e:'🥚',n:'알 무늬 배지'},{k:'shape',e:'🔺',n:'모양 배지'},
-  {k:'path',e:'🧭',n:'길찾기 배지'},{k:'fix',e:'🔧',n:'고치기 대장'}
+  {k:'path',e:'🧭',n:'길찾기 배지'},{k:'fix',e:'🔧',n:'고치기 대장'},{k:'rescue',e:'💗',n:'세상을 살린 탐험대'}
 ];
-const badgeOn=b=>b.k==='path'?Object.keys(S.path.clear).length>=5:b.k==='fix'?S.path.fix>=3:gs(b.k).wins>=3;
+const badgeOn=b=>b.k==='rescue'?rget('worlds',[]).length>=5:b.k==='path'?Object.keys(S.path.clear).length>=5:b.k==='fix'?S.path.fix>=3:gs(b.k).wins>=3;
 const TOOLS=[{e:'🖌️',n:'붓',need:0,r:.06,a:.28},{e:'⛏️',n:'곡괭이',need:3,r:.085,a:.6},{e:'✨',n:'반짝이 붓',need:6,r:.08,a:.4}];
 /* ---------- 화면 틀 ---------- */
 let cur={screen:'hub'};
@@ -2760,7 +2862,7 @@ RENDER.hub=()=>{
   const s=screenEl();
   s.appendChild(h('<button class="ask" id="hubAsk">🔈 어디로 놀러 갈까?</button>'));
   const z=h('<div class="zones"></div>');
-  const prog={explore:'⭐ '+['food','size','foot','spot'].reduce((a,k)=>a+gs(k).wins,0)+'번 성공',
+  const prog={explore:'⭐ '+['food','size','foot','spot','rescue'].reduce((a,k)=>a+gs(k).wins,0)+'번 성공',
     fossil:'🦴 깨운 공룡 '+Object.keys(S.woke).length+'마리',
     path:'🏠 '+Object.keys(S.path.clear).length+'/25 길'};
   Object.entries(ZONES).forEach(([k,v])=>{
@@ -2775,10 +2877,10 @@ RENDER.hub=()=>{
 RENDER.zone=(zk)=>{
   const s=screenEl();
   const ask=h('<button class="ask">🔈 '+(zk==='explore'?'어떤 탐험을 할까?':'무엇을 발굴할까?')+'</button>');
-  ask.addEventListener('click',()=>say(zk==='explore'?'어떤 탐험을 할까? 먹이 나누기, 크기 순서, 발자국, 탐정 놀이가 있어.':'무엇을 할까? 모래 파기, 알 무늬, 모양 화석, 그리고 나의 박물관이 있어.'));
+  ask.addEventListener('click',()=>say(zk==='explore'?'어떤 탐험을 할까? 먹이 나누기, 크기 순서, 발자국, 탐정 놀이, 공룡 도와주기가 있어.':'무엇을 할까? 모래 파기, 알 무늬, 모양 화석, 그리고 나의 박물관이 있어.'));
   s.appendChild(ask);
   const t=h('<div class="tiles"></div>');
-  const pics={food:'🌿🍖',size:art('d033','color',null,'style="height:42%;width:auto"')+art('d026','color',null,'style="height:100%;width:auto"'),foot:'🐾',spot:art('explorer'),
+  const pics={food:'🌿🍖',size:art('d033','color',null,'style="height:42%;width:auto"')+art('d026','color',null,'style="height:100%;width:auto"'),foot:'🐾',spot:art('explorer'),rescue:'<span class="rs-tile">'+art((DINOS.find(d=>d.name==='트리케라톱스')||DINOS[0]).id,'color',null,'style="height:78%;width:auto"')+'<b>💗</b></span>',
     dig:'<span class="combo">'+art('d050','bone')+'<b class="brushi">🖌️</b></span>',egg:eggSVG({c:'#4CC27A',m:'dots'},'style="height:90%;width:auto"')+eggSVG({c:'#F26B5B',m:'dots'},'style="height:90%;width:auto"'),shape:fossilSVG('circle','d020')};
   Object.entries(GAMES).filter(([,g])=>g.z===zk).forEach(([k,g])=>{
     const b=h('<button class="tile"><span class="ti">'+pics[k]+'</span><span class="tn">'+g.name+'</span><span class="tl">'+lvl(k)+'단계 · ⭐ '+gs(k).wins+'</span>'+(gs(k).wins>=3?'<span class="tb">🏅</span>':'')+'</button>');
@@ -2791,6 +2893,250 @@ RENDER.zone=(zk)=>{
   }
   s.appendChild(t);
 };
+
+
+/* ---------- 공룡탐험대: 공룡 도와주기 (게임방 2차 추가, 기준: 추가 개발 앱/(앱추가)공룡도와주기.md) ----------
+   기운 없이 뒤집혀 누운 친구 + 빛 바랜 세상 → 알맞은 도구를 주면 → 벌떡 일어나고 세상이 색을 되찾음
+   '죽음'이 아니라 「기운이 없어요」. 감은 눈, 회색빛, 피·상처 표현 없음. 틀려도 벌 없음 */
+const RL=window.RescueLogic,RK='dundeuni:dino:rescue:';
+const rget=(k,d)=>{try{const v=localStorage.getItem(RK+k);return v==null?d:JSON.parse(v);}catch(e){return d;}};
+const rset=(k,v)=>{try{localStorage.setItem(RK+k,JSON.stringify(v));}catch(e){}};
+let RESCUE=null;
+const loadRescue=()=>RESCUE?Promise.resolve(RESCUE):fetch('rescue.json').then(r=>r.json()).then(j=>RESCUE=RL.parseRescue(j)).catch(()=>[]);
+const ddName=k=>{try{const s=JSON.parse(localStorage.getItem('dundeuni:settings')||'{}');const n=s&&s.names&&s.names[k];if(n&&String(n).trim())return String(n).trim();}catch(e){}return k==='hyeong'?'형':'동생';};
+const ddWho=()=>{try{return (JSON.parse(localStorage.getItem('dundeuni:profile')||'{}')||{}).who||null;}catch(e){return null;}};
+const rSettings=()=>Object.assign({noShot:false,dongCount:3,hyeongCount:5,drag:true,rub:true,off:[]},rget('settings',{}));
+const NUMKO=['한','두','세','네','다섯','여섯','일곱','여덟'];
+const WORLDS={
+  grassland:{n:'초원',done:'와~ 초원에 꽃이 피었어! 나비도 날아왔어!'},
+  forest:{n:'숲',done:'숲에 잎이 돋고 빨간 열매가 열렸어! 새가 노래해!'},
+  sea:{n:'바다',done:'바다가 파래지고 물고기들이 돌아왔어!'},
+  volcano:{n:'화산 마을',done:'하늘이 맑아지고 따뜻한 온천에서 김이 몽글몽글!'},
+  sky:{n:'하늘',done:'구름이 걷히고 무지개가 떴어!'}
+};
+/* 장난감 주사: 바늘 없이 둥근 끝 */
+const SHOT_SVG='<svg viewBox="0 0 64 64" class="rs-shot"><rect x="3" y="27" width="12" height="10" rx="4" fill="#FFB3CA" stroke="#3B3651" stroke-width="3"/><rect x="14" y="22" width="30" height="20" rx="7" fill="#BDE8FF" stroke="#3B3651" stroke-width="3"/><path d="M22 22 v-5 M29 22 v-5 M36 22 v-5" stroke="#3B3651" stroke-width="2.6" stroke-linecap="round"/><rect x="43" y="28" width="10" height="8" rx="4" fill="#FFB3CA" stroke="#3B3651" stroke-width="3"/><circle cx="57" cy="32" r="5" fill="#FFD84D" stroke="#3B3651" stroke-width="2.6"/></svg>';
+const toolIcon=t=>t==='shot'?SHOT_SVG:RL.TOOLS[t].e;
+/* 이 놀이 전용 고래 (도감에 없는 바다 친구) */
+function whaleSVG(sleepy){
+  return '<svg viewBox="0 0 200 160"><path d="M150 76 Q178 50 190 62 Q178 74 186 92 Q170 84 152 92 Z" fill="#6FA8DC" stroke="#3E6FA0" stroke-width="3" stroke-linejoin="round"/>'+
+    '<ellipse cx="92" cy="90" rx="72" ry="44" fill="#86BCEA" stroke="#3E6FA0" stroke-width="3"/><path d="M28 98 Q92 142 158 98 Q92 120 28 98 Z" fill="#E6F3FF"/>'+
+    '<path d="M70 112 Q78 130 92 122" fill="#6FA8DC" stroke="#3E6FA0" stroke-width="3"/>'+
+    (sleepy?closedEye(52,80,7,'#2A3B55'):'<circle cx="52" cy="80" r="7" fill="#fff" stroke="#2A3B55" stroke-width="2.5"/><circle cx="53" cy="81" r="4" fill="#2A3B55"/>')+
+    '<path d="M36 98 Q46 104 56 98" fill="none" stroke="#2A3B55" stroke-width="3" stroke-linecap="round"/><ellipse cx="44" cy="92" rx="6" ry="3.5" fill="#FF9EB8" opacity=".6"/>'+
+    (sleepy?'':'<path d="M98 46 q-6 -16 -16 -20 M98 46 q2 -18 10 -24 M98 46 q8 -12 20 -12" fill="none" stroke="#9FD3FF" stroke-width="4" stroke-linecap="round"/>')+'</svg>';
+}
+const NET_SVG='<svg viewBox="0 0 200 160" preserveAspectRatio="none"><g stroke="#B88A55" stroke-width="4" fill="none" stroke-linecap="round">'+
+  [30,60,90,120].map(y=>'<path d="M10 '+y+' Q100 '+(y+14)+' 190 '+y+'"/>').join('')+[40,80,120,160].map(x=>'<path d="M'+x+' 20 Q'+(x-12)+' 80 '+x+' 150"/>').join('')+'</g></svg>';
+/* 세상 그림: .al 은 살아났을 때만, .dd 는 기운 없을 때만, .tp 는 살아난 뒤 톡 누르면 움직임 */
+function worldSVG(w,uid){
+  const sky=(a,b)=>'<defs><linearGradient id="g'+uid+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+a+'"/><stop offset="1" stop-color="'+b+'"/></linearGradient></defs><rect width="400" height="300" fill="url(#g'+uid+')"/>';
+  const flower=(x,y,c)=>'<g class="al tp"><path d="M'+x+' '+(y+4)+' v24" stroke="#5AA75A" stroke-width="4"/>'+[0,72,144,216,288].map(a=>'<circle cx="'+(x+Math.cos(a*Math.PI/180)*8)+'" cy="'+(y+Math.sin(a*Math.PI/180)*8)+'" r="6" fill="'+c+'"/>').join('')+'<circle cx="'+x+'" cy="'+y+'" r="5" fill="#FFD84D"/></g>';
+  const em=(x,y,e,cls,sz)=>'<text x="'+x+'" y="'+y+'" font-size="'+(sz||26)+'" class="al tp '+(cls||'')+'" text-anchor="middle">'+e+'</text>';
+  if(w==='grassland') return '<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">'+sky('#BFE6FF','#EEF9FF')+'<circle cx="335" cy="58" r="28" fill="#FFD84D"/>'+
+    '<path d="M0 190 Q100 150 210 182 T400 170 V300 H0 Z" fill="#9ED787"/><path d="M0 236 Q120 206 240 230 T400 224 V300 H0 Z" fill="#7CC76A"/>'+
+    [40,110,180,300,360].map(x=>'<path class="dd" d="M'+x+' 250 q4 -16 2 -26 M'+(x+6)+' 250 q8 -12 12 -18 M'+(x-4)+' 250 q-6 -10 -12 -14" stroke="#B89B6A" stroke-width="3" fill="none" stroke-linecap="round"/>').join('')+
+    flower(40,232,'#FF9EB8')+flower(120,250,'#FFFFFF')+flower(300,244,'#FFB86B')+flower(360,262,'#C9A2FF')+flower(220,268,'#FF9EB8')+em(90,120,'🦋','fly')+em(290,130,'🦋','fly2')+'</svg>';
+  if(w==='forest') return '<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">'+sky('#CFEFFF','#F2FBFF')+'<path d="M0 220 Q200 196 400 222 V300 H0 Z" fill="#A7D58C"/>'+
+    [70,200,330].map((x,i)=>'<rect x="'+(x-9)+'" y="'+(130+i%2*10)+'" width="18" height="'+(96-i%2*10)+'" rx="6" fill="#A8744A"/>'+
+      '<path class="dd" d="M'+x+' 140 l-26 -30 M'+x+' 150 l28 -34 M'+x+' 132 l-4 -36" stroke="#8B6A4A" stroke-width="5" stroke-linecap="round"/>'+
+      '<g class="al tp"><circle cx="'+x+'" cy="'+(112+i%2*10)+'" r="46" fill="#6FC46B"/><circle cx="'+(x-26)+'" cy="'+(128+i%2*10)+'" r="28" fill="#7DD07A"/><circle cx="'+(x+26)+'" cy="'+(126+i%2*10)+'" r="30" fill="#5DB85E"/>'+
+      '<circle cx="'+(x-14)+'" cy="'+(104+i%2*10)+'" r="6" fill="#FF6B6B"/><circle cx="'+(x+16)+'" cy="'+(120+i%2*10)+'" r="6" fill="#FF6B6B"/><circle cx="'+(x+2)+'" cy="'+(86+i%2*10)+'" r="6" fill="#FF6B6B"/></g>').join('')+
+    '<ellipse class="dd" cx="140" cy="236" rx="40" ry="8" fill="#9AA79A"/>'+em(140,70,'🐦','fly')+em(280,60,'🐤','fly2')+'</svg>';
+  if(w==='sea') return '<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">'+sky('#8FD3F5','#3F8FD2')+
+    '<path class="al wave" d="M0 40 q25 -10 50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 V0 H0 Z" fill="#BFE8FF" opacity=".7"/>'+
+    '<path d="M0 250 Q100 232 200 248 T400 244 V300 H0 Z" fill="#F3DFAE"/>'+
+    '<g class="tp"><path d="M70 250 v-40 m0 18 l-16 -14 m16 4 l14 -18" stroke="#FF8FA3" stroke-width="9" stroke-linecap="round" fill="none"/></g>'+
+    '<g class="tp"><path d="M320 252 v-46 m0 20 l18 -16 m-18 6 l-14 -20" stroke="#FFB45E" stroke-width="9" stroke-linecap="round" fill="none"/></g>'+
+    '<g class="tp"><path d="M230 252 q-4 -30 10 -40 q10 20 -2 40 Z" fill="#B98BEB"/></g>'+
+    em(120,150,'🐟','swim')+em(300,120,'🐠','swim2')+em(180,200,'🐡','swim')+'</svg>';
+  if(w==='volcano') return '<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">'+sky('#FFD6C2','#FFF3E8')+
+    '<path d="M80 230 L170 90 Q190 74 210 90 L300 230 Z" fill="#C99577"/><path d="M170 90 Q190 74 210 90 L200 104 Q190 96 180 104 Z" fill="#E8836A"/>'+
+    '<g class="dd" fill="#B7B7BF"><circle cx="186" cy="66" r="18"/><circle cx="210" cy="50" r="22"/><circle cx="240" cy="38" r="18"/><circle cx="270" cy="46" r="14"/></g>'+
+    '<path d="M0 230 Q200 210 400 232 V300 H0 Z" fill="#D9B48A"/>'+
+    '<ellipse cx="300" cy="258" rx="60" ry="16" fill="#8ED3F0" class="tp"/><path class="al steam" d="M282 246 q-8 -14 0 -26 q8 -12 0 -24 M302 244 q-8 -14 0 -26 q8 -12 0 -24 M322 246 q-8 -14 0 -26" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" opacity=".85"/>'+
+    em(90,262,'✨','',22)+em(140,276,'💎','',20)+'</svg>';
+  return '<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">'+sky('#BDE3FF','#EEF8FF')+
+    '<g class="al">'+['#FF9A8C','#FFC36B','#FFE27A','#9EDB8E','#8EC5F5','#BBA2EE'].map((c,i)=>'<path d="M'+(60+i*10)+' 230 A'+(140-i*10)+' '+(140-i*10)+' 0 0 1 '+(340-i*10)+' 230" fill="none" stroke="'+c+'" stroke-width="10"/>').join('')+'</g>'+
+    '<g class="dd" fill="#9AA3B5"><circle cx="90" cy="80" r="34"/><circle cx="130" cy="70" r="40"/><circle cx="170" cy="86" r="30"/><circle cx="260" cy="66" r="36"/><circle cx="300" cy="80" r="30"/></g>'+
+    '<g class="al tp float" fill="#FFFFFF"><circle cx="80" cy="200" r="22"/><circle cx="104" cy="192" r="28"/><circle cx="130" cy="204" r="20"/></g>'+
+    '<g class="al tp float2" fill="#FFFFFF"><circle cx="300" cy="210" r="22"/><circle cx="324" cy="200" r="26"/><circle cx="348" cy="212" r="18"/></g>'+em(200,120,'🕊️','fly')+'</svg>';
+}
+let rsUid=0;
+RENDER.rescue=()=>{
+  const s=screenEl('rescueS');
+  s.innerHTML='<div class="rs-load">💗</div>';
+  loadRescue().then(list=>{
+    if(!s.isConnected) return;
+    if(!list.length){s.innerHTML='<p class="sub">친구 목록(rescue.json)을 읽지 못했어요.</p>';return;}
+    const who=ddWho();
+    if(who==='hyeong'||who==='dong') rescueRound(s,list,who);
+    else{
+      s.innerHTML='<button class="ask" id="rsWhoAsk">🔈 누가 도와줄까?</button><div class="rs-who"><button data-w="hyeong"><span>🐻</span><b>'+ddName('hyeong')+'</b></button><button data-w="dong"><span>🐰</span><b>'+ddName('dong')+'</b></button></div>';
+      say('누가 친구를 도와줄까?');
+      $('#rsWhoAsk').addEventListener('click',()=>say('누가 친구를 도와줄까?'));
+      s.querySelectorAll('[data-w]').forEach(b=>b.addEventListener('click',()=>rescueRound(s,list,b.dataset.w)));
+    }
+  });
+};
+function rescueRound(s,list,who){
+  const set=rSettings(),lvState=rget('level',{}),L=RL.levelOf(lvState,who);
+  const friends=RL.pickFriends(list,who,who==='dong'?set.dongCount:set.hyeongCount,set.off);
+  const name=ddName(who),fill=t=>(t||'').replace(/\{이름\}/g,name),firstTry=[],saved=[];
+  s.innerHTML='<button class="ask" id="rsAsk">🔈</button><div class="rs-stage" id="rsStage"><div class="rs-world" id="rsWorld"></div>'+
+    '<div class="rs-friend" id="rsFriend"></div><div class="rs-bubble" id="rsBubble"></div><div class="rs-fx" id="rsFx"></div><div class="rs-gauge" id="rsGauge" hidden><i></i></div><div class="rs-next" id="rsNext"></div></div>'+
+    '<div class="rs-tools" id="rsTools"></div><div class="dots-prog" id="rsDots"></div>';
+  const stage=$('#rsStage'),fr=$('#rsFriend'),world=$('#rsWorld'),tools=$('#rsTools'),bub=$('#rsBubble'),fx=$('#rsFx'),gauge=$('#rsGauge');
+  let i=-1,F,D,need,step,sel,wrong,tried,busy,phase,prog,lastXY=null;
+  const nm=()=>F.name||(D&&D.name)||'친구';
+  const friendArt=sleepy=>{if(F.art==='whale')return whaleSVG(sleepy);SLEEPY=!!sleepy;const a=art(D.id);SLEEPY=false;return a;};
+  const setGray=v=>fr.style.setProperty('--sat',v);
+  const sound=k=>k==='nyam'?(tone(300,.1,'triangle',.09),tone(260,.1,'triangle',.08,.12),tone(300,.1,'triangle',.09,.3)):k==='gulp'?(tone(420,.12,'sine',.1,0),tone(300,.14,'sine',.08,.14)):k==='rub'?tone(1800,.08,'triangle',.03):k==='soft'?(tone(523,.25,'sine',.07),tone(659,.3,'sine',.06,.15)):tone(660,.08,'triangle',.08);
+  const showFx=txt=>{fx.textContent=txt;fx.classList.remove('on');void fx.offsetWidth;fx.classList.add('on');};
+  const say2=t=>say(fill(t));
+  function next(){
+    i++;
+    if(i>=friends.length) return finish();
+    F=friends[i];D=F.dino?ALL_DINOS.find(d=>d.name===F.dino):null;
+    if(F.dino&&!D) return next();
+    if(D) meet([D]);
+    need=RL.needs(F,who,L,D&&D.diet,set);step=0;sel=null;wrong=0;tried=false;busy=false;phase='give';prog=0;
+    const u=++rsUid;
+    world.className='rs-world';world.innerHTML='<div class="w dead">'+worldSVG(F.world,'d'+u)+'</div><div class="w alive">'+worldSVG(F.world,'a'+u)+'</div>';
+    fr.className='rs-friend down'+(F.art==='whale'?' whale':'');setGray(.92);
+    fr.innerHTML=friendArt(true)+(F.action==='free'?'<div class="net">'+NET_SVG+'</div>':'');
+    $('#rsNext').innerHTML='';gauge.hidden=true;
+    drawBubble();drawTools();
+    $('#rsDots').innerHTML=dotsHTML(friends.length,i);
+    $('#rsAsk').textContent='🔈 '+nm()+'를 도와줄까?';
+    say2(F.intro+' '+F.needSay+(who==='dong'?' 친구를 톡톡 눌러 봐!':''));
+  }
+  function drawBubble(){
+    bub.hidden=!RL.bubbleShown(who,L);
+    bub.innerHTML=need.map((n,k)=>'<span class="'+(k<step?'got':'')+'">'+toolIcon(n[0])+'</span>').join('');
+  }
+  function drawTools(){
+    const ch=RL.toolChoices(need.slice(step),who,L,set);
+    tools.classList.toggle('dong',who==='dong');
+    tools.innerHTML=ch.map(t=>'<button class="rs-tool" data-t="'+t+'" aria-label="'+RL.TOOLS[t].n+'"><span class="ti">'+toolIcon(t)+'</span><span class="tn">'+RL.TOOLS[t].n+'</span></button>').join('');
+    tools.querySelectorAll('.rs-tool').forEach(b=>{
+      const t=b.dataset.t;
+      if(who==='dong'){b.addEventListener('click',()=>tapFriend());return;}
+      const pick=()=>{if(busy||phase!=='give')return;sel=t;tools.querySelectorAll('.rs-tool').forEach(x=>x.classList.toggle('sel',x===b));tone(620,.07,'triangle',.08);say(RL.TOOLS[t].n+'! 이제 친구를 톡 눌러 줘.');};
+      if(set.drag) dragify(b,{can:()=>!busy&&phase==='give',
+        onMove:(dx,dy,e)=>{b.style.transform='translate('+dx+'px,'+dy+'px) scale(1.1)';fr.classList.toggle('hot',!!hitAt(e.clientX,e.clientY,[fr]));},
+        onDrop:(dx,dy,e)=>{b.style.transform='';fr.classList.remove('hot');const r=fr.getBoundingClientRect(),m=r.width*.25;if(e.clientX>r.left-m&&e.clientX<r.right+m&&e.clientY>r.top-m&&e.clientY<r.bottom+m)give(t,b);},
+        onTap:pick});
+      else b.addEventListener('click',pick);
+    });
+  }
+  function hintTool(){const r=need[step];tools.querySelectorAll('.rs-tool').forEach(b=>{if(r.indexOf(b.dataset.t)>=0){b.classList.remove('hint');void b.offsetWidth;b.classList.add('hint');}});}
+  function give(t,btn){
+    if(busy||phase!=='give') return;
+    if(need[step].indexOf(t)<0){
+      if(!tried){firstTry[i]=false;tried=true;}
+      wrong++;tone(392,.22,'sine',.06);tone(349,.26,'sine',.05,.16);
+      fr.classList.remove('nope');void fr.offsetWidth;fr.classList.add('nope');
+      if(btn){btn.classList.remove('back');void btn.offsetWidth;btn.classList.add('back');}
+      buddy('다시 볼까?','lean');say2(F.hint);
+      if(RL.needHint(wrong)) hintTool();
+      return;
+    }
+    if(!tried){firstTry[i]=true;tried=true;}
+    wrong=0;sel=null;tools.querySelectorAll('.rs-tool').forEach(x=>x.classList.remove('sel','hint'));
+    fly(t);sound(RL.TOOLS[t].snd);showFx(RL.TOOLS[t].fx);
+    if(RL.TOOLS[t].rub||F.action==='free'&&step===0){
+      phase=F.action==='free'?'free':'rub';prog=0;gauge.hidden=false;gauge.firstChild.style.width='0%';
+      say(phase==='free'?'그물을 톡톡 세 번 눌러 줘!':(set.rub?'친구 위를 쓱쓱 문질러 줘! 톡톡 눌러도 돼.':'친구를 톡톡 세 번 눌러 줘!'));
+      return;
+    }
+    stepDone();
+  }
+  function fly(t){
+    const e=document.createElement('span');e.className='rs-fly';e.innerHTML=toolIcon(t);
+    const tb=tools.querySelector('[data-t="'+t+'"]'),a=(tb||tools).getBoundingClientRect(),z=fr.getBoundingClientRect(),st=stage.getBoundingClientRect();
+    e.style.left=(a.left+a.width/2-st.left)+'px';e.style.top=(a.top-st.top)+'px';
+    e.style.setProperty('--dx',(z.left+z.width/2-(a.left+a.width/2))+'px');e.style.setProperty('--dy',(z.top+z.height/2-a.top)+'px');
+    stage.appendChild(e);setTimeout(()=>e.remove(),900);
+  }
+  function addProg(v){
+    prog=Math.min(1,prog+v);gauge.firstChild.style.width=Math.round(prog*100)+'%';
+    if(phase==='free'){const n=fr.querySelector('.net');if(n)n.style.opacity=String(1-prog*.85);}
+    if(prog>=1){gauge.hidden=true;const n=fr.querySelector('.net');if(n)n.remove();phase='give';stepDone();}
+  }
+  function stepDone(){
+    step++;
+    setGray(Math.max(0,.92-.92*step/need.length*.6));
+    if(step>=need.length) return revive();
+    drawBubble();drawTools();
+    say('고마워! 그런데 배도 고프대. 뭘 줄까?');
+  }
+  function tapFriend(){
+    if(busy) return;
+    if(who==='dong'){
+      const t=need[0][0];if(!tried){firstTry[i]=true;tried=true;}
+      fly(t);sound(RL.TOOLS[t].snd);showFx(RL.TOOLS[t].fx);prog++;
+      setGray(Math.max(0,.92-.3*prog));fr.classList.remove('wiggle');void fr.offsetWidth;fr.classList.add('wiggle');
+      if(prog>=3) return revive();
+      say(prog===1?'냠냠! 조금만 더!':'한 번 더!');
+      return;
+    }
+    if(phase==='rub'||phase==='free'){tone(880,.06,'triangle',.06);addProg(.34);return;}
+    if(sel) give(sel,tools.querySelector('[data-t="'+sel+'"]'));
+    else{say('먼저 아래에서 줄 것을 골라 볼까?');tools.querySelectorAll('.rs-tool').forEach(b=>{b.classList.remove('hint');void b.offsetWidth;b.classList.add('hint');});}
+  }
+  fr.addEventListener('click',tapFriend);
+  /* 문지르기: 친구 위에서 손가락을 조금만 움직여도 게이지가 참 (아주 넉넉하게) */
+  fr.addEventListener('pointerdown',e=>{if(phase==='rub'&&set.rub){lastXY=[e.clientX,e.clientY];try{fr.setPointerCapture(e.pointerId);}catch(_){} }});
+  fr.addEventListener('pointermove',e=>{if(phase!=='rub'||!lastXY) return;const d=Math.hypot(e.clientX-lastXY[0],e.clientY-lastXY[1]);if(d<6)return;lastXY=[e.clientX,e.clientY];if(Math.random()<.25)sound('rub');addProg(d/260);});
+  ['pointerup','pointercancel'].forEach(t=>fr.addEventListener(t,()=>{lastXY=null;}));
+  async function revive(){
+    busy=true;gauge.hidden=true;bub.hidden=true;tools.classList.add('done');
+    fr.classList.remove('nope','wiggle');fr.classList.add('wake');tone(330,.2,'sine',.08);
+    await wait(900);
+    fr.classList.remove('wake');fr.classList.add('roll');tone(440,.25,'sine',.08,0);tone(660,.3,'sine',.08,.2);
+    await wait(800);
+    fr.classList.remove('down','roll');setGray(0);fr.innerHTML=friendArt(false);fr.classList.add('happy');
+    tone(523,.2,'sine',.1);tone(784,.3,'sine',.1,.12);buddy('벌떡!','jump');
+    if(D){const hp=rget('helped',{});hp[D.id]=(hp[D.id]||0)+1;rset('helped',hp);}
+    await say('벌떡! '+jo(nm(),'이','가')+' 일어났어! '+fill(F.thanks));
+    const r=fr.getBoundingClientRect(),st=stage.getBoundingClientRect();
+    world.style.setProperty('--fx',((r.left+r.width/2-st.left)/st.width*100).toFixed(1)+'%');world.style.setProperty('--fy',((r.top+r.height/2-st.top)/st.height*100).toFixed(1)+'%');
+    world.classList.add('on');[784,988,1175,1568].forEach((f,k)=>tone(f,.3,'sine',.05,k*.35));
+    saved.push({w:F.world,f:F,d:D});
+    await say(WORLDS[F.world].done);
+    stage.classList.add('free');
+    await wait(3000);
+    const last=i+1>=friends.length;
+    const nb=h('<button class="rs-nextbtn">'+(last?'🌈 오늘은 여기까지':'다음 친구 ▶')+'</button>');
+    nb.addEventListener('click',()=>{stage.classList.remove('free');tools.classList.remove('done');next();});
+    $('#rsNext').appendChild(nb);
+  }
+  /* 살아난 세상에서 자유롭게 톡톡 */
+  stage.addEventListener('click',e=>{
+    if(!stage.classList.contains('free')) return;
+    const t=e.target.closest('.tp,.rs-friend');if(!t) return;
+    t.classList.remove('boing');void t.getBoundingClientRect();t.classList.add('boing');
+    tone(660+Math.random()*400,.12,'sine',.07);
+  });
+  $('#rsAsk').addEventListener('click',()=>{if(F)say2(F.intro+' '+F.needSay);});
+  function finish(){
+    rset('level',RL.nextLevel(lvState,who,firstTry));
+    const st=rget('stats',{}),me=st[who]||{plays:0,ok:0,tries:0};me.plays++;me.ok+=firstTry.filter(Boolean).length;me.tries+=firstTry.length;st[who]=me;rset('stats',st);
+    rset('worlds',[...new Set([...rget('worlds',[]),...saved.map(x=>x.w)])]);
+    roundDone('rescue');addStar(1);
+    /* 게임방 공통 스티커판에도 하나 */
+    try{const k='dundeuni:stickers',b=JSON.parse(localStorage.getItem(k)||'{"version":1,"list":[]}'),d=new Date(),day=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+      b.list=(b.list||[]).concat([{game:'dino',kind:'star',who:who,day:day,icon:'💗'}]);localStorage.setItem(k,JSON.stringify(b));}catch(e){}
+    s.innerHTML='<div class="rs-finish"><h2>오늘은 여기까지!</h2><div class="rs-cards">'+saved.map((x,k)=>
+      '<div class="rs-card" style="--i:'+k+'"><div class="rs-mini rs-world on">'+'<div class="w alive">'+worldSVG(x.w,'f'+(++rsUid))+'</div></div><div class="rs-cf">'+(x.f.art==='whale'?whaleSVG(false):art(x.d.id))+'</div><span>'+WORLDS[x.w].n+'</span></div>').join('')+
+      '</div><p class="sub">친구들이 고맙대! 💗</p><div class="rs-btns"><button class="primary" id="rsAgain">한 번 더 ▶</button><button id="rsBack">🏠 다른 놀이</button></div></div>';
+    $('#rsAgain').addEventListener('click',()=>go('game','rescue'));$('#rsBack').addEventListener('click',back);
+    fanfare();confetti();
+    say('오늘 친구 '+(NUMKO[saved.length-1]||saved.length)+' 마리를 도와줬어. 친구들이 정말 고맙대!');
+  }
+  next();
+}
 
 /* ---------- 도감 / 박물관 ---------- */
 const seen=id=>S.met[id]||S.woke[id]||S.home[id];
@@ -2809,11 +3155,11 @@ function openDex(filter){
     const tab=DEXTABS.find(t=>t.k===dexTab)||DEXTABS[0];
     let html='';
     if(filter!=='woke') html+='<div class="badges">'+BADGES.map(b=>'<span class="'+(badgeOn(b)?'on':'')+'">'+b.e+' '+b.n+'</span>').join('')+'</div>';
-    html+='<div class="dex-tabs">'+DEXTABS.map(t=>'<button data-t="'+t.k+'" aria-pressed="'+(t.k===tab.k)+'">'+t.n+'</button>').join('')+'</div>';
+    html+='<div class="dex-tabs">'+DEXTABS.filter(t=>DINOS.some(t.f)).map(t=>'<button data-t="'+t.k+'" aria-pressed="'+(t.k===tab.k)+'">'+t.n+'</button>').join('')+'</div>';
     const items=DINOS.filter(tab.f).filter(d=>filter!=='woke'||got(d));
     html+='<div class="dex-grid">'+(items.length?items.map(d=>{
       const g=got(d);
-      return '<button class="dex '+(g?'got':'')+'" data-id="'+d.id+'"><span class="no">'+String(d.no).padStart(3,'0')+'</span>'+(g?art(d.id):art(d.id,'shadow','#9FB0C6'))+'<span class="dn">'+(g?d.name:'?')+'</span><span class="st"><i class="'+(S.met[d.id]?'on':'')+'">🔍</i><i class="'+(S.woke[d.id]?'on':'')+'">🦴</i><i class="'+(S.home[d.id]?'on':'')+'">🏠</i></span></button>';
+      return '<button class="dex '+(g?'got':'')+'" data-id="'+d.id+'"><span class="no">'+String(d.no).padStart(3,'0')+'</span>'+(rget('helped',{})[d.id]?'<span class="rs-heart" title="도와준 친구">💗</span>':'')+(g?art(d.id):art(d.id,'shadow','#9FB0C6'))+'<span class="dn">'+(g?d.name:'?')+'</span><span class="st"><i class="'+(S.met[d.id]?'on':'')+'">🔍</i><i class="'+(S.woke[d.id]?'on':'')+'">🦴</i><i class="'+(S.home[d.id]?'on':'')+'">🏠</i></span></button>';
     }).join(''):'<p class="note">아직 깨운 공룡이 없어요. 모래를 파서 화석을 찾아 봐요!</p>')+'</div><p class="legend">🔍 탐험대에서 만났어요 · 🦴 화석에서 깨웠어요 · 🏠 엄마한테 데려다줬어요 · 회색 공룡은 아직 못 만났어요</p>';
     body.innerHTML=html;
     body.querySelectorAll('.dex-tabs button').forEach(b=>b.addEventListener('click',()=>{dexTab=b.dataset.t;list();}));
@@ -2848,6 +3194,8 @@ function renderSettings(){
   $('#usedNote').textContent='오늘 논 시간: '+Math.floor(usage.sec/60)+'분';
   renderRec();
   const rows=Object.entries(GAMES).map(([k,g])=>{const s=gs(k);return '<span>'+g.icon+' '+g.name+'</span><span>성공 '+s.wins+'번</span><b>정답 '+(s.tries?Math.round(s.ok/s.tries*100):0)+'%</b>';});
+  {const st=rget('stats',{}),lv=rget('level',{}),r=k=>{const x=st[k]||{};return (x.plays||0)+'판'+(x.tries?' · 첫 시도에 맞힘 '+Math.round(100*(x.ok||0)/x.tries)+'%':'');};
+   rows.push('<span>💗 공룡 도와주기</span><span>형 '+r('hyeong')+' (레벨 '+RescueLogic.levelOf(lv,'hyeong')+')</span><b>동생 '+r('dong')+'</b>');}
   rows.push('<span>🧭 길찾기 스테이지</span><span>'+Object.keys(S.path.clear).length+' / 25</span><b>고치기 성공 '+S.path.fix+'번</b>');
   rows.push('<span>📖 도감</span><span>'+DINOS.filter(d=>seen(d.id)).length+' / '+DINOS.length+'</span><b>깨운 공룡 '+Object.keys(S.woke).length+'</b>');
   rows.push('<span>⭐ 모은 별</span><span>'+S.stars+'개</span><b>오늘 '+(usage.got||0)+'개</b>');
@@ -3750,7 +4098,7 @@ const VILL=[
 /* 게임방 2차: 무서운 친구 대신 먹으면 좋은 간식 (길을 막지 않고, 가면 냠냠 먹음) */
 const MONSTERS=[{e:'🍦',n:'아이스크림'},{e:'🍬',n:'젤리'},{e:'🍓',n:'딸기'},{e:'🍪',n:'쿠키'}];
 const villOf=id=>VILL.find(v=>id>=v.from&&id<=v.to);
-const BABIES=[50,71,26,20,77,60,57,80,81,33,73,72,84,37,18,36,5,64,39,30,82,85,83,74,67];
+const BABIES=[50,71,26,20,77,60,57,80,81,33,73,72,84,37,18,36,5,64,39,30,82,85,83,74,67].map((n,i)=>FAMOUS.includes(n)?n:FAMOUS[(i*3+5)%FAMOUS.length]); /* 게임방 2차: 길찾기 아기도 익숙한 공룡으로 */
 const STAGES=SPEC.map((sp,i)=>({id:i+1,mode:sp[4],rep:!!sp[5],eggsN:sp[3],baby:byNo(BABIES[i]).id}));
 const DIRS={U:[0,-1],R:[1,0],D:[0,1],L:[-1,0]};
 const MOVEW={U:'위로',R:'오른쪽으로',D:'아래로',L:'왼쪽으로'};

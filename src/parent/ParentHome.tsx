@@ -14,6 +14,7 @@ import { lockParent } from './access'
 import { playTimeStore } from './playtime'
 import { applyBackup, downloadBackup, parseBackup } from './backup'
 import { Recorder } from './Recorder'
+import { rescueStore } from './rescueSettings'
 import { PinGuide } from './PinGuide'
 import css from './parent.module.css'
 
@@ -54,6 +55,7 @@ function Settings() {
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null)
   const [armed, setArmed] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
+  const rs = rescueStore.use()
   const vol = s.volume === 0 ? 0 : s.volume <= 0.45 ? 0.4 : s.volume <= 0.75 ? 0.7 : 1
   const close = () => { lockParent(); go('/main') }
 
@@ -152,6 +154,15 @@ function Settings() {
               })}
             </div>
             <p className="note">끈 게임은 메인 화면에 나오지 않아요.</p>
+          </Row>
+
+          <Row title="공룡나라 › 공룡 도와주기">
+            <div className="name-row">주사 도구<Seg value={rs.noShot ? 1 : 0} options={[[0, '보이기'], [1, '끄기 (약병으로)']]} onChange={(v) => rescueStore.patch({ noShot: v === 1 })} /></div>
+            <div className="name-row">한 판 친구 수 (동생)<Seg value={rs.dongCount} options={[[2, '2'], [3, '3'], [4, '4']]} onChange={(v) => rescueStore.patch({ dongCount: v })} /></div>
+            <div className="name-row">한 판 친구 수 (형)<Seg value={rs.hyeongCount} options={[[3, '3'], [4, '4'], [5, '5'], [6, '6']]} onChange={(v) => rescueStore.patch({ hyeongCount: v })} /></div>
+            <div className="name-row">끌어서 주기<Seg value={rs.drag ? 1 : 0} options={[[1, '켜기'], [0, '끄기']]} onChange={(v) => rescueStore.patch({ drag: v === 1 })} /></div>
+            <div className="name-row">문지르기<Seg value={rs.rub ? 1 : 0} options={[[1, '켜기'], [0, '끄기 (톡톡 누르기만)']]} onChange={(v) => rescueStore.patch({ rub: v === 1 })} /></div>
+            <p className="note">친구 목록은 public/legacy/dino/rescue.json 에 있어요. 아이별 기록은 공룡나라 안 ⚙️ 설정의 기록에 나와요.</p>
           </Row>
 
           <Row title="엄마·아빠 목소리 녹음">

@@ -306,10 +306,10 @@ h1,h2,h3,p{margin:0;font-weight:normal}
 #board.shape-mode{gap:clamp(10px,2vw,28px)}
 @media (orientation:portrait){#board.shape-mode{flex-direction:column-reverse;justify-content:center}}
 .shapezone{position:relative;display:block;width:calc(var(--b)*var(--zc) + var(--b)*.9);height:calc(var(--b)*var(--zr) + var(--b)*.9);min-width:0;min-height:0;padding:0}
-.shapezone .slot{position:absolute;margin:calc(var(--b)*.45);width:var(--b);height:var(--b);background:rgba(31,42,68,.1);transition:background .25s}
-.shapezone .slot::before{content:"";position:absolute;inset:3px;background:var(--paper);opacity:.7}
+.shapezone .guide{position:absolute;left:calc(var(--b)*.45);top:calc(var(--b)*.45);width:calc(var(--b)*var(--zc));height:calc(var(--b)*var(--zr));overflow:visible;pointer-events:none}
+.shapezone .guide polygon{fill-opacity:.22;stroke-width:.06;stroke-dasharray:.14 .09;stroke-linejoin:round}
+.shapezone .slot{position:absolute;margin:calc(var(--b)*.45);width:var(--b);height:var(--b);background:transparent;transition:background .25s}
 .shapezone .slot.on{background:var(--c);box-shadow:inset 0 calc(var(--b)*-.09) 0 rgba(0,0,0,.16),inset 0 calc(var(--b)*.07) 0 rgba(255,255,255,.35)}
-.shapezone .slot.on::before{display:none}
 .shapezone .slot.new{animation:slotIn .35s cubic-bezier(.3,1.6,.5,1)}
 @keyframes slotIn{from{transform:scale(.4)}}
 .shapezone .slot .face{position:absolute;left:10%;top:10%;width:80%;height:80%;opacity:0;transition:opacity .3s;z-index:1}
@@ -678,22 +678,26 @@ function newRound(){
    - 네모 자리에는 네모, 세모 자리에는 세모 (세모는 자리에 맞게 저절로 돌아감)
    - 하나 놓을 때마다 "하나, 둘…" 세기 → 수 세기 공부는 그대로
    - 블록을 다른 곳으로 옮기지 않고 그 자리에서 손가락을 따라 움직여서, 태블릿에서 끌기가 끊기지 않게 */
+/* 쉬운 모양 → 어려운 모양 순서. 모양을 하나 완성할 때마다 조금씩 더 어려운 모양이 열림 */
 const SHAPES=[
-  {name:'집',say:'집',max:1,cells:[[0,0,'br','red'],[1,0,'bl','red'],[0,1,'s','yellow'],[1,1,'s','yellow']]},
-  {name:'돛단배',say:'돛단배',max:1,cells:[[1,0,'bl','pink'],[0,1,'tr','blue'],[1,1,'s','blue'],[2,1,'tl','blue']]},
-  {name:'나무',say:'나무',max:1,cells:[[0,0,'br','green'],[1,0,'bl','green'],[0,1,'s','green'],[1,1,'s','green'],[0.5,2,'s','orange']]},
-  {name:'고양이',say:'고양이',max:2,face:[1,1],cells:[[0,0,'bl','orange'],[2,0,'br','orange'],[0,1,'s','orange'],[1,1,'s','orange'],[2,1,'s','orange'],[0,2,'s','orange'],[1,2,'s','orange'],[2,2,'s','orange']]},
-  {name:'물고기',say:'물고기',max:2,face:[2,0],cells:[[0,0,'bl','teal'],[0,1,'tl','teal'],[1,0,'s','blue'],[2,0,'s','blue'],[1,1,'s','blue'],[2,1,'s','blue'],[3,0,'bl','blue'],[3,1,'tl','blue']]},
-  {name:'로켓',say:'로켓',max:2,cells:[[1,0,'br','red'],[2,0,'bl','red'],[1,1,'s','purple'],[2,1,'s','purple'],[1,2,'s','purple'],[2,2,'s','purple'],[0,2,'br','orange'],[3,2,'bl','orange']]},
-  {name:'공룡',say:'공룡',max:3,face:[5,0],cells:[[4,0,'s','green'],[5,0,'s','green'],[4,1,'s','green'],[2,1,'br','yellow'],[3,1,'bl','yellow'],[0,2,'tr','green'],[1,2,'s','green'],[2,2,'s','green'],[3,2,'s','green'],[4,2,'s','green'],[1,3,'s','green'],[4,3,'s','green']]},
-  {name:'성',say:'성',max:3,cells:[[2,-1,'bl','red'],[0,0,'s','purple'],[2,0,'s','purple'],[4,0,'s','purple'],[0,1,'s','blue'],[1,1,'s','blue'],[2,1,'s','blue'],[3,1,'s','blue'],[4,1,'s','blue'],[0,2,'s','blue'],[1,2,'s','yellow'],[2,2,'s','yellow'],[3,2,'s','yellow'],[4,2,'s','blue']]},
+  {name:'집',say:'집',cells:[[0,0,'br','red'],[1,0,'bl','red'],[0,1,'s','yellow'],[1,1,'s','yellow']]},
+  {name:'돛단배',say:'돛단배',cells:[[1,0,'bl','pink'],[0,1,'tr','blue'],[1,1,'s','blue'],[2,1,'tl','blue']]},
+  {name:'나무',say:'나무',cells:[[0,0,'br','green'],[1,0,'bl','green'],[0,1,'s','green'],[1,1,'s','green'],[0.5,2,'s','orange']]},
+  {name:'아이스크림',say:'아이스크림',cells:[[0,0,'br','pink'],[1,0,'bl','pink'],[0,1,'s','pink'],[1,1,'s','pink'],[0,2,'tr','orange'],[1,2,'tl','orange']]},
+  {name:'물고기',say:'물고기',face:[2,0],cells:[[0,0,'bl','teal'],[0,1,'tl','teal'],[1,0,'s','blue'],[2,0,'s','blue'],[1,1,'s','blue'],[2,1,'s','blue'],[3,0,'bl','blue'],[3,1,'tl','blue']]},
+  {name:'고양이',say:'고양이',face:[1,1],cells:[[0,0,'bl','orange'],[2,0,'br','orange'],[0,1,'s','orange'],[1,1,'s','orange'],[2,1,'s','orange'],[0,2,'s','orange'],[1,2,'s','orange'],[2,2,'s','orange']]},
+  {name:'로켓',say:'로켓',cells:[[1,0,'br','red'],[2,0,'bl','red'],[1,1,'s','purple'],[2,1,'s','purple'],[1,2,'s','purple'],[2,2,'s','purple'],[0,2,'br','orange'],[3,2,'bl','orange']]},
+  {name:'자동차',say:'자동차',cells:[[1,0,'br','blue'],[2,0,'s','blue'],[3,0,'bl','blue'],[0,1,'s','red'],[1,1,'s','red'],[2,1,'s','red'],[3,1,'s','red'],[4,1,'tl','red'],[1,2,'s','purple'],[3,2,'s','purple']]},
+  {name:'공룡',say:'공룡',face:[5,0],cells:[[4,0,'s','green'],[5,0,'s','green'],[4,1,'s','green'],[2,1,'br','yellow'],[3,1,'bl','yellow'],[0,2,'tr','green'],[1,2,'s','green'],[2,2,'s','green'],[3,2,'s','green'],[4,2,'s','green'],[1,3,'s','green'],[4,3,'s','green']]},
+  {name:'성',say:'성',cells:[[2,-1,'bl','red'],[0,0,'s','purple'],[2,0,'s','purple'],[4,0,'s','purple'],[0,1,'s','blue'],[1,1,'s','blue'],[2,1,'s','blue'],[3,1,'s','blue'],[4,1,'s','blue'],[0,2,'s','blue'],[1,2,'s','yellow'],[2,2,'s','yellow'],[3,2,'s','yellow'],[4,2,'s','blue']]},
 ];
 const CLIP={s:'none',tl:'polygon(0 0,100% 0,0 100%)',tr:'polygon(0 0,100% 0,100% 100%)',bl:'polygon(0 0,0 100%,100% 100%)',br:'polygon(100% 0,100% 100%,0 100%)'};
 const kindOf=t=>t==='s'?'s':'t';
 let lastShape='';
 function rStack(){
-  const pool=SHAPES.filter(x=>x.max<=level&&x.cells.length<=maxN()&&x.name!==lastShape);
-  const sh=pickOne(pool.length?pool:SHAPES.filter(x=>x.max<=level));lastShape=sh.name;
+  const cleared=kget('shapes',0),open=Math.min(SHAPES.length,3+Math.floor(cleared/2));
+  const pool=SHAPES.slice(Math.max(0,open-3),open).filter(x=>x.name!==lastShape);
+  const sh=pickOne(pool.length?pool:SHAPES.slice(0,open));lastShape=sh.name;
   const cells=sh.cells.map(([x,y,t,c])=>({x,y,t,c,on:false}));
   const T=cells.length;round.T=T;round.c=0;round.sh=sh;round.cells=cells;
   setAsk('블록으로 <b>'+sh.name+'</b>을 만들어 봐요!','네모 세모 블록으로 '+sh.say+(/[가-힣]$/.test(sh.say)&&(sh.say.charCodeAt(sh.say.length-1)-0xAC00)%28?'을':'를')+' 만들어 봐요!');
@@ -702,6 +706,8 @@ function rStack(){
   const xs=cells.map(c=>c.x),ys=cells.map(c=>c.y),minX=Math.min(...xs),minY=Math.min(...ys);
   const cols=Math.max(...xs)-minX+1,rows=Math.max(...ys)-minY+1;
   const tw=$('#tw');tw.style.setProperty('--zc',cols);tw.style.setProperty('--zr',rows);
+  const pts={s:(x,y)=>[[x,y],[x+1,y],[x+1,y+1],[x,y+1]],tl:(x,y)=>[[x,y],[x+1,y],[x,y+1]],tr:(x,y)=>[[x,y],[x+1,y],[x+1,y+1]],bl:(x,y)=>[[x,y],[x,y+1],[x+1,y+1]],br:(x,y)=>[[x+1,y],[x+1,y+1],[x,y+1]]};
+  tw.insertAdjacentHTML('afterbegin','<svg class="guide" viewBox="-.06 -.06 '+(cols+.12)+' '+(rows+.12)+'">'+cells.map(c=>'<polygon points="'+pts[c.t](c.x-minX,c.y-minY).map(q=>q.join(',')).join(' ')+'" style="fill:var(--'+c.c+');stroke:var(--'+c.c+')"/>').join('')+'</svg>');
   cells.forEach((c,i)=>{
     const d=document.createElement('div');d.className='slot';d.dataset.i=i;
     d.style.left='calc(var(--b)*'+(c.x-minX)+')';d.style.top='calc(var(--b)*'+(c.y-minY)+')';
@@ -710,16 +716,15 @@ function rStack(){
   });
   if(sh.face){const f=cells.find(c=>c.x===sh.face[0]&&c.y===sh.face[1]);if(f){f.el.classList.add('has-face');f.el.insertAdjacentHTML('beforeend',FACE);}}
   /* 바닥의 블록: 필요한 네모·세모 + (레벨 2부터) 네모 하나 더 → 멈출 줄 알게 */
-  const need=cells.map(c=>({k:kindOf(c.t),c:c.c}));
-  if(level>=2) need.push({k:'s',c:pickOne(['yellow','pink','teal'])});
+  const need=cells.map(c=>({k:kindOf(c.t),t:c.t,c:c.c}));
   const N=need.length,pc=Math.min(6,Math.ceil(Math.sqrt(N*1.6))),pr=Math.ceil(N/pc);
   const pile=$('#pile');pile.style.setProperty('--pc',pc);pile.style.setProperty('--pr',pr);
   shuffle(need).forEach((n,i)=>{
-    const el=blk(i,'var(--'+n.c+')');el.classList.add('loose');el.dataset.k=n.k;
-    if(n.k==='t'){el.classList.add('tri');el.insertAdjacentHTML('beforeend','<span class="tri-shape" style="clip-path:'+CLIP.br+'"></span>');} /* 누르는 곳은 네모 그대로, 그림만 세모 */
+    const el=blk(i,'var(--'+n.c+')');el.classList.add('loose');el.dataset.k=n.k;el.dataset.t=n.t;el.dataset.c=n.c;
+    if(n.k==='t'){el.classList.add('tri');el.insertAdjacentHTML('beforeend','<span class="tri-shape" style="clip-path:'+CLIP[n.t]+'"></span>');} /* 누르는 곳은 네모 그대로, 그림만 세모 */
     const x=(i%pc)*1.3+Math.random()*.2,y=Math.floor(i/pc)*1.3+Math.random()*.2;
     el.style.left='calc(var(--b)*'+x.toFixed(2)+')';el.style.top='calc(var(--b)*'+y.toFixed(2)+')';
-    el.style.setProperty('--r',(Math.random()*20-10).toFixed(0)+'deg');
+    el.style.setProperty('--r','0deg');
     makeDraggable(el);pile.appendChild(el);
   });
   $('#feedback').textContent='블록을 끌어서 모양 위에 쏙 놓아요 👆';
@@ -747,10 +752,10 @@ function makeDraggable(el){
       el.removeEventListener('pointermove',move);el.removeEventListener('pointerup',end);el.removeEventListener('pointercancel',end);
       zone.classList.remove('over');delete el.dataset.drag;el.classList.remove('dragging2');
       if(ev.type==='pointerup'&&isOver(ev.clientX,ev.clientY)&&!locked&&zone.isConnected){
-        const slot=pickSlot(el.dataset.k,ev.clientX,ev.clientY);
+        const slot=pickSlot(el.dataset.t,el.dataset.c,ev.clientX,ev.clientY);
         if(slot){el.remove();fillSlot(slot);return;}
-        buddy(el.dataset.k==='t'?'세모 자리가 없어!':'네모 자리가 없어!','lean');
-        speak(round.c>=round.T?'벌써 다 만들었어!':(el.dataset.k==='t'?'이번엔 네모 블록이 필요해!':'이번엔 세모 블록이 필요해!'));
+        buddy('같은 색 같은 모양 자리에!','lean');
+        speak('같은 색, 같은 모양 자리에 놓아 볼까?');
       } else if(!moved&&!locked) buddy('끌어서 모양 위에 놓아 봐!','lean');
       el.style.transform='';el.classList.remove('back');void el.offsetWidth;el.classList.add('back');
     };
@@ -758,9 +763,9 @@ function makeDraggable(el){
   });
 }
 /* 놓은 곳에서 가장 가까운, 모양이 맞는 빈자리 */
-function pickSlot(k,x,y){
+function pickSlot(t,col,x,y){
   let best=null,bd=1e9;
-  round.cells.forEach(c=>{if(c.on||kindOf(c.t)!==k) return;const r=c.el.getBoundingClientRect(),d=Math.hypot(r.left+r.width/2-x,r.top+r.height/2-y);if(d<bd){bd=d;best=c;}});
+  round.cells.forEach(c=>{if(c.on||c.t!==t||c.c!==col) return;const r=c.el.getBoundingClientRect(),d=Math.hypot(r.left+r.width/2-x,r.top+r.height/2-y);if(d<bd){bd=d;best=c;}});
   return best;
 }
 function fillSlot(c){
@@ -768,7 +773,7 @@ function fillSlot(c){
   round.c++;
   const cn=$('#cnum');cn.textContent=round.c;cn.classList.remove('bump');void cn.offsetWidth;cn.classList.add('bump');
   tone(330+round.c*35,.12,'sine',.12);
-  if(round.c===round.T){$('#tw').classList.add('alive');success(round.sh.say+' 완성! '+cnt(round.T)+'로 만들었어!');}
+  if(round.c===round.T){kset('shapes',kget('shapes',0)+1);$('#tw').classList.add('alive');success(round.sh.say+' 완성! '+cnt(round.T)+'로 만들었어!');}
   else speak(nat(round.c));
 }
 function drawStack(){}
