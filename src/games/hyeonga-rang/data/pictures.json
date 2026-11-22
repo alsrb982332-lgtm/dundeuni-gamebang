@@ -1,0 +1,170 @@
+{
+  "colors": {
+    "red": {
+      "name": "빨간색",
+      "hex": "#FF9A8C"
+    },
+    "orange": {
+      "name": "주황색",
+      "hex": "#FFBE6B"
+    },
+    "yellow": {
+      "name": "노란색",
+      "hex": "#FFE27A"
+    },
+    "green": {
+      "name": "초록색",
+      "hex": "#9EDB8E"
+    },
+    "blue": {
+      "name": "파란색",
+      "hex": "#8EC5F5"
+    },
+    "purple": {
+      "name": "보라색",
+      "hex": "#BBA2EE"
+    },
+    "pink": {
+      "name": "분홍색",
+      "hex": "#F7B2CF"
+    },
+    "brown": {
+      "name": "갈색",
+      "hex": "#D9B48A"
+    }
+  },
+  "pictures": [
+    {
+      "id": "house",
+      "name": "우리 집",
+      "icon": "🏠",
+      "hyeong": [
+        "red",
+        "yellow"
+      ],
+      "dong": [
+        "blue",
+        "green"
+      ],
+      "regions": [
+        {
+          "name": "하늘",
+          "color": "blue",
+          "d": "M0 0 H400 V205 H0 Z"
+        },
+        {
+          "name": "해님",
+          "color": "yellow",
+          "d": "M332 66 m-46 0 a46 46 0 1 0 92 0 a46 46 0 1 0 -92 0"
+        },
+        {
+          "name": "풀밭",
+          "color": "green",
+          "d": "M0 205 H400 V300 H0 Z"
+        },
+        {
+          "name": "지붕",
+          "color": "red",
+          "d": "M78 144 L200 42 L322 144 Z"
+        },
+        {
+          "name": "벽",
+          "color": "yellow",
+          "d": "M100 144 H300 V266 H100 Z"
+        },
+        {
+          "name": "문",
+          "color": "red",
+          "d": "M170 176 H230 V266 H170 Z"
+        },
+        {
+          "name": "창문",
+          "color": "blue",
+          "d": "M114 158 H160 V206 H114 Z"
+        },
+        {
+          "name": "창문",
+          "color": "blue",
+          "d": "M240 158 H286 V206 H240 Z"
+        }
+      ],
+      "deco": "<circle cx=\"220\" cy=\"224\" r=\"4.5\" fill=\"#3B3651\"/><path d=\"M137 158 V206 M114 182 H160 M263 158 V206 M240 182 H286\" stroke=\"#3B3651\" stroke-width=\"3\" fill=\"none\"/>"
+    },
+    {
+      "id": "rainbow",
+      "name": "무지개",
+      "icon": "🌈",
+      "hyeong": [
+        "red",
+        "yellow"
+      ],
+      "dong": [
+        "green",
+        "blue"
+      ],
+      "regions": [
+        {
+          "name": "빨간 줄",
+          "color": "red",
+          "d": "M24 262 A176 176 0 0 1 376 262 H340 A140 140 0 0 0 60 262 Z"
+        },
+        {
+          "name": "노란 줄",
+          "color": "yellow",
+          "d": "M60 262 A140 140 0 0 1 340 262 H304 A104 104 0 0 0 96 262 Z"
+        },
+        {
+          "name": "초록 줄",
+          "color": "green",
+          "d": "M96 262 A104 104 0 0 1 304 262 H268 A68 68 0 0 0 132 262 Z"
+        },
+        {
+          "name": "파란 줄",
+          "color": "blue",
+          "d": "M132 262 A68 68 0 0 1 268 262 H232 A32 32 0 0 0 168 262 Z"
+        }
+      ],
+      "deco": "<g fill=\"#fff\" stroke=\"#3B3651\" stroke-width=\"3\"><path d=\"M4 278 q0 -26 26 -24 q8 -20 30 -12 q22 -4 24 18 q20 4 14 22 Z\"/><path d=\"M396 278 q0 -26 -26 -24 q-8 -20 -30 -12 q-22 -4 -24 18 q-20 4 -14 22 Z\"/></g>"
+    },
+    {
+      "id": "car",
+      "name": "자동차",
+      "icon": "🚗",
+      "hyeong": [
+        "red",
+        "yellow"
+      ],
+      "dong": [
+        "blue"
+      ],
+      "regions": [
+        {
+          "name": "하늘",
+          "color": "blue",
+          "d": "M0 0 H400 V216 H0 Z"
+        },
+        {
+          "name": "해님",
+          "color": "yellow",
+          "d": "M66 64 m-42 0 a42 42 0 1 0 84 0 a42 42 0 1 0 -84 0"
+        },
+        {
+          "name": "자동차",
+          "color": "red",
+          "d": "M46 218 Q46 176 84 170 L128 106 Q138 92 160 92 H262 Q284 92 294 112 L326 170 Q358 176 358 212 V240 H46 Z"
+        },
+        {
+          "name": "창문",
+          "color": "blue",
+          "d": "M150 112 H262 Q272 112 278 124 L300 168 H118 Z"
+        },
+        {
+          "name": "불빛",
+          "color": "yellow",
+          "d": "M316 184 H352 V210 H316 Z"
+        }
+      ],
+      "deco": "<g><circle cx=\"112\" cy=\"242\" r=\"27\" fill=\"#3B3651\"/><circle cx=\"112\" cy=\"242\" r=\"10\" fill=\"#E6E6EC\"/><circle cx=\"292\" cy=\"242\" r=\"27\" fill=\"#3B3651\"/><circle cx=\"292\" cy=\"242\" r=\"10\" fill=\"#E6E6EC\"/><path d=\"M206 112 V168\" stroke=\"#3B3651\" stroke-width=\"4\"/></g>"
+    }
+  ]
+}

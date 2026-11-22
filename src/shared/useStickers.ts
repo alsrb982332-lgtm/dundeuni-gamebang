@@ -6,13 +6,13 @@ import type { Who } from './useProfile'
    - 아직 1단계(그대로 넣기)인 게임은 각자 저장한 별 개수를 읽어서 함께 보여 줌 (readLegacyStars) */
 
 export type StickerKind = 'star' | 'gold'
-export type Sticker = { game: string; kind: StickerKind; who: Who | null; day: string; icon?: string }
+export type Sticker = { game: string; kind: StickerKind; who: Who | null; day: string; icon?: string; tag?: string /* 게임 안 구분 (예: 습관 id) */ }
 type StickerBook = { version: 1; list: Sticker[] }
 
 export const stickerStore = createStore<StickerBook>('stickers', { version: 1, list: [] })
 
-export function addSticker(game: string, opts: { kind?: StickerKind; who?: Who | null; icon?: string; day?: string } = {}) {
-  const s: Sticker = { game, kind: opts.kind ?? 'star', who: opts.who ?? null, day: opts.day ?? todayKey(), ...(opts.icon ? { icon: opts.icon } : {}) }
+export function addSticker(game: string, opts: { kind?: StickerKind; who?: Who | null; icon?: string; day?: string; tag?: string } = {}) {
+  const s: Sticker = { game, kind: opts.kind ?? 'star', who: opts.who ?? null, day: opts.day ?? todayKey(), ...(opts.icon ? { icon: opts.icon } : {}), ...(opts.tag ? { tag: opts.tag } : {}) }
   stickerStore.set((b) => ({ ...b, list: [...b.list, s] }))
   return s
 }

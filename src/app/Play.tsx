@@ -26,7 +26,7 @@ export function Play() {
 
   const home = () => go('/main')
   return (
-    <GameShell onHome={home} onTimeUp={() => go('/sleep')} orientation={game.orientation} color={game.color}>
+    <GameShell onHome={home} onTimeUp={() => go('/sleep')} color={game.color}>
       {game.kind === 'legacy' ? (
         <LegacyFrame key={game.id} game={game} />
       ) : (

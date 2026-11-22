@@ -39,14 +39,16 @@
 ├─ scripts/
 │  ├─ check-privacy.sh  커밋 전 개인정보 검사 (pre-commit 훅)
 │  └─ build-legacy.mjs  원본 → public/legacy/<id>/ 복사본 만들기 (npm run legacy, 이 PC에서만)
-├─ public/legacy/<id>/  1단계 복사본 (저장소에 커밋. 직접 고치지 말고 build-legacy 로 다시 만듦)
+├─ public/legacy/<id>/  1단계 복사본 dino·trace·blocks (저장소에 커밋. 2차부터 이 복사본을 직접 고침 — build-legacy 는 덮어쓰지 않음)
 ├─ public/fonts/        Jua 글꼴 (게임방·복사본 공용, 오프라인)
 ├─ src/app · parent · shared · kids-mode · games   — 00번 8장 「폴더 구조」대로
 │  └─ games/registry.ts  게임 목록 / games/<id>/ 2단계로 옮긴 게임
 └─ .github/workflows/deploy.yml   main 에 push → 시험 → 빌드 → Pages
 ```
 
-- 지금 단계: 1~9단계 중 마음 날씨까지 2단계 완료. 공룡나라·따라 쓰기·블록·형아랑 같이·생활 습관 놀이는 1단계(복사본).
+- 지금 단계: 마음 날씨·형아랑 같이·생활 습관 놀이는 2단계(src/games/). 공룡나라·따라 쓰기·블록은 1단계 복사본을 직접 고쳐 가며 개선 중.
+- 기준 화면은 **세로로 세운 태블릿**. 집으로 가기는 왼쪽 위에 떠 있는 작은 버튼(한 번 누르기). 화면 돌리기 안내는 쓰지 않음.
+- 형아랑 같이: 태블릿은 동시 입력이 잘 안 돼서 「동시에」 대신 「한 사람씩 번갈아」 누르기.
 - 명령: `npm run dev` / `npm run dev -- --host`(태블릿) / `npm test` / `npm run build` / `npm run legacy`
 - 게임방 공통 저장 키는 `dundeuni:` 접두어 + `version`. 1단계 복사본은 각자 키(`dino.*`, `trace.*` …)를 씀 → 기록 백업(`src/parent/backup.ts`)에 포함.
 - 스타일: 게임방·옮긴 게임은 CSS Modules. 색·크기 토큰과 유아용 기본 부품은 `src/shared/styles/base.css`(전역).

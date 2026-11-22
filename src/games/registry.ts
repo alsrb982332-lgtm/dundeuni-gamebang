@@ -8,7 +8,6 @@ import { lazy, type ComponentType, type LazyExoticComponent } from 'react'
      → src/games/<id>/index.tsx 의 기본 내보내기 컴포넌트 (필요할 때만 불러옴: React.lazy)
 
    art: 카드 그림 (src/shared/art/svg.ts 의 GAME_ART 이름, 보통 id 와 같음)
-   orientation: 권장 화면 방향 (다르면 「태블릿을 돌려 볼까?」 안내)
    together: 「둘이 같이」를 골랐을 때 강조할 게임 */
 
 export type GameProps = { onExit: () => void }
@@ -18,7 +17,6 @@ type Base = {
   name: string
   art?: string
   color: string
-  orientation?: 'landscape' | 'portrait' | 'any'
   together?: boolean
 }
 export type LegacyGame = Base & { kind: 'legacy'; src: string }
@@ -30,8 +28,8 @@ export const GAMES: Game[] = [
   { id: 'trace', name: '따라 쓰기 놀이', color: '#5C9FDA', kind: 'legacy', src: 'legacy/trace/index.html' },
   { id: 'blocks', name: '든든 블록 놀이', color: '#E58F3E', kind: 'legacy', src: 'legacy/blocks/index.html' },
   { id: 'maeum-nalssi', name: '마음 날씨', color: '#E9B92A', kind: 'module', component: lazy(() => import('./maeum-nalssi')) },
-  { id: 'hyeonga-rang', name: '형아랑 같이', color: '#DE7BA8', kind: 'legacy', src: 'legacy/hyeonga-rang/index.html', orientation: 'landscape', together: true },
-  { id: 'banjjak-habits', name: '반짝반짝 습관 놀이', color: '#9D7FDA', kind: 'legacy', src: 'legacy/banjjak-habits/index.html' },
+  { id: 'hyeonga-rang', name: '형아랑 같이', color: '#DE7BA8', kind: 'module', component: lazy(() => import('./hyeonga-rang')), together: true },
+  { id: 'banjjak-habits', name: '반짝반짝 습관 놀이', color: '#9D7FDA', kind: 'module', component: lazy(() => import('./banjjak-habits')) },
 ]
 
 export const gameById = (id: string | undefined) => GAMES.find((g) => g.id === id)

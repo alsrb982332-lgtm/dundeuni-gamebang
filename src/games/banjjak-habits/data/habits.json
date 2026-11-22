@@ -1,0 +1,1103 @@
+[
+ {
+  "id": "wakeup",
+  "name": "일어나기",
+  "icon": "🌞",
+  "when": "아침에 일어났을 때",
+  "done": "상쾌한 아침이야! 오늘도 반짝반짝!",
+  "sparkle": "🌞",
+  "theme": "morning",
+  "scene": "bedroom",
+  "steps": {
+   "stretch": {
+    "icon": "🙆",
+    "label": "기지개 쭉",
+    "say": "기지개를 쭉 켜요!",
+    "sfx": "boing",
+    "act": "walk"
+   },
+   "blanket": {
+    "icon": "🛏️",
+    "label": "이불 개기",
+    "say": "이불을 착착 개요!",
+    "sfx": "sseuk",
+    "act": "put",
+    "do": {
+     "type": "drag",
+     "item": "🛏️",
+     "target": "🧺"
+    }
+   },
+   "window": {
+    "icon": "🪟",
+    "label": "커튼 열기",
+    "say": "커튼을 열어요. 햇님 안녕!",
+    "sfx": "whoosh",
+    "act": "put",
+    "do": {
+     "type": "rub",
+     "mode": "clean",
+     "target": "🪟",
+     "spot": "☁️"
+    }
+   },
+   "morning": {
+    "icon": "👋",
+    "label": "좋은 아침 인사",
+    "say": "엄마 아빠께 인사해요!",
+    "sfx": "ding",
+    "act": "say",
+    "repeat": "좋은 아침이에요"
+   },
+   "water": {
+    "icon": "🥛",
+    "label": "물 한 컵",
+    "say": "물을 꿀꺽꿀꺽 마셔요!",
+    "sfx": "nyam",
+    "act": "eat",
+    "do": {
+     "type": "drag",
+     "item": "🥛",
+     "target": "dundun"
+    }
+   }
+  },
+  "dong": [
+   "stretch",
+   "window",
+   "morning"
+  ],
+  "hyeong": [
+   "stretch",
+   "blanket",
+   "window",
+   "morning"
+  ],
+  "hyeong5": [
+   "stretch",
+   "blanket",
+   "window",
+   "morning",
+   "water"
+  ]
+ },
+ {
+  "id": "face",
+  "name": "세수하기",
+  "icon": "🧼",
+  "when": "세수할 때",
+  "done": "얼굴이 반짝반짝 깨끗해졌어!",
+  "sparkle": "😊",
+  "theme": "morning",
+  "scene": "bathroom",
+  "steps": {
+   "water": {
+    "icon": "🚰",
+    "label": "물 묻히기",
+    "say": "물을 얼굴에 촵촵!",
+    "sfx": "water",
+    "act": "pour"
+   },
+   "soap": {
+    "icon": "🧼",
+    "label": "비누 거품",
+    "say": "비누 거품으로 뽀글뽀글!",
+    "sfx": "bubble",
+    "act": "bubbles",
+    "do": {
+     "type": "rub",
+     "mode": "foam",
+     "target": "dundun",
+     "spot": "🫧"
+    }
+   },
+   "rinse": {
+    "icon": "💦",
+    "label": "깨끗이 헹구기",
+    "say": "물로 깨끗이 헹궈요!",
+    "sfx": "water",
+    "act": "pour",
+    "do": {
+     "type": "rub",
+     "mode": "clean",
+     "target": "dundun",
+     "spot": "🫧"
+    }
+   },
+   "towel": {
+    "icon": "svg:towel",
+    "label": "수건으로 닦기",
+    "say": "수건으로 톡톡 닦아요!",
+    "sfx": "sseuk",
+    "act": "wipe",
+    "do": {
+     "type": "rub",
+     "mode": "clean",
+     "target": "dundun",
+     "spot": "💧"
+    }
+   },
+   "lotion": {
+    "icon": "🧴",
+    "label": "로션 바르기",
+    "say": "로션을 살살 발라요!",
+    "sfx": "sseuk",
+    "act": "scrub",
+    "do": {
+     "type": "rub",
+     "mode": "foam",
+     "target": "dundun",
+     "spot": "✨"
+    }
+   }
+  },
+  "dong": [
+   "water",
+   "soap",
+   "rinse"
+  ],
+  "hyeong": [
+   "water",
+   "soap",
+   "rinse",
+   "towel"
+  ],
+  "hyeong5": [
+   "water",
+   "soap",
+   "rinse",
+   "towel",
+   "lotion"
+  ]
+ },
+ {
+  "id": "brush",
+  "name": "양치하기",
+  "icon": "svg:toothbrush",
+  "when": "양치할 때",
+  "done": "이가 반짝반짝 깨끗해졌어!",
+  "sparkle": "🦷",
+  "steps": {
+   "paste": {
+    "icon": "🧴",
+    "label": "치약 짜기",
+    "say": "치약을 쭉 짜요!",
+    "sfx": "pop",
+    "act": "squeeze",
+    "do": {
+     "type": "drag",
+     "item": "🧴",
+     "target": "svg:toothbrush"
+    }
+   },
+   "brush": {
+    "icon": "svg:toothbrush",
+    "label": "치카치카",
+    "say": "치카치카 이를 닦아요!",
+    "sfx": "chika",
+    "act": "scrub",
+    "do": {
+     "type": "rub",
+     "mode": "clean",
+     "target": "🦷",
+     "spot": "🦠"
+    }
+   },
+   "rinse": {
+    "icon": "🥛",
+    "label": "물로 헹구기",
+    "say": "물로 헹궈요. 우르르 퉤!",
+    "sfx": "water",
+    "act": "pour"
+   },
+   "towel": {
+    "icon": "svg:towel",
+    "label": "수건으로 닦기",
+    "say": "수건으로 입을 닦아요!",
+    "sfx": "sseuk",
+    "act": "wipe",
+    "do": {
+     "type": "rub",
+     "mode": "clean",
+     "target": "😊",
+     "spot": "💧"
+    }
+   },
+   "put": {
+    "icon": "🥤",
+    "label": "칫솔 제자리에",
+    "say": "칫솔을 컵에 쏙 넣어요!",
+    "sfx": "click",
+    "act": "put",
+    "do": {
+     "type": "drag",
+     "item": "svg:toothbrush",
+     "target": "🥤"
+    }
+   }
+  },
+  "dong": [
+   "paste",
+   "brush",
+   "rinse"
+  ],
+  "hyeong": [
+   "paste",
+   "brush",
+   "rinse",
+   "towel"
+  ],
+  "hyeong5": [
+   "paste",
+   "brush",
+   "rinse",
+   "towel",
+   "put"
+  ],
+  "theme": "morning",
+  "scene": "bathroom"
+ },
+ {
+  "id": "dress",
+  "name": "옷 입기",
+  "icon": "👕",
+  "when": "옷 입을 때",
+  "done": "옷을 반짝반짝 멋지게 입었어!",
+  "sparkle": "👕",
+  "steps": {
+   "under": {
+    "icon": "🩲",
+    "label": "속옷 입기",
+    "say": "먼저 속옷을 입어요!",
+    "sfx": "pop",
+    "act": "wear",
+    "do": {
+     "type": "drag",
+     "item": "🩲",
+     "target": "dundun"
+    }
+   },
+   "pants": {
+    "icon": "👖",
+    "label": "바지 입기",
+    "say": "바지를 입어요. 영차!",
+    "sfx": "pop",
+    "act": "wear",
+    "do": {
+     "type": "drag",
+     "item": "👖",
+     "target": "dundun"
+    }
+   },
+   "shirt": {
+    "icon": "👕",
+    "label": "윗옷 입기",
+    "say": "윗옷을 입어요. 쏙!",
+    "sfx": "pop",
+    "act": "wear",
+    "do": {
+     "type": "drag",
+     "item": "👕",
+     "target": "dundun"
+    }
+   },
+   "socks": {
+    "icon": "🧦",
+    "label": "양말 신기",
+    "say": "양말을 신어요!",
+    "sfx": "pop",
+    "act": "wear",
+    "do": {
+     "type": "drag",
+     "item": "🧦",
+     "target": "dundun"
+    }
+   },
+   "coat": {
+    "icon": "🧥",
+    "label": "겉옷 입기",
+    "say": "마지막으로 겉옷을 입어요!",
+    "sfx": "pop",
+    "act": "wear",
+    "do": {
+     "type": "drag",
+     "item": "🧥",
+     "target": "dundun"
+    }
+   }
+  },
+  "dong": [
+   "under",
+   "pants",
+   "socks"
+  ],
+  "hyeong": [
+   "under",
+   "pants",
+   "shirt",
+   "socks"
+  ],
+  "hyeong5": [
+   "under",
+   "pants",
+   "shirt",
+   "socks",
+   "coat"
+  ],
+  "theme": "morning",
+  "scene": "bedroom"
+ },
+ {
+  "id": "hands",
+  "name": "손 씻기",
+  "icon": "🧼",
+  "when": "손 씻을 때",
+  "done": "손이 반짝반짝 깨끗해졌어!",
+  "sparkle": "👐",
+  "steps": {
+   "tap": {
+    "icon": "🚰",
+    "label": "물 틀기",
+    "say": "물을 틀어요. 쏴아!",
+    "sfx": "water",
+    "act": "pour"
+   },
+   "soap": {
+    "icon": "🧼",
+    "label": "비누 거품",
+    "say": "비누로 거품을 내요. 뽀글뽀글!",
+    "sfx": "bubble",
+    "act": "bubbles",
+    "do": {
+     "type": "rub",
+     "mode": "foam",
+     "target": "👐",
+     "spot": "🫧"
+    }
+   },
+   "rub": {
+    "icon": "👐",
+    "label": "쓱쓱 문지르기",
+    "say": "손바닥, 손등, 손가락 사이 쓱쓱!",
+    "sfx": "sseuk",
+    "act": "scrub",
+    "do": {
+     "type": "rub",
+     "mode": "clean",
+     "target": "👐",
+     "spot": "🦠"
+    }
+   },
+   "rinse": {
+    "icon": "🚿",
+    "label": "물로 헹구기",
+    "say": "물로 거품을 헹궈요!",
+    "sfx": "water",
+    "act": "pour",
+    "do": {
+     "type": "rub",
+     "mode": "clean",
+     "target": "👐",
+     "spot": "🫧"
+    }
+   },
+   "towel": {
+    "icon": "svg:towel",
+    "label": "수건으로 닦기",
+    "say": "수건으로 손을 닦아요!",
+    "sfx": "sseuk",
+    "act": "wipe",
+    "do": {
+     "type": "rub",
+     "mode": "clean",
+     "target": "👐",
+     "spot": "💧"
+    }
+   }
+  },
+  "dong": [
+   "tap",
+   "soap",
+   "rinse"
+  ],
+  "hyeong": [
+   "tap",
+   "soap",
+   "rinse",
+   "towel"
+  ],
+  "hyeong5": [
+   "tap",
+   "soap",
+   "rub",
+   "rinse",
+   "towel"
+  ],
+  "theme": "day",
+  "scene": "bathroom"
+ },
+ {
+  "id": "eat",
+  "name": "밥 먹기",
+  "icon": "🍚",
+  "when": "밥 먹을 때",
+  "done": "냠냠 맛있게 먹었어! 배가 든든해!",
+  "sparkle": "🍚",
+  "steps": {
+   "wash": {
+    "icon": "🧼",
+    "label": "손 씻기",
+    "say": "밥 먹기 전에 손을 씻어요!",
+    "sfx": "bubble",
+    "act": "bubbles",
+    "do": {
+     "type": "rub",
+     "mode": "foam",
+     "target": "👐",
+     "spot": "🫧"
+    }
+   },
+   "sit": {
+    "icon": "🪑",
+    "label": "의자에 앉기",
+    "say": "의자에 앉아요!",
+    "sfx": "pop",
+    "act": "sit"
+   },
+   "thanks": {
+    "icon": "🙏",
+    "label": "잘 먹겠습니다",
+    "say": "잘 먹겠습니다 인사해요!",
+    "repeat": "잘 먹겠습니다",
+    "sfx": "ding",
+    "act": "say"
+   },
+   "eat": {
+    "icon": "🥄",
+    "label": "냠냠 먹기",
+    "say": "냠냠 꼭꼭 씹어 먹어요!",
+    "sfx": "nyam",
+    "act": "eat",
+    "do": {
+     "type": "drag",
+     "item": "🥄",
+     "target": "dundun"
+    }
+   },
+   "done": {
+    "icon": "😋",
+    "label": "잘 먹었습니다",
+    "say": "잘 먹었습니다 인사해요!",
+    "repeat": "잘 먹었습니다",
+    "sfx": "ding",
+    "act": "say"
+   },
+   "clear": {
+    "icon": "🍽️",
+    "label": "그릇 갖다 놓기",
+    "say": "그릇을 싱크대에 갖다 놓아요!",
+    "sfx": "click",
+    "act": "put",
+    "do": {
+     "type": "drag",
+     "item": "🍽️",
+     "target": "🚰"
+    }
+   }
+  },
+  "dong": [
+   "wash",
+   "sit",
+   "eat"
+  ],
+  "hyeong": [
+   "wash",
+   "thanks",
+   "eat",
+   "done"
+  ],
+  "hyeong5": [
+   "wash",
+   "thanks",
+   "eat",
+   "done",
+   "clear"
+  ],
+  "theme": "day",
+  "scene": "kitchen"
+ },
+ {
+  "id": "potty",
+  "name": "화장실 다녀오기",
+  "icon": "🚽",
+  "when": "화장실 갈 때",
+  "done": "화장실도 혼자서 반짝반짝!",
+  "sparkle": "🚽",
+  "steps": {
+   "pants": {
+    "icon": "👖",
+    "label": "바지 내리기",
+    "say": "바지를 내려요!",
+    "sfx": "pop",
+    "act": "wear"
+   },
+   "sit": {
+    "icon": "🚽",
+    "label": "변기에 앉기",
+    "say": "변기에 앉아요!",
+    "sfx": "pop",
+    "act": "sit"
+   },
+   "flush": {
+    "icon": "💧",
+    "label": "물 내리기",
+    "say": "물을 내려요. 쏴아!",
+    "sfx": "water",
+    "act": "pour"
+   },
+   "wash": {
+    "icon": "🧼",
+    "label": "손 씻기",
+    "say": "손을 깨끗이 씻어요!",
+    "sfx": "bubble",
+    "act": "bubbles",
+    "do": {
+     "type": "rub",
+     "mode": "foam",
+     "target": "👐",
+     "spot": "🫧"
+    }
+   }
+  },
+  "dong": [
+   "sit",
+   "flush",
+   "wash"
+  ],
+  "hyeong": [
+   "pants",
+   "sit",
+   "flush",
+   "wash"
+  ],
+  "theme": "day",
+  "scene": "bathroom"
+ },
+ {
+  "id": "nose",
+  "name": "코 풀기",
+  "icon": "🤧",
+  "when": "콧물이 날 때",
+  "done": "코가 뻥 뚫렸어! 시원해!",
+  "sparkle": "👃",
+  "theme": "day",
+  "scene": "living",
+  "steps": {
+   "tissue": {
+    "icon": "🧻",
+    "label": "휴지 꺼내기",
+    "say": "휴지를 한 장 쏙 꺼내요!",
+    "sfx": "pop",
+    "act": "put",
+    "do": {
+     "type": "drag",
+     "item": "🧻",
+     "target": "dundun"
+    }
+   },
+   "blow": {
+    "icon": "👃",
+    "label": "코 흥!",
+    "say": "한쪽씩 흥! 하고 풀어요!",
+    "sfx": "whoosh",
+    "act": "scrub",
+    "repeat": "흥!"
+   },
+   "trash": {
+    "icon": "🗑️",
+    "label": "휴지통에 버리기",
+    "say": "휴지는 휴지통에 쏙!",
+    "sfx": "click",
+    "act": "put",
+    "do": {
+     "type": "drag",
+     "item": "🧻",
+     "target": "🗑️"
+    }
+   },
+   "wash": {
+    "icon": "🧼",
+    "label": "손 씻기",
+    "say": "손도 깨끗이 씻어요!",
+    "sfx": "bubble",
+    "act": "bubbles",
+    "do": {
+     "type": "rub",
+     "mode": "foam",
+     "target": "👐",
+     "spot": "🫧"
+    }
+   }
+  },
+  "dong": [
+   "tissue",
+   "blow",
+   "trash"
+  ],
+  "hyeong": [
+   "tissue",
+   "blow",
+   "trash",
+   "wash"
+  ]
+ },
+ {
+  "id": "tidy",
+  "name": "장난감 정리",
+  "icon": "🧸",
+  "when": "장난감 정리할 때",
+  "done": "방이 반짝반짝 깨끗해졌어!",
+  "sparkle": "🧸",
+  "steps": {
+   "pick": {
+    "icon": "🧸",
+    "label": "장난감 줍기",
+    "say": "바닥의 장난감을 주워요!",
+    "sfx": "pop",
+    "act": "put",
+    "do": {
+     "type": "drag",
+     "item": "🧸",
+     "target": "🧺"
+    }
+   },
+   "sort": {
+    "icon": "🚗",
+    "label": "종류별로 나누기",
+    "say": "자동차는 자동차끼리, 인형은 인형끼리!",
+    "sfx": "click",
+    "act": "walk"
+   },
+   "box": {
+    "icon": "📦",
+    "label": "상자에 넣기",
+    "say": "상자에 쏙쏙 넣어요!",
+    "sfx": "pop",
+    "act": "put",
+    "do": {
+     "type": "drag",
+     "item": "🚗",
+     "target": "📦"
+    }
+   },
+   "lid": {
+    "icon": "🗃️",
+    "label": "뚜껑 닫기",
+    "say": "뚜껑을 딸깍 닫아요!",
+    "sfx": "click",
+    "act": "squeeze"
+   },
+   "place": {
+    "icon": "🏠",
+    "label": "제자리에 두기",
+    "say": "상자를 제자리에 놓아요!",
+    "sfx": "thunk",
+    "act": "put",
+    "do": {
+     "type": "drag",
+     "item": "📦",
+     "target": "🏠"
+    }
+   }
+  },
+  "dong": [
+   "pick",
+   "box",
+   "lid"
+  ],
+  "hyeong": [
+   "pick",
+   "sort",
+   "box",
+   "place"
+  ],
+  "hyeong5": [
+   "pick",
+   "sort",
+   "box",
+   "lid",
+   "place"
+  ],
+  "theme": "day",
+  "scene": "playroom"
+ },
+ {
+  "id": "shoes",
+  "name": "신발 신기",
+  "icon": "👟",
+  "when": "신발 신을 때",
+  "done": "신발을 반짝반짝 잘 신었어!",
+  "sparkle": "👟",
+  "steps": {
+   "sit": {
+    "icon": "🪑",
+    "label": "앉기",
+    "say": "먼저 앉아요!",
+    "sfx": "pop",
+    "act": "sit"
+   },
+   "foot": {
+    "icon": "👟",
+    "label": "발 쏙 넣기",
+    "say": "신발에 발을 쏙 넣어요!",
+    "sfx": "pop",
+    "act": "wear",
+    "do": {
+     "type": "drag",
+     "item": "👟",
+     "target": "🦶"
+    }
+   },
+   "tab": {
+    "icon": "✋",
+    "label": "찍찍이 붙이기",
+    "say": "찍찍이를 꾹 붙여요!",
+    "sfx": "sseuk",
+    "act": "squeeze"
+   },
+   "stand": {
+    "icon": "🦶",
+    "label": "일어나서 콩콩",
+    "say": "일어나서 콩콩 뛰어 봐요!",
+    "sfx": "boing",
+    "act": "walk"
+   }
+  },
+  "dong": [
+   "sit",
+   "foot",
+   "tab"
+  ],
+  "hyeong": [
+   "sit",
+   "foot",
+   "tab",
+   "stand"
+  ],
+  "theme": "day",
+  "scene": "entrance"
+ },
+ {
+  "id": "outing",
+  "name": "외출 준비",
+  "icon": "🎒",
+  "when": "밖에 나갈 때",
+  "done": "외출 준비 반짝반짝 끝!",
+  "sparkle": "🎒",
+  "steps": {
+   "clothes": {
+    "icon": "👕",
+    "label": "옷 입기",
+    "say": "나갈 옷을 입어요!",
+    "sfx": "pop",
+    "act": "wear",
+    "do": {
+     "type": "drag",
+     "item": "👕",
+     "target": "dundun"
+    }
+   },
+   "shoes": {
+    "icon": "👟",
+    "label": "신발 신기",
+    "say": "신발을 신어요!",
+    "sfx": "pop",
+    "act": "wear",
+    "do": {
+     "type": "drag",
+     "item": "👟",
+     "target": "dundun"
+    }
+   },
+   "bag": {
+    "icon": "🎒",
+    "label": "가방 메기",
+    "say": "가방을 메요!",
+    "sfx": "pop",
+    "act": "wear",
+    "do": {
+     "type": "drag",
+     "item": "🎒",
+     "target": "dundun"
+    }
+   },
+   "bye": {
+    "icon": "👋",
+    "label": "다녀오겠습니다",
+    "say": "다녀오겠습니다 인사해요!",
+    "repeat": "다녀오겠습니다",
+    "sfx": "ding",
+    "act": "say"
+   }
+  },
+  "dong": [
+   "clothes",
+   "shoes",
+   "bye"
+  ],
+  "hyeong": [
+   "clothes",
+   "shoes",
+   "bag",
+   "bye"
+  ],
+  "theme": "day",
+  "scene": "entrance"
+ },
+ {
+  "id": "bath",
+  "name": "목욕하기",
+  "icon": "🛁",
+  "when": "목욕할 때",
+  "done": "목욕 끝! 몸이 보송보송해!",
+  "sparkle": "🛁",
+  "theme": "night",
+  "scene": "bathroom",
+  "steps": {
+   "undress": {
+    "icon": "👕",
+    "label": "옷 벗기",
+    "say": "옷을 벗어요!",
+    "sfx": "pop",
+    "act": "wear"
+   },
+   "tub": {
+    "icon": "🛁",
+    "label": "욕조에 들어가기",
+    "say": "욕조에 풍덩! 오리도 같이!",
+    "sfx": "water",
+    "act": "pour",
+    "do": {
+     "type": "drag",
+     "item": "🦆",
+     "target": "🛁"
+    }
+   },
+   "soap": {
+    "icon": "🧼",
+    "label": "비누칠하기",
+    "say": "몸에 비누 거품을 뽀글뽀글!",
+    "sfx": "bubble",
+    "act": "bubbles",
+    "do": {
+     "type": "rub",
+     "mode": "foam",
+     "target": "dundun",
+     "spot": "🫧"
+    }
+   },
+   "rinse": {
+    "icon": "🚿",
+    "label": "물로 헹구기",
+    "say": "샤워기로 쏴아 헹궈요!",
+    "sfx": "water",
+    "act": "pour",
+    "do": {
+     "type": "rub",
+     "mode": "clean",
+     "target": "dundun",
+     "spot": "🫧"
+    }
+   },
+   "towel": {
+    "icon": "svg:towel",
+    "label": "수건으로 닦기",
+    "say": "수건으로 보송보송 닦아요!",
+    "sfx": "sseuk",
+    "act": "wipe",
+    "do": {
+     "type": "rub",
+     "mode": "clean",
+     "target": "dundun",
+     "spot": "💧"
+    }
+   }
+  },
+  "dong": [
+   "tub",
+   "soap",
+   "rinse"
+  ],
+  "hyeong": [
+   "tub",
+   "soap",
+   "rinse",
+   "towel"
+  ],
+  "hyeong5": [
+   "undress",
+   "tub",
+   "soap",
+   "rinse",
+   "towel"
+  ]
+ },
+ {
+  "id": "hair",
+  "name": "머리 감기",
+  "icon": "🧴",
+  "when": "머리 감을 때",
+  "done": "머리가 반짝반짝 보송보송!",
+  "sparkle": "✨",
+  "steps": {
+   "wet": {
+    "icon": "🚿",
+    "label": "머리 적시기",
+    "say": "머리에 물을 적셔요!",
+    "sfx": "water",
+    "act": "pour"
+   },
+   "shampoo": {
+    "icon": "🧴",
+    "label": "샴푸 거품",
+    "say": "샴푸로 거품을 내요. 뽀글뽀글!",
+    "sfx": "bubble",
+    "act": "bubbles",
+    "do": {
+     "type": "rub",
+     "mode": "foam",
+     "target": "dundun",
+     "spot": "🫧"
+    }
+   },
+   "rinse": {
+    "icon": "💦",
+    "label": "물로 헹구기",
+    "say": "눈 꼭 감고 물로 헹궈요!",
+    "sfx": "water",
+    "act": "pour",
+    "do": {
+     "type": "rub",
+     "mode": "clean",
+     "target": "dundun",
+     "spot": "🫧"
+    }
+   },
+   "towel": {
+    "icon": "svg:towel",
+    "label": "수건으로 말리기",
+    "say": "수건으로 머리를 말려요!",
+    "sfx": "sseuk",
+    "act": "wipe",
+    "do": {
+     "type": "rub",
+     "mode": "clean",
+     "target": "dundun",
+     "spot": "💧"
+    }
+   }
+  },
+  "dong": [
+   "wet",
+   "shampoo",
+   "rinse"
+  ],
+  "hyeong": [
+   "wet",
+   "shampoo",
+   "rinse",
+   "towel"
+  ],
+  "theme": "night",
+  "scene": "bathroom"
+ },
+ {
+  "id": "sleep",
+  "name": "잠자기",
+  "icon": "🌙",
+  "when": "잠잘 때",
+  "done": "쿨쿨, 반짝반짝 꿈나라로 출발!",
+  "sparkle": "🌙",
+  "steps": {
+   "pajama": {
+    "icon": "👚",
+    "label": "잠옷 입기",
+    "say": "잠옷으로 갈아입어요!",
+    "sfx": "pop",
+    "act": "wear",
+    "do": {
+     "type": "drag",
+     "item": "👚",
+     "target": "dundun"
+    }
+   },
+   "brush": {
+    "icon": "svg:toothbrush",
+    "label": "양치하기",
+    "say": "자기 전에 치카치카!",
+    "sfx": "chika",
+    "act": "scrub",
+    "do": {
+     "type": "rub",
+     "mode": "clean",
+     "target": "🦷",
+     "spot": "🦠"
+    }
+   },
+   "potty": {
+    "icon": "🚽",
+    "label": "화장실 가기",
+    "say": "화장실에 다녀와요!",
+    "sfx": "water",
+    "act": "walk"
+   },
+   "book": {
+    "icon": "📖",
+    "label": "책 읽기",
+    "say": "재미있는 책을 읽어요!",
+    "sfx": "sseuk",
+    "act": "read"
+   },
+   "night": {
+    "icon": "💡",
+    "label": "불 끄고 인사",
+    "say": "불을 끄고 인사해요!",
+    "repeat": "안녕히 주무세요",
+    "sfx": "click",
+    "act": "sleep"
+   },
+   "blanket": {
+    "icon": "🛏️",
+    "label": "이불 덮기",
+    "say": "이불을 덮어요. 쿨쿨!",
+    "sfx": "sseuk",
+    "act": "sleep",
+    "do": {
+     "type": "drag",
+     "item": "🛏️",
+     "target": "dundun"
+    }
+   }
+  },
+  "dong": [
+   "pajama",
+   "brush",
+   "blanket"
+  ],
+  "hyeong": [
+   "pajama",
+   "brush",
+   "book",
+   "night"
+  ],
+  "hyeong5": [
+   "pajama",
+   "brush",
+   "potty",
+   "book",
+   "night"
+  ],
+  "theme": "night",
+  "scene": "night"
+ }
+]

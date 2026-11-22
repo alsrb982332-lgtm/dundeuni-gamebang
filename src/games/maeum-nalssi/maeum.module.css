@@ -52,6 +52,7 @@
 .char.main.cheer svg { animation: jump .8s cubic-bezier(.3,1.6,.5,1) 2 }
 .char.other { height: 58%; z-index: 2 }
 .char.other.big { height: 76% }
+.char.main.adult { height: 78% }
 .char .badge { position: absolute; left: 50%; top: -6%; width: 46%; aspect-ratio: 1; transform: translate(-50%, -60%); background: var(--sheet); border-radius: 50%; box-shadow: 0 4px 0 var(--toy); display: flex; align-items: center; justify-content: center; animation: badgeIn .45s cubic-bezier(.3,1.6,.5,1) both; z-index: 4 }
 .char .badge svg { width: 80%; height: 80% }
 .char .badge .qmark { font-size: calc(var(--sh) * .12); color: var(--kc) }
@@ -151,14 +152,20 @@
 .star-grid .more { font-size: 22px; color: var(--muted) }
 
 /* 세로 화면 / 작은 화면 */
+/* 세로 태블릿 (기본): 장면을 크게, 보기 카드는 2×2 */
 @media (max-aspect-ratio: 1/1) {
-  .scene { --sh: min(30vh, 72vw, 380px) }
-  .game .cards { gap: 12px }
-  .ecard { --cw: min(40vw, 17vh, 210px); min-height: max(var(--cw), 96px) }
-  .cards.n2 .ecard { --cw: min(42vw, 24vh, 250px) }
-  .ecard .lb { font-size: clamp(18px, 2.6vh, 26px) }
-  .acard { --cw: min(42vw, 19vh, 240px) }
-  .acard .ai { font-size: clamp(40px, 7vh, 80px) }
+  .game { gap: clamp(10px, 1.6vh, 20px); padding-bottom: 20px }
+  .scene { --sh: min(38vh, 96vw, 560px); width: 100% }
+  .game .cards { gap: clamp(12px, 2vh, 22px); flex: 1; align-content: center }
+  .cards.n4, .cards.n2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: min(100%, 640px) }
+  .cards.n3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100% }
+  .cards.n4 .ecard, .cards.n2 .ecard, .cards.n3 .ecard { width: auto; --cw: min(42vw, 20vh, 280px); min-height: max(calc(var(--cw) * .92), 120px) }
+  .cards.n2 .ecard { --cw: min(44vw, 30vh, 320px) }
+  .ecard .fc { width: 54% }
+  .ecard .lb { font-size: clamp(20px, 2.8vh, 30px) }
+  .cards.acts { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); width: 100% }
+  .acard { width: auto; --cw: min(44vw, 22vh, 280px) }
+  .acard .ai { font-size: clamp(48px, 8vh, 96px) }
 }
 @media (max-height: 640px) and (min-aspect-ratio: 1/1) {
   .game { flex-direction: row; flex-wrap: wrap; align-content: center; justify-content: center }

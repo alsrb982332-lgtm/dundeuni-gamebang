@@ -7,20 +7,18 @@ import { sfx } from './sfx'
 import { afterRest, isOver, isRestDue, playTimeStore, REST_LEN_SEC } from '../parent/playtime'
 import css from './shell.module.css'
 
-/* 게임 공통 틀
-   - 왼쪽 위(가로 화면은 왼쪽 줄, 세로 화면은 위쪽 줄)에 「집으로 가기」
+/* 게임 공통 틀 (세로 태블릿 기준)
+   - 게임이 화면 전체를 씀. 왼쪽 위에 작은 「집으로 가기」 버튼만 떠 있음 (한 번 누르면 게임방으로)
    - 놀이 시간이 끝나면 onTimeUp (→ 「든든이가 졸려요」 화면)
-   - 연속 10분 놀면 30초 쉬는 시간 (부모 설정에서 끌 수 있음)
-   - 권장 방향과 다르면 「태블릿을 돌려 볼까?」 */
+   - 연속 10분 놀면 30초 쉬는 시간 (부모 설정에서 끌 수 있음) */
 type Props = {
   children: ReactNode
   onHome: () => void
   onTimeUp: () => void
-  orientation?: 'landscape' | 'portrait' | 'any'
   color?: string
 }
 
-export function GameShell({ children, onHome, onTimeUp, orientation = 'any', color }: Props) {
+export function GameShell({ children, onHome, onTimeUp, color }: Props) {
   const s = useSettings()
   const pt = playTimeStore.use()
   const over = isOver(pt, s.dailyLimitMin)
@@ -30,12 +28,9 @@ export function GameShell({ children, onHome, onTimeUp, orientation = 'any', col
 
   return (
     <div className={css.shell} style={color ? { ['--kc' as string]: color } : undefined}>
-      <nav className={css.rail}>
-        <HomeButton onHome={() => { stopVoice(); onHome() }} />
-      </nav>
       <div className={css.stage}>{children}</div>
+      <HomeButton onHome={() => { stopVoice(); onHome() }} />
       {rest && <RestBreak />}
-      {orientation !== 'any' && <RotateHint want={orientation} />}
     </div>
   )
 }
@@ -65,35 +60,6 @@ function RestBreak() {
       <div className={css.restDots} aria-label={`${left}초`}>
         {Array.from({ length: 6 }, (_, i) => <i key={i} className={left <= REST_LEN_SEC - (i + 1) * 5 ? css.on : ''} />)}
       </div>
-    </div>
-  )
-}
-
-/* 권장 방향 안내 (어른은 「그냥 할래요」로 넘길 수 있음) */
-function RotateHint({ want }: { want: 'landscape' | 'portrait' }) {
-  const q = `(orientation: ${want === 'landscape' ? 'portrait' : 'landscape'})`
-  const [wrong, setWrong] = useState(() => matchMedia(q).matches)
-  const [skip, setSkip] = useState(false)
-  useEffect(() => {
-    const m = matchMedia(q)
-    const f = () => setWrong(m.matches)
-    m.addEventListener('change', f)
-    return () => m.removeEventListener('change', f)
-  }, [q])
-  useEffect(() => { if (wrong && !skip) void say('rotate') }, [wrong, skip])
-  if (!wrong || skip) return null
-  return (
-    <div className={css.cover} role="dialog" aria-label="태블릿을 돌려 볼까?">
-      <svg viewBox="0 0 200 140" className={css.rotatePic} aria-hidden="true">
-        <rect x="70" y="10" width="60" height="96" rx="10" fill="var(--sheet)" stroke="#3B3651" strokeWidth="4" />
-        <g className={css.rotateSpin}>
-          <rect x="52" y="34" width="96" height="60" rx="10" fill="#E4F7D8" stroke="#56B266" strokeWidth="4" strokeDasharray="8 6" />
-        </g>
-        <path d="M160 40 a40 40 0 0 1 0 50" fill="none" stroke="#EE8420" strokeWidth="5" strokeLinecap="round" />
-        <path d="M152 88 l10 4 2 -11" fill="none" stroke="#EE8420" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-      <p className={css.coverText}>태블릿을 돌려 볼까?</p>
-      <button type="button" className={css.skip} onClick={() => setSkip(true)}>그냥 할래요 (어른)</button>
     </div>
   )
 }

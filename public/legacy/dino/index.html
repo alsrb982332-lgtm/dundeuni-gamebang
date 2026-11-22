@@ -1,6 +1,7 @@
 <!doctype html>
-<!-- 든든이 게임방 1단계 복사본 · 원본: legacy/든든 공룡나라.html · 만든 날: 2026-11-22 · scripts/build-legacy.mjs 로 자동 생성 (직접 고치지 말 것)
+<!-- 든든이 게임방 1단계 복사본 · 원본: legacy/든든 공룡나라.html · 만든 날: 2026-11-22 · scripts/build-legacy.mjs 로 처음 만듦
      바꾼 것: 글꼴 로컬 / 없는 그림 파일 찾기 끔 -->
+<!-- 2차 개선 (2026-11-22, 게임방에서 이 복사본을 직접 고침 — build-legacy 로 덮어쓰지 않음): 공룡길찾기: 무서운 친구 → 간식(아이스크림·젤리·딸기·쿠키, 길을 막지 않고 냠냠), 엄마는 출발점에서 가장 먼 곳, 따라간 길 실선·발자국·반짝 효과, 배경 장식 흐리게 -->
 <html lang="ko">
 <head>
 <meta charset="utf-8">
@@ -533,14 +534,18 @@ body > .fos{z-index:50}
 .map{position:absolute;inset:0}
 .mapsvg{position:absolute;inset:0;width:100%;height:100%;display:block}
 .deco-i,.trap,.egg-i,.nest{position:absolute;display:flex;align-items:center;justify-content:center;pointer-events:none;font-size:calc(var(--cs) * .7);line-height:1}
-.deco-i{opacity:.95}
+.deco-i{opacity:.35;filter:saturate(.6)} /* 게임방 2차: 길이 잘 보이게 배경 장식은 흐리게 */
 .trap{z-index:2}
-.trap::before{content:"";position:absolute;inset:8%;border-radius:50%;background:radial-gradient(rgba(40,20,50,.75),rgba(40,20,50,0) 70%)}
+.trap::before{content:"";position:absolute;inset:4%;border-radius:50%;background:radial-gradient(rgba(255,240,170,.95),rgba(255,240,170,0) 70%)}
+.trap.eaten b{animation:none;transform:scale(1.6) translateY(-30%);opacity:0;transition:transform .5s ease,opacity .5s ease}
+.trap.eaten::before{opacity:0;transition:opacity .5s}
+.trail-flow{animation:trailFlow 1s linear infinite}@keyframes trailFlow{to{stroke-dashoffset:-40}}
+.trail-ring{animation:trailRing 1.2s ease-out infinite;transform-box:fill-box;transform-origin:center}@keyframes trailRing{from{opacity:1;transform:scale(.6)}to{opacity:0;transform:scale(1.3)}}
 .trap b{position:relative;font-weight:normal;animation:lurk 1.8s ease-in-out infinite}
 .trap svg{position:relative;width:115%;height:115%;transform:scaleX(-1);animation:lurk 1.8s ease-in-out infinite}
 .trap.bite b,.trap.bite svg{animation:bite .35s ease-in-out 4;transform:scale(1.5)}
 .trap.bite svg{transform:scaleX(-1) scale(1.5)}
-@keyframes lurk{50%{transform:translateY(-6%) scale(1.05)}}
+@keyframes lurk{50%{transform:translateY(-8%)}}
 @keyframes bite{50%{transform:scale(1.8) rotate(-10deg)}}
 .egg-i{font-size:calc(var(--cs) * .55);z-index:2;transition:transform .3s,opacity .3s}
 .egg-i.got{transform:scale(0) rotate(90deg);opacity:0}
@@ -3692,8 +3697,12 @@ function buildMaze(id,seed){
     const [nx,ny,dx,dy]=nb[Math.floor(R()*nb.length)];
     seen[ny][nx]=true;open[2*cy+1+dy][2*cx+1+dx]=true;open[2*ny+1][2*nx+1]=true;st.push([nx,ny]);
   }
-  const start=[1,H-2],goal=[W-2,1],k=p=>p[0]+','+p[1];
+  const start=[1,H-2],k=p=>p[0]+','+p[1];
   const nbrs=(x,y)=>[[1,0],[-1,0],[0,1],[0,-1]].map(([dx,dy])=>[x+dx,y+dy]).filter(([a,b])=>a>=0&&b>=0&&a<W&&b<H&&open[b][a]);
+  /* 게임방 2차: 엄마는 길에서 가장 먼 곳(막다른 끝)에 — 출발점에서 걸음 수가 가장 많은 칸 */
+  const dist0={[k(start)]:0},q0=[start];let goal=start;
+  while(q0.length){const c=q0.shift();for(const n of nbrs(...c))if(!(k(n) in dist0)){dist0[k(n)]=dist0[k(c)]+1;q0.push(n);
+    if(n[0]%2&&n[1]%2&&(dist0[k(n)]>dist0[k(goal)]||(dist0[k(n)]===dist0[k(goal)]&&n[0]-n[1]>goal[0]-goal[1])))goal=n;}}
   const prev={},q=[start];prev[k(start)]=null;
   while(q.length){const c=q.shift();for(const n of nbrs(...c))if(!(k(n) in prev)){prev[k(n)]=c;q.push(n);}}
   const path=[];for(let c=goal;c;c=prev[k(c)])path.unshift(c);
@@ -3738,7 +3747,8 @@ const VILL=[
   {name:'바다 마을',icon:'🌊',from:14,to:19,ground:'#7CC8EC',road:'#F8E7BC',edge:'#E1C68E',deco:['🌊','🐚','🐠','🌊'],tint:'rgba(80,160,240,.22)'},
   {name:'눈 마을',icon:'❄️',from:20,to:25,ground:'#DCEAF6',road:'#FFFFFF',edge:'#B9CFE6',deco:['🌲','⛄','🧊','🌲'],tint:'rgba(170,200,240,.28)'}
 ];
-const MONSTERS=[{e:'🦇',n:'박쥐'},{e:'👻',n:'유령'},{e:'🐍',n:'뱀'},{e:'scary',n:'무서운 공룡'}];
+/* 게임방 2차: 무서운 친구 대신 먹으면 좋은 간식 (길을 막지 않고, 가면 냠냠 먹음) */
+const MONSTERS=[{e:'🍦',n:'아이스크림'},{e:'🍬',n:'젤리'},{e:'🍓',n:'딸기'},{e:'🍪',n:'쿠키'}];
 const villOf=id=>VILL.find(v=>id>=v.from&&id<=v.to);
 const BABIES=[50,71,26,20,77,60,57,80,81,33,73,72,84,37,18,36,5,64,39,30,82,85,83,74,67];
 const STAGES=SPEC.map((sp,i)=>({id:i+1,mode:sp[4],rep:!!sp[5],eggsN:sp[3],baby:byNo(BABIES[i]).id}));
@@ -3752,7 +3762,7 @@ function arrowSVG(m){
   return '<svg viewBox="0 0 100 100" style="transform:rotate('+r+'deg)"><path d="M50 8 L90 50 H64 V92 H36 V50 H10 Z" fill="#fff" stroke="rgba(0,0,0,.25)" stroke-width="3" stroke-linejoin="round"/></svg>';
 }
 /* 카드 코딩용 판정 */
-const isTrap=(mz,x,y)=>mz.traps.some(t=>t[0]===x&&t[1]===y);
+const isTrap=()=>false; /* 간식은 길을 막지 않음 */
 function pStep(st,mz,m){
   const d=DIRS[m],nx=st.x+d[0],ny=st.y+d[1];
   if(nx<0||ny<0||nx>=mz.W||ny>=mz.H||!mz.open[ny][nx]) return {ok:false,why:'wall',to:[nx,ny]};
@@ -3872,17 +3882,30 @@ RENDER.pathplay=(id)=>{
   function drawTrail(){
     const t=$('#pTrail');if(!t) return;
     t.setAttribute('viewBox','0 0 '+mz.W*cs+' '+mz.H*cs);
-    t.innerHTML=trail.length>1?'<polyline points="'+trail.map(p=>((p[0]+.5)*cs)+','+((p[1]+.5)*cs)).join(' ')+'" fill="none" stroke="var(--kc)" stroke-width="'+cs*.22+'" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="'+cs*.05+' '+cs*.32+'" opacity=".9"/>':'';
+    /* 게임방 2차: 잘 보이게 — 흰 테두리 + 굵은 실선 + 지나온 칸마다 발자국, 맨 앞은 반짝 */
+    if(trail.length<2){t.innerHTML='';return;}
+    const pts=trail.map(p=>((p[0]+.5)*cs)+','+((p[1]+.5)*cs)).join(' ');
+    let h='<polyline points="'+pts+'" fill="none" stroke="#fff" stroke-width="'+cs*.5+'" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>';
+    h+='<polyline points="'+pts+'" fill="none" stroke="#FF8A3D" stroke-width="'+cs*.3+'" stroke-linecap="round" stroke-linejoin="round"/>';
+    h+='<polyline points="'+pts+'" fill="none" stroke="#FFD25E" stroke-width="'+cs*.12+'" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="'+cs*.18+' '+cs*.22+'" class="trail-flow"/>';
+    trail.slice(1,-1).forEach((p,i)=>{h+='<text x="'+((p[0]+.5)*cs)+'" y="'+((p[1]+.62)*cs)+'" font-size="'+cs*.34+'" text-anchor="middle" opacity=".85">🐾</text>';});
+    const hd=trail[trail.length-1];h+='<circle cx="'+((hd[0]+.5)*cs)+'" cy="'+((hd[1]+.5)*cs)+'" r="'+cs*.42+'" fill="none" stroke="#FFD25E" stroke-width="'+cs*.08+'" class="trail-ring"/>';
+    t.innerHTML=h;
   }
   function resetBoard(){
     st=pInit(mz);trail=[[st.x,st.y]];
     actor.style.transition='none';actor.classList.remove('flip','happy','bump','caught');place(st);void actor.offsetWidth;actor.style.transition='';
     B.querySelectorAll('.egg-i').forEach(e=>e.classList.remove('got'));
-    B.querySelectorAll('.trap').forEach(e=>e.classList.remove('bite'));
+    B.querySelectorAll('.trap').forEach(e=>e.classList.remove('bite','eaten'));
     eggCount();drawTrail();
   }
   function eggCount(){const e=$('#pEggs');if(e){const n=mz.eggs.filter((_,i)=>st.mask&(1<<i)).length;e.textContent='🥚 '+n+' / '+mz.eggs.length+' 주웠어요';}}
   function gotEgg(i){const e=B.querySelector('.egg-i[data-e="'+i+'"]');if(e)e.classList.add('got');ding();eggCount();buddy('알을 주웠다!','jump');}
+  function yum(ti){
+    const tr=B.querySelector('.trap[data-t="'+ti+'"]');if(!tr||tr.classList.contains('eaten')) return;
+    const m=MONSTERS[(id+ti)%MONSTERS.length];tr.classList.add('eaten');
+    ding();tone(880,.12,'sine',.08,.12);buddy('냠냠! '+m.n+'!','jump');say('냠냠! '+jo(m.n,'이','가')+' 맛있다!');
+  }
   async function caught(ti){
     running=true;failed=true;
     const m=MONSTERS[(id+ti)%MONSTERS.length],tr=B.querySelector('.trap[data-t="'+ti+'"]');
@@ -3904,7 +3927,7 @@ RENDER.pathplay=(id)=>{
     const ti=mz.traps.findIndex(t=>t[0]===x&&t[1]===y);
     st={x,y,mask:st.mask};trail.push([x,y]);place(st);drawTrail();step();actor.classList.remove("walk");void actor.offsetWidth;actor.classList.add("walk");
     if(!moved){moved=true;const pt=$('#pPoint');if(pt)pt.remove();}
-    if(ti>=0){caught(ti);return;}
+    if(ti>=0) yum(ti);
     const ei=mz.eggs.findIndex(e=>e[0]===x&&e[1]===y);
     if(ei>=0&&!(st.mask&(1<<ei))){st.mask|=1<<ei;gotEgg(ei);}
     if(x===mz.goal[0]&&y===mz.goal[1]){
@@ -4054,7 +4077,7 @@ RENDER.pathplay=(id)=>{
   drawPal();drawActs();drawProg();
   later(()=>{layout();resetBoard();},30);
   const onR=()=>layout();addEventListener('resize',onR);cleanups.push(()=>removeEventListener('resize',onR));
-  const intro=isTrace?('엄마 공룡이 울면서 아기를 찾고 있어! 아기 '+jo(baby.name,'을','를')+' 손가락으로 끌어서 엄마한테 데려다줘!'+(mz.traps.length?' 무서운 친구가 있는 길은 피해!':'')+(mz.eggs.length?' 알도 주워 가자!':'')):
+  const intro=isTrace?('엄마 공룡이 울면서 아기를 찾고 있어! 아기 '+jo(baby.name,'을','를')+' 손가락으로 끌어서 엄마한테 데려다줘!'+(mz.traps.length?' 맛있는 간식도 냠냠 먹고 가자!':'')+(mz.eggs.length?' 알도 주워 가자!':'')):
     (stg.mode==='fix'?'카드 하나가 틀렸대! 출발해 보고 틀린 카드를 찾아서 바꿔 줘.':'화살표 카드를 차례로 놓고 출발을 눌러 봐!')+(stg.rep?' 같은 화살표를 또 누르면 두 번, 세 번 반복 카드가 돼!':'');
   $('#pAsk').addEventListener('click',()=>say(intro));
   later(()=>say(intro),350);

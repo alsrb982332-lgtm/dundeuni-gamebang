@@ -1,0 +1,205 @@
+/* 형아랑 같이 전용 스타일 (CSS Modules — cx() 로 이름을 바꿔 씀). 출처: legacy/hyeonga-rang-gachi/src/App.css (2026-11-22 옮김) */
+/* 형아랑 같이 전용 스타일 */
+.root { --kc: #5C9FDA; position: absolute; inset: 0; display: flex; flex-direction: column; overflow: hidden }
+:global(.screen)[data-scroll] { overflow-y: auto; justify-content: flex-start }
+
+/* 시작 화면: 형·든든이·동생 */
+:global(.hero).trio { display: flex; align-items: flex-end; justify-content: center; gap: 2%; width: min(84vw, 48vh, 560px); aspect-ratio: 2.3; padding: 0 }
+:global(.hero).trio svg { width: 30%; height: auto; animation: bob 1.6s ease-in-out infinite }
+:global(.hero).trio svg:nth-child(2) { width: 38%; animation-delay: -.5s }
+:global(.hero).trio svg:nth-child(3) { animation-delay: -1s }
+
+/* 플레이어 확인 */
+.players { display: flex; gap: clamp(14px, 3vw, 36px); flex-wrap: wrap; justify-content: center }
+.pcard { width: min(28vw, 40vh, 280px); min-width: 150px; border-radius: 36px; background: var(--sheet); box-shadow: 0 8px 0 var(--toy), inset 0 0 0 5px var(--grid); padding: 16px 12px; display: flex; flex-direction: column; align-items: center; gap: 8px }
+.pcard.both { box-shadow: 0 8px 0 var(--toy), inset 0 0 0 6px var(--kc); transform: scale(1.06) }
+.pcard:global(.pressing) { transform: scale(.95) }
+.pcard .pics { display: flex; align-items: flex-end; justify-content: center; width: 100%; height: clamp(90px, 18vh, 170px) }
+.pcard .pics svg { height: 100%; width: auto; max-width: 50% }
+.pcard .pn { font-size: clamp(22px, 3.8vh, 32px) }
+
+/* 미니게임 고르기 */
+.games { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 2.6vw, 28px); width: min(100%, 760px) }
+.gcard { background: var(--sheet); border-radius: 36px; box-shadow: 0 8px 0 var(--toy), inset 0 0 0 6px var(--kc); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: max(150px, min(26vh, 220px)); padding: 12px }
+.gcard:nth-child(odd) { transform: rotate(-1.5deg) } .gcard:nth-child(even) { transform: rotate(1.5deg) }
+.gcard:global(.pressing) { transform: scale(.95) }
+.gcard .gp { font-size: clamp(64px, 12vh, 110px); line-height: 1 }
+.gcard .gn { font-size: clamp(22px, 3.8vh, 32px); color: var(--kc) }
+
+/* ---------- 나눠 쓰는 화면 ---------- */
+.split { flex: 1; min-height: 0; display: flex; gap: clamp(8px, 1.2vw, 14px); padding: clamp(8px, 1.2vw, 14px) }
+.hy-right .z-hyeong { order: 3 } .hy-right .center { order: 2 } .hy-right .z-dong { order: 1 }
+.zone {
+  flex: 0 0 29%; min-width: 0; border-radius: 36px; background: var(--zb); color: var(--card-ink);
+  box-shadow: inset 0 0 0 5px var(--zc), 0 6px 0 var(--toy);
+  display: flex; flex-direction: column; align-items: center; padding: 12px; gap: 6px; position: relative;
+  transition: opacity .3s, filter .3s, box-shadow .3s;
+}
+.zone.dim { opacity: .55; filter: saturate(.6) }
+.zone.glow { box-shadow: inset 0 0 0 8px var(--zd), 0 0 0 6px rgba(255,203,47,.65), 0 6px 0 var(--toy) }
+.zone.shake .zone-body { animation: softShake .5s }
+.zone-head { display: flex; align-items: center; gap: 8px; pointer-events: none }
+.avatar { width: clamp(64px, 13vh, 130px); height: auto; display: block }
+.dun-avatar { width: clamp(80px, 16vh, 150px) }
+.zname { font-size: clamp(22px, 4vh, 34px) }
+.zone-body { flex: 1; display: flex; align-items: center; justify-content: center; width: 100%; min-height: 0 }
+.center { flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 8px }
+.stage { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; position: relative }
+
+.cbar { display: flex; align-items: center; justify-content: space-between; gap: 8px }
+.ctitle { background: var(--kc); color: #fff; border-radius: 999px; padding: 8px 18px; font-size: clamp(18px, 3vh, 24px); box-shadow: 0 4px 0 var(--toy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0 }
+.cbar :global(.stars) { height: 52px; font-size: 22px }
+
+/* 구역 안의 큰 버튼 (120px 이상) */
+.zbtn {
+  --zs: clamp(140px, 26vh, 230px);
+  width: var(--zs); height: var(--zs); border-radius: 40px; background: var(--zc); color: #fff;
+  box-shadow: 0 9px 0 var(--zd); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  transition: transform .12s;
+}
+.zbtn.round { border-radius: 50% }
+.zbtn .zi { font-size: calc(var(--zs) * .38); line-height: 1; pointer-events: none }
+.zbtn .zl { font-size: calc(var(--zs) * .17); text-shadow: 0 2px 0 rgba(0,0,0,.15); pointer-events: none }
+.zbtn.ready { animation: invite 1.3s ease-in-out infinite }
+.zbtn.on { transform: scale(1.08); box-shadow: 0 9px 0 var(--zd), 0 0 0 10px rgba(255,203,47,.75); animation: none }
+.zbtn:active { transform: translateY(5px) }
+.block-btn { background: var(--bc); box-shadow: 0 9px 0 var(--bd); border-radius: 26px }
+.zwait { font-size: clamp(56px, 10vh, 90px); opacity: .7; pointer-events: none }
+.zbtn.palm { background: var(--sheet); box-shadow: 0 9px 0 var(--toy), inset 0 0 0 6px var(--hc); border-radius: 50% }
+.zbtn.palm .zi { font-size: calc(var(--zs) * .55) }
+.zbtn.palm.flip .zi { transform: scaleX(-1) }
+
+/* 누른 자리 표시 */
+.ripple { position: fixed; width: 76px; height: 76px; margin: -38px 0 0 -38px; border-radius: 50%; border: 5px solid rgba(255,203,47,.85); pointer-events: none; z-index: 70; animation: ripple .6s ease-out forwards; display: flex; align-items: center; justify-content: center; font: 16px monospace; color: #1F2A44 }
+@keyframes ripple { from { transform: scale(.3); opacity: 1 } to { transform: scale(1.4); opacity: 0 } }
+.debug-box { position: fixed; left: 8px; bottom: 8px; background: rgba(0,0,0,.72); color: #fff; font: 13px/1.4 monospace; padding: 8px 10px; border-radius: 10px; z-index: 80; pointer-events: none; max-width: 70vw }
+
+/* ---------- 동시에 꾹 (다리) ---------- */
+.river-wrap { width: 100%; height: 100%; position: relative; display: flex; align-items: center }
+.count { position: absolute; top: 2%; left: 50%; transform: translateX(-50%); font-size: clamp(64px, 14vh, 130px); color: var(--kc); text-shadow: 0 6px 0 var(--toy); opacity: 0; z-index: 3 }
+.count.on { opacity: 1; animation: countPop .5s cubic-bezier(.3,1.7,.5,1) }
+@keyframes countPop { from { transform: translateX(-50%) scale(.3) } }
+.river { position: relative; width: 100%; height: min(62%, 340px) }
+.bank { position: absolute; top: 0; bottom: 0; width: 16%; background: #A9DB8F; box-shadow: inset 0 -8px 0 #92CC78 }
+.bank:global(.left) { left: 0; border-radius: 26px 0 0 26px } .bank:global(.right) { right: 0; border-radius: 0 26px 26px 0 }
+.bank .flag { position: absolute; top: 8%; left: 30%; font-size: clamp(28px, 5vh, 44px) }
+.water { position: absolute; left: 16%; right: 16%; top: 6%; bottom: 6%; background: linear-gradient(#A9DDF5, #7CC4E8); display: flex; flex-direction: column; justify-content: space-around; align-items: center; overflow: hidden; font-size: 28px; opacity: .95 }
+.water span { animation: propWave 3s ease-in-out infinite; color: #fff }
+.water span:nth-child(2) { animation-delay: -1s } .water span:nth-child(3) { animation-delay: -2s }
+@keyframes propWave { 50% { transform: translateX(30%) } }
+.planks { position: absolute; left: 16%; right: 16%; top: 40%; height: 22%; display: flex; gap: 4px; padding: 0 3px }
+.plank { flex: 1; border-radius: 10px; border: 3px dashed rgba(255,255,255,.85); display: flex; overflow: hidden }
+.plank.set { background: repeating-linear-gradient(90deg, #DDAE72 0 10px, #D09D5E 10px 20px); border: 3px solid #8C6A3A; animation: plankIn .45s cubic-bezier(.3,1.6,.5,1) }
+@keyframes plankIn { from { transform: translateY(-60px) scale(.6); opacity: 0 } }
+.plank.next { border-color: #fff; border-width: 4px; animation: invite 1.2s ease-in-out infinite }
+.plank .half { flex: 1; transition: background .2s }
+.plank .half.on { background: var(--hc) }
+.walker { position: absolute; bottom: 52%; width: 18%; aspect-ratio: 5/4; left: calc(16% + (var(--pos) - .5) * 13.6% - 9%); transition: left .9s cubic-bezier(.4,1.3,.6,1); z-index: 2 }
+.walker svg { width: 100%; height: 100%; display: block; animation: bob 1s ease-in-out infinite }
+.walker.done svg { animation: jump .7s cubic-bezier(.3,1.6,.5,1) infinite }
+
+/* ---------- 차례차례 탑 ---------- */
+.tower-wrap { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 6px }
+.tower { display: flex; flex-direction: column; align-items: center; gap: 3px }
+.block { width: clamp(120px, 22vw, 230px); height: clamp(34px, 7.4vh, 64px); border-radius: 14px; background: var(--bc); box-shadow: inset 0 -7px 0 var(--bd), 0 3px 0 var(--toy); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.95); font-size: clamp(18px, 3.4vh, 30px); animation: blockIn .45s cubic-bezier(.3,1.5,.5,1) }
+@keyframes blockIn { from { transform: translateY(-80px) scale(.7); opacity: 0 } }
+.block.ghost { background: transparent; box-shadow: none; border: 3px dashed var(--grid-strong); opacity: .45; animation: none }
+.top-star { width: clamp(64px, 11vh, 100px); height: auto; animation: starIn .9s cubic-bezier(.3,1.7,.5,1) both }
+@keyframes starIn { 0% { transform: scale(0) rotate(-120deg) } 70% { transform: scale(1.25) rotate(10deg) } }
+.tower-base { width: clamp(170px, 30vw, 320px); height: 18px; background: var(--brown); border-radius: 9px; box-shadow: 0 4px 0 var(--toy) }
+
+/* ---------- 같이 색칠 ---------- */
+.paper { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--sheet); border-radius: 30px; box-shadow: 0 6px 0 var(--toy); padding: 10px }
+.picture { width: 100%; height: 100%; display: block; touch-action: none }
+.region { fill: var(--rc); fill-opacity: .2; stroke: #3B3651; stroke-width: 3; stroke-dasharray: 9 6; stroke-linejoin: round; transition: fill-opacity .45s; cursor: pointer }
+.region.painted { fill-opacity: 1; stroke-dasharray: none }
+.region.want { animation: wantPulse 1s ease-in-out infinite }
+@keyframes wantPulse { 50% { fill-opacity: .6 } }
+.palette { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; align-items: center }
+.swatch { --zs: clamp(120px, 19vh, 170px); width: var(--zs); height: var(--zs); border-radius: 50%; background: var(--sw); box-shadow: 0 8px 0 var(--toy), inset 0 0 0 5px rgba(255,255,255,.7); display: flex; align-items: center; justify-content: center; font-size: calc(var(--zs) * .36); transition: transform .15s }
+.palette.n3 .swatch { --zs: clamp(120px, 15vh, 150px) }
+.swatch span { pointer-events: none }
+.swatch.sel { transform: scale(1.08); box-shadow: 0 8px 0 var(--toy), inset 0 0 0 7px #3B3651 }
+.swatch.want { animation: invite 1s ease-in-out infinite; box-shadow: 0 8px 0 var(--toy), 0 0 0 9px rgba(255,203,47,.75) }
+
+/* ---------- 짐 나르기 ---------- */
+.moving { width: 100%; height: 100%; position: relative; display: grid; grid-template-columns: 1fr 1.5fr 1fr; align-items: end; padding: 60px 0 22% }
+.house, .truck .tr { font-size: clamp(64px, 12vh, 120px); line-height: 1; text-align: center }
+.truck { display: flex; flex-direction: column; align-items: center }
+.lane { display: flex; justify-content: center; align-items: flex-end; height: 100% }
+.box { position: relative; background: #DDAE72; border: 4px solid #8C6A3A; border-radius: 12px; display: flex; align-items: center; justify-content: center; animation: blockIn .5s cubic-bezier(.3,1.5,.5,1) }
+.box.big { width: clamp(130px, 17vw, 210px); aspect-ratio: 1.15 }
+.box:global(.small) { width: clamp(76px, 9vw, 116px); aspect-ratio: 1 }
+.box .tape { position: absolute; left: 44%; width: 12%; top: 0; bottom: 0; background: #C48D50 }
+.box .hands { position: absolute; top: -48px; font-size: clamp(30px, 5vh, 42px); white-space: nowrap }
+.box.go { transform: translate(170%, -10%) scale(.4); opacity: 0; transition: transform .9s ease-in, opacity .9s ease-in }
+.box.wig { animation: wiggle .4s }
+.load { display: flex; flex-wrap: wrap-reverse; width: 110px; gap: 3px; justify-content: center; min-height: 30px }
+.load i { width: 24px; height: 24px; background: #DDAE72; border: 2px solid #8C6A3A; border-radius: 4px }
+.load i.big { width: 32px; height: 32px }
+.box-count { position: absolute; top: 6px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px }
+.box-count i { width: 24px; height: 24px; border-radius: 6px; background: var(--grid) }
+.box-count i.on { background: #DDAE72; box-shadow: inset 0 0 0 2px #8C6A3A }
+
+/* ---------- 같이 해냈다 / 하이파이브 ---------- */
+.yay { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center }
+.yay-title { font-size: clamp(38px, 7vh, 66px); color: var(--kc); text-shadow: 0 5px 0 var(--toy); animation: countPopC .6s cubic-bezier(.3,1.7,.5,1) }
+@keyframes countPopC { from { transform: scale(.3) } }
+.yay-pics { display: flex; align-items: flex-end; justify-content: center; gap: 4px }
+.yay-pics .avatar { width: clamp(80px, 15vh, 150px); animation: jump .8s cubic-bezier(.3,1.6,.5,1) infinite }
+.yay-pics .avatar:last-child { animation-delay: -.4s }
+.yay-pics .yay-dun { width: clamp(110px, 19vh, 200px); height: auto }
+.yay-pics:global(.small) .avatar { width: clamp(70px, 12vh, 120px); animation: bob 1.6s ease-in-out infinite }
+.yay-star { width: clamp(90px, 15vh, 140px); animation: starIn .9s cubic-bezier(.3,1.7,.5,1) both }
+
+/* 마무리·스티커판 */
+.finish-card { background: var(--sheet); border-radius: 40px; padding: 24px 30px; box-shadow: 0 10px 0 var(--toy), inset 0 0 0 6px var(--kc); display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: min(94vw, 680px) }
+.finish-card h2 { font-size: clamp(30px, 5vh, 44px) }
+.finish-card :global(.big-btn):global(.soft) { background: var(--chip) }
+.star-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center }
+.star-row svg { width: clamp(48px, 9vh, 76px); height: auto; animation: starIn .7s cubic-bezier(.3,1.7,.5,1) both }
+.board { gap: 16px }
+.day { width: min(100%, 900px); background: var(--sheet); border-radius: 28px; padding: 14px 18px; box-shadow: 0 5px 0 var(--toy) }
+.day h3 { font-size: 22px; color: var(--muted); margin-bottom: 6px }
+.star-grid { display: flex; flex-wrap: wrap; gap: 6px; align-items: center }
+.star-grid svg { width: 52px; height: 52px }
+.star-grid .more { font-size: 22px; color: var(--muted) }
+
+/* 멀티터치 확인 */
+.tt { text-align: center; display: flex; flex-direction: column; gap: 12px; padding: 0 10px }
+.tt-both { font-size: 32px }
+.tt-both b { font-weight: normal; color: var(--kc); font-size: 52px }
+:global(.seg).colors button { display: inline-flex; align-items: center; gap: 6px }
+:global(.seg).colors .chip { width: 22px; height: 22px; border-radius: 50%; background: var(--sw); box-shadow: inset 0 0 0 2px rgba(0,0,0,.15); display: inline-block }
+
+/* ---------- 세로 화면: 위 / 가운데 / 아래 ---------- */
+@media (max-aspect-ratio: 1/1) {
+  .split { flex-direction: column }
+  .zone { flex: 0 0 22%; flex-direction: row; padding: 10px 14px }
+  /* 왼쪽 위 「집으로 가기」 자리 비우기 (위쪽 구역) */
+  .split > :first-child { padding-left: calc(14px + var(--home-space, 0px)) }
+  .zone-head { flex-direction: column; gap: 2px }
+  .avatar { width: clamp(60px, 9vh, 110px) }
+  .zbtn { --zs: clamp(120px, 17vh, 190px) }
+  .paper { padding: 6px }
+  .swatch { --zs: clamp(120px, 15vh, 150px) }
+  .palette.n3 .swatch { --zs: 120px }
+  .block { height: clamp(26px, 4.4vh, 52px) }
+  .moving { padding: 50px 0 12% }
+  .river { height: 80% }
+}
+@media (max-height: 560px) and (min-aspect-ratio: 1/1) {
+  .avatar { width: 56px } .zname { font-size: 18px }
+  .zbtn { --zs: 120px }
+  .block { height: 30px }
+}
+
+/* 게임방 base.css 에 있는 움직임을 이 파일 안에서도 씀. 커졌다 작아지는 반복 움직임은 쓰지 않음 */
+@keyframes invite { 50% { filter: brightness(1.07) } }
+@keyframes jump { 30% { transform: translateY(-14%) rotate(-6deg) scale(1.05) } 60% { transform: translateY(0) scale(1.06,.94) } }
+@keyframes softShake { 20% { transform: translateX(-8px) } 40% { transform: translateX(8px) } 60% { transform: translateX(-4px) } 80% { transform: translateX(4px) } }
+@keyframes wiggle { 0%,100% { transform: rotate(0) } 25% { transform: rotate(-5deg) } 75% { transform: rotate(5deg) } }
+@keyframes bob { 50% { transform: translateY(-8px) rotate(2deg) } }
+
+/* 가로 화면: 왼쪽 구역 위쪽에 「집으로 가기」 자리 */
+@media (min-aspect-ratio: 1/1) { .split > :first-child { padding-top: calc(12px + var(--home-space, 0px)) } }

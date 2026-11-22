@@ -1,32 +1,24 @@
-/* 게임 공통 틀 (GameShell) */
+/* 게임 공통 틀 (GameShell) — 게임이 화면 전체를 쓰고, 집 버튼만 왼쪽 위에 떠 있음 */
 
-.shell { position: absolute; inset: 0; display: flex; flex-direction: row; background: var(--paper) }
-.rail {
-  flex: 0 0 var(--rail); display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-  padding: calc(8px + env(safe-area-inset-top, 0px)) 8px 8px calc(8px + env(safe-area-inset-left, 0px));
-  background: var(--sheet); box-shadow: 4px 0 0 var(--toy); z-index: 20;
-}
-.stage { position: relative; flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; overflow: hidden }
-@media (orientation: portrait) {
-  .shell { flex-direction: column }
-  .rail { flex-direction: row; box-shadow: 0 4px 0 var(--toy); padding: calc(8px + env(safe-area-inset-top, 0px)) 8px 8px 8px }
-}
+.shell { position: absolute; inset: 0; background: var(--paper) }
+.stage { position: absolute; inset: 0; display: flex; flex-direction: column; overflow: hidden; --home-space: calc(var(--home-size) + 8px) }
 
-/* 집으로 가기: 길게 누르면 둘레가 차오름 */
+/* 집으로 가기: 작고 반투명한 동그란 버튼 (누를 수 있는 크기는 72px 이상) */
 .home {
-  position: relative; width: var(--btn-min); height: var(--btn-min); border-radius: 50%;
-  background: var(--paper); box-shadow: 0 5px 0 var(--toy); display: flex; align-items: center; justify-content: center;
-  touch-action: none; -webkit-touch-callout: none;
+  position: absolute; z-index: 30;
+  top: calc(10px + env(safe-area-inset-top, 0px)); left: calc(10px + env(safe-area-inset-left, 0px));
+  width: var(--home-size); height: var(--home-size); border-radius: 50%;
+  background: rgba(255, 255, 255, .92); color: #3B3651;
+  box-shadow: 0 4px 0 var(--toy), 0 0 0 3px rgba(255, 255, 255, .6);
+  display: flex; align-items: center; justify-content: center;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
 }
-.homeIcon { font-size: 44px; line-height: 1; pointer-events: none }
-.ring { position: absolute; inset: -4px; width: calc(100% + 8px); height: calc(100% + 8px); transform: rotate(-90deg); pointer-events: none }
-.ring circle { fill: none; stroke: var(--green); stroke-width: 7; stroke-linecap: round; stroke-dasharray: 290; stroke-dashoffset: 290 }
-.holding { transform: translateY(3px) scale(.97) }
-.holding .ring circle { stroke-dashoffset: 0; transition: stroke-dashoffset var(--hold) linear }
+.home:global(.pressing) { transform: translateY(3px); box-shadow: 0 1px 0 var(--toy) }
+.homeIcon { width: 58%; height: 58%; pointer-events: none }
 
-/* 덮는 화면 (쉬는 시간, 돌리기 안내, 졸려요) */
+/* 덮는 화면 (쉬는 시간) */
 .cover {
-  position: absolute; inset: 0; z-index: 15; background: var(--paper); /* 집으로 가기 줄(z-index 20)은 위에 남김 */
+  position: absolute; inset: 0; z-index: 25; background: var(--paper);
   background-image: radial-gradient(var(--dot) 2.5px, transparent 3px); background-size: 30px 30px;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 24px;
   animation: fadeIn .4s ease;
@@ -36,15 +28,10 @@
 .restDots { display: flex; gap: 14px }
 .restDots i { width: 28px; height: 28px; border-radius: 50%; background: var(--chip); box-shadow: inset 0 0 0 3px var(--grid-strong) }
 .restDots i.on { background: var(--yellow); box-shadow: none }
-.rotatePic { width: min(70vw, 40vh, 360px) }
-.rotateSpin { transform-origin: 100px 64px; animation: spin 2.4s ease-in-out infinite }
-@keyframes spin { 0%, 30% { transform: rotate(0) } 60%, 100% { transform: rotate(90deg) } }
-.skip { position: absolute; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); font-size: 16px; color: var(--muted); background: var(--chip); border-radius: 14px; padding: 10px 14px }
 
 /* 1단계 게임 화면 */
 .frame { flex: 1; width: 100%; height: 100%; border: 0; display: block; background: var(--paper) }
 .loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none }
-.loading > span { width: min(40vw, 30vh, 220px); aspect-ratio: 5/4; animation: bob 1.6s ease-in-out infinite }
+.loading > span { width: min(40vw, 30vh, 220px); aspect-ratio: 5/4 }
 
 @keyframes fadeIn { from { opacity: 0 } }
-@keyframes bob { 50% { transform: translateY(-8px) rotate(2deg) } }

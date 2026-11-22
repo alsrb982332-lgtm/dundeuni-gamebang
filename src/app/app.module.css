@@ -29,7 +29,7 @@
 .whoPics svg { height: 100%; width: auto; max-width: 100% }
 .whoBoth .whoPics svg { max-width: 50% }
 .whoName { font-size: clamp(24px, 4vh, 36px) }
-@media (orientation: portrait) { .who { width: min(40vw, 26vh, 260px); aspect-ratio: auto; height: min(26vh, 300px) } }
+@media (orientation: portrait) { .who { width: min(43vw, 360px); aspect-ratio: auto; height: min(31vh, 420px) } }
 
 /* 메인 */
 .mainWrap { position: absolute; inset: 0; display: flex; flex-direction: column; animation: scIn .35s ease both }

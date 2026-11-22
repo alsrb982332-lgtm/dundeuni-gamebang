@@ -62,6 +62,7 @@ function Question({ sit, mode, choices, onPraise, onNext }: { sit: Situation; mo
   const [phase, setPhase] = useState<Phase>('story')
   const [friendMood, setFriendMood] = useState<Mood>(emo.mood)
   const [badge, setBadge] = useState<'q' | Weather | null>(null)
+  const [fx, setFx] = useState<Weather | null>(null)
   const [cardState, setCardState] = useState<Record<string, 'right' | 'wobble'>>({})
   const [actState, setActState] = useState<Record<number, 'good' | 'wobble'>>({})
   const [hi, setHi] = useState(-1)
@@ -106,6 +107,7 @@ function Question({ sit, mode, choices, onPraise, onNext }: { sit: Situation; mo
   }
 
   async function goAct() {
+    setFx(null)
     const my = ++seq.current
     setPhase('act')
     setHint(false)
@@ -141,6 +143,7 @@ function Question({ sit, mode, choices, onPraise, onNext }: { sit: Situation; mo
       sfx.ding()
       setCardState({ [id]: 'right' })
       setBadge(emo.weather)
+      setFx(emo.weather)
       setHint(false)
       await say(`right_${id}`)
       if (!alive()) return
@@ -173,6 +176,7 @@ function Question({ sit, mode, choices, onPraise, onNext }: { sit: Situation; mo
       setActState({ [i]: 'good' })
       setFriendMood('joy')
       setBadge('sun')
+      setFx('sun')
       setHint(false)
       if (a.reply) await say(`reply_${sit.id}_${(sit.actions || []).indexOf(a) + 1}`, { text: a.reply })
       else await say('good_act')
@@ -211,6 +215,7 @@ function Question({ sit, mode, choices, onPraise, onNext }: { sit: Situation; mo
         sit={sit}
         friendMood={friendMood}
         badge={badge}
+        fx={fx}
         dundunMood={cheer ? 'joy' : phase === 'feel' || phase === 'act' ? 'neutral' : 'surprised'}
         nope={nope}
         cheer={cheer}

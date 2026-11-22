@@ -4,6 +4,10 @@
 const CSS = `
 html, body { overscroll-behavior: none !important; -webkit-user-select: none; user-select: none;
   -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100% }
+/* 놀이 화면 확대·축소 막기 (두 손가락 벌리기·두 번 톡톡) — 한 손가락 움직임은 그대로 */
+html { touch-action: pan-x pan-y !important }
+/* 왼쪽 위 「집으로 가기」 자리 비워 두기 */
+.top { padding-left: 96px !important }
 img, svg { -webkit-user-drag: none }
 input, textarea { -webkit-user-select: text; user-select: text }
 `

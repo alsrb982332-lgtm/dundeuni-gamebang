@@ -25,7 +25,7 @@ const OUT = path.join(ROOT, 'public', 'legacy')
 const WORK = path.join(ROOT, '.work')
 const TODAY = new Date().toISOString().slice(0, 10)
 
-const only = process.argv.slice(2)
+const only = process.argv.slice(2).filter((a) => !a.startsWith('--'))
 const want = (id) => !only.length || only.includes(id)
 
 /** 문자열 바꾸기 — 바꿀 곳을 못 찾으면 멈춤 (원본이 바뀌었는데 모르고 넘어가지 않게) */
@@ -111,9 +111,13 @@ const HTML_GAMES = [
   },
 ]
 
+/* 2차(2026-11-22)부터 dino·trace·blocks 복사본은 public/legacy/<id>/index.html 을 직접 고침.
+   덮어쓰지 않도록 파일이 이미 있으면 건너뜀 (처음부터 다시 만들려면: npm run legacy -- --force <id>) */
+const FORCE = process.argv.includes('--force')
 function buildHtmlGames() {
   for (const g of HTML_GAMES) {
     if (!want(g.id)) continue
+    if (!FORCE && fs.existsSync(path.join(OUT, g.id, 'index.html'))) { console.log(`• public/legacy/${g.id}/ 는 직접 고친 복사본이라 건너뜀`); continue }
     let html = fs.readFileSync(path.join(LEGACY, g.src), 'utf8')
     html = commonHtml(html)
     html = g.fix(html)
@@ -129,8 +133,7 @@ function buildHtmlGames() {
 /* ---------- Vite 게임 3개 ---------- */
 const VITE_GAMES = [
   /* maeum-nalssi: 2단계로 옮김 (src/games/maeum-nalssi) → 더 이상 복사본을 만들지 않음 */
-  { id: 'hyeonga-rang', src: 'hyeonga-rang-gachi', settingsKey: 'hyeonga.settings' },
-  { id: 'banjjak-habits', src: 'banjjak-habits', settingsKey: 'banjjak.settings' },
+  /* hyeonga-rang, banjjak-habits: 2단계로 옮김 (src/games/...) → 더 이상 복사본을 만들지 않음 */
 ]
 
 /** 복사본 안의 글자 바꾸기: 실명 → 형/동생, 아이 이름 로마자 id → 중립 id */

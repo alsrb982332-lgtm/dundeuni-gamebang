@@ -1,230 +1,969 @@
 [
   {
     "id": 1,
-    "modes": ["dong", "hyeong"],
+    "modes": [
+      "dong",
+      "hyeong"
+    ],
     "story": "친구가 선물을 받았어!",
     "emotion": "happy",
     "friend": "bunny",
     "bg": "room",
-    "props": [{ "e": "🎁", "x": 64, "y": 58, "anim": "pop" }],
+    "props": [
+      {
+        "e": "🎁",
+        "x": 64,
+        "y": 58,
+        "anim": "pop"
+      }
+    ],
     "actions": [
-      { "icon": "🙏", "label": "축하한다고 말하기", "good": true, "reply": "친구가 더 기뻐졌어! 고마워!" },
-      { "icon": "🙈", "label": "모른 척하기", "good": false }
+      {
+        "icon": "🙏",
+        "label": "축하한다고 말하기",
+        "good": true,
+        "reply": "친구가 더 기뻐졌어! 고마워!"
+      },
+      {
+        "icon": "🙈",
+        "label": "모른 척하기",
+        "good": false
+      }
     ]
   },
   {
     "id": 2,
-    "modes": ["dong", "hyeong"],
+    "modes": [
+      "dong",
+      "hyeong"
+    ],
     "story": "친구가 아이스크림을 떨어뜨렸어.",
     "emotion": "sad",
     "friend": "bear",
     "bg": "park",
-    "props": [{ "e": "🍦", "x": 60, "y": 40, "anim": "fall" }],
+    "props": [
+      {
+        "e": "🍦",
+        "x": 60,
+        "y": 40,
+        "anim": "fall"
+      }
+    ],
     "actions": [
-      { "icon": "🍦", "label": "내 것 나눠 주기", "good": true, "reply": "같이 먹으니까 친구가 웃었어!" },
-      { "icon": "🙈", "label": "모른 척하기", "good": false },
-      { "icon": "🏃", "label": "혼자 놀러 가기", "good": false }
+      {
+        "icon": "🍦",
+        "label": "내 것 나눠 주기",
+        "good": true,
+        "reply": "같이 먹으니까 친구가 웃었어!"
+      },
+      {
+        "icon": "🙈",
+        "label": "모른 척하기",
+        "good": false
+      },
+      {
+        "icon": "🏃",
+        "label": "혼자 놀러 가기",
+        "good": false
+      }
     ]
   },
   {
     "id": 3,
-    "modes": ["dong", "hyeong"],
+    "modes": [
+      "dong",
+      "hyeong"
+    ],
     "story": "엄마가 친구를 꼭 안아 줬어.",
     "emotion": "happy",
     "friend": "chick",
     "bg": "room",
-    "others": [{ "kind": "cat", "x": 64, "mood": "happy", "big": true, "anim": "hug" }],
-    "props": [{ "e": "💕", "x": 50, "y": 22, "anim": "float" }],
+    "others": [
+      {
+        "kind": "mom",
+        "x": 64,
+        "mood": "happy",
+        "big": true,
+        "anim": "hug"
+      }
+    ],
+    "props": [
+      {
+        "e": "💕",
+        "x": 50,
+        "y": 22,
+        "anim": "float"
+      }
+    ],
     "actions": [
-      { "icon": "🤗", "label": "나도 안아 주기", "good": true, "reply": "따뜻하다! 친구가 활짝 웃었어!" },
-      { "icon": "🙈", "label": "모른 척하기", "good": false }
+      {
+        "icon": "🤗",
+        "label": "나도 안아 주기",
+        "good": true,
+        "reply": "따뜻하다! 친구가 활짝 웃었어!"
+      },
+      {
+        "icon": "🙈",
+        "label": "모른 척하기",
+        "good": false
+      }
     ]
   },
   {
     "id": 4,
-    "modes": ["dong", "hyeong"],
+    "modes": [
+      "dong",
+      "hyeong"
+    ],
     "story": "앗, 친구 풍선이 하늘로 날아갔어.",
     "emotion": "sad",
     "friend": "cat",
     "bg": "park",
-    "props": [{ "e": "🎈", "x": 60, "y": 30, "anim": "away" }],
+    "props": [
+      {
+        "e": "🎈",
+        "x": 60,
+        "y": 30,
+        "anim": "away"
+      }
+    ],
     "actions": [
-      { "icon": "🤲", "label": "토닥토닥 해 주기", "good": true, "reply": "토닥토닥. 친구 마음이 괜찮아졌어!" },
-      { "icon": "😝", "label": "메롱 하기", "good": false },
-      { "icon": "🙈", "label": "모른 척하기", "good": false }
+      {
+        "icon": "🤲",
+        "label": "토닥토닥 해 주기",
+        "good": true,
+        "reply": "토닥토닥. 친구 마음이 괜찮아졌어!"
+      },
+      {
+        "icon": "😝",
+        "label": "메롱 하기",
+        "good": false
+      },
+      {
+        "icon": "🙈",
+        "label": "모른 척하기",
+        "good": false
+      }
     ]
   },
   {
     "id": 5,
-    "modes": ["hyeong"],
+    "modes": [
+      "hyeong"
+    ],
     "story": "친구가 갖고 놀던 곰 인형을 다른 친구가 뺏어 갔어!",
     "emotion": "angry",
     "friend": "bear",
     "bg": "room",
-    "others": [{ "kind": "puppy", "x": 74, "mood": "neutral", "anim": "leave" }],
-    "props": [{ "e": "🧸", "x": 58, "y": 58, "anim": "snatch" }],
+    "others": [
+      {
+        "kind": "puppy",
+        "x": 74,
+        "mood": "neutral",
+        "anim": "leave"
+      }
+    ],
+    "props": [
+      {
+        "e": "🧸",
+        "x": 58,
+        "y": 58,
+        "anim": "snatch"
+      }
+    ],
     "actions": [
-      { "icon": "🗣️", "label": "\"돌려줘\" 말로 하기", "good": true, "reply": "말로 하니까 인형을 돌려받았어!" },
-      { "icon": "😤", "label": "소리 지르기", "good": false },
-      { "icon": "🙈", "label": "모른 척하기", "good": false }
+      {
+        "icon": "🗣️",
+        "label": "\"돌려줘\" 말로 하기",
+        "good": true,
+        "reply": "말로 하니까 인형을 돌려받았어!"
+      },
+      {
+        "icon": "😤",
+        "label": "소리 지르기",
+        "good": false
+      },
+      {
+        "icon": "🙈",
+        "label": "모른 척하기",
+        "good": false
+      }
     ]
   },
   {
     "id": 6,
-    "modes": ["hyeong"],
+    "modes": [
+      "hyeong"
+    ],
     "story": "친구가 블록을 높이 쌓았는데 와르르 무너졌어.",
     "emotion": "upset",
     "friend": "puppy",
     "bg": "room",
     "props": [
-      { "e": "🧱", "x": 62, "y": 62, "anim": "tumble" },
-      { "e": "🧱", "x": 66, "y": 48, "anim": "tumble" },
-      { "e": "🧱", "x": 62, "y": 34, "anim": "tumble" }
+      {
+        "e": "🧱",
+        "x": 62,
+        "y": 62,
+        "anim": "tumble"
+      },
+      {
+        "e": "🧱",
+        "x": 66,
+        "y": 48,
+        "anim": "tumble"
+      },
+      {
+        "e": "🧱",
+        "x": 62,
+        "y": 34,
+        "anim": "tumble"
+      }
     ],
     "actions": [
-      { "icon": "🧱", "label": "같이 다시 쌓기", "good": true, "reply": "같이 쌓으니까 더 높아졌어!" },
-      { "icon": "🤗", "label": "안아 주기", "good": true, "reply": "꼭 안아 주니까 친구 마음이 풀렸어!" },
-      { "icon": "🙈", "label": "모른 척하기", "good": false }
+      {
+        "icon": "🧱",
+        "label": "같이 다시 쌓기",
+        "good": true,
+        "reply": "같이 쌓으니까 더 높아졌어!"
+      },
+      {
+        "icon": "🤗",
+        "label": "안아 주기",
+        "good": true,
+        "reply": "꼭 안아 주니까 친구 마음이 풀렸어!"
+      },
+      {
+        "icon": "🙈",
+        "label": "모른 척하기",
+        "good": false
+      }
     ]
   },
   {
     "id": 7,
-    "modes": ["hyeong"],
+    "modes": [
+      "hyeong"
+    ],
     "story": "친구가 깜깜한 방에 혼자 있어.",
     "emotion": "scared",
     "friend": "chick",
     "bg": "night",
-    "props": [{ "e": "🌙", "x": 80, "y": 18, "anim": "none" }],
+    "props": [
+      {
+        "e": "🌙",
+        "x": 80,
+        "y": 18,
+        "anim": "none"
+      }
+    ],
     "actions": [
-      { "icon": "💡", "label": "불 켜 주기", "good": true, "reply": "불을 켜니까 환해졌어! 이제 안 무서워!" },
-      { "icon": "🤝", "label": "손잡아 주기", "good": true, "reply": "손을 꼭 잡으니까 친구가 안심했어!" },
-      { "icon": "👻", "label": "왁! 놀라게 하기", "good": false }
+      {
+        "icon": "💡",
+        "label": "불 켜 주기",
+        "good": true,
+        "reply": "불을 켜니까 환해졌어! 이제 안 무서워!"
+      },
+      {
+        "icon": "🤝",
+        "label": "손잡아 주기",
+        "good": true,
+        "reply": "손을 꼭 잡으니까 친구가 안심했어!"
+      },
+      {
+        "icon": "👻",
+        "label": "왁! 놀라게 하기",
+        "good": false
+      }
     ]
   },
   {
     "id": 8,
-    "modes": ["hyeong"],
+    "modes": [
+      "hyeong"
+    ],
     "story": "상자를 열었더니 강아지가 펄쩍 튀어나왔어!",
     "emotion": "surprised",
     "friend": "cat",
     "bg": "room",
     "props": [
-      { "e": "📦", "x": 64, "y": 64, "anim": "wobble" },
-      { "e": "🐶", "x": 64, "y": 44, "anim": "jack" }
+      {
+        "e": "📦",
+        "x": 64,
+        "y": 64,
+        "anim": "wobble"
+      },
+      {
+        "e": "🐶",
+        "x": 64,
+        "y": 44,
+        "anim": "jack"
+      }
     ],
     "actions": [
-      { "icon": "😄", "label": "같이 웃어 주기", "good": true, "reply": "하하하! 친구도 같이 웃었어!" },
-      { "icon": "🙈", "label": "모른 척하기", "good": false }
+      {
+        "icon": "😄",
+        "label": "같이 웃어 주기",
+        "good": true,
+        "reply": "하하하! 친구도 같이 웃었어!"
+      },
+      {
+        "icon": "🙈",
+        "label": "모른 척하기",
+        "good": false
+      }
     ]
   },
   {
     "id": 9,
-    "modes": ["hyeong"],
+    "modes": [
+      "hyeong"
+    ],
     "story": "친구가 미끄럼틀을 타고 싶은데 차례를 기다려야 해.",
     "emotion": "upset",
     "friend": "bunny",
     "bg": "park",
-    "others": [{ "kind": "puppy", "x": 82, "mood": "happy", "anim": "none" }],
-    "props": [{ "e": "svg:slide", "x": 70, "y": 50, "anim": "none" }],
+    "others": [
+      {
+        "kind": "puppy",
+        "x": 82,
+        "mood": "happy",
+        "anim": "none"
+      }
+    ],
+    "props": [
+      {
+        "e": "svg:slide",
+        "x": 70,
+        "y": 50,
+        "anim": "none"
+      }
+    ],
     "actions": [
-      { "icon": "🗣️", "label": "\"다음은 네 차례야\" 말해 주기", "good": true, "reply": "조금 기다리면 탈 수 있지! 친구가 기다려 줬어!" },
-      { "icon": "🏃", "label": "새치기하기", "good": false }
+      {
+        "icon": "🗣️",
+        "label": "\"다음은 네 차례야\" 말해 주기",
+        "good": true,
+        "reply": "조금 기다리면 탈 수 있지! 친구가 기다려 줬어!"
+      },
+      {
+        "icon": "🏃",
+        "label": "새치기하기",
+        "good": false
+      }
     ]
   },
   {
     "id": 10,
-    "modes": ["hyeong"],
+    "modes": [
+      "hyeong"
+    ],
     "story": "{동생가} 넘어져서 울어.",
     "ask": "{동생} 기분이 어떨까?",
     "emotion": "sad",
     "friend": "동생",
     "bg": "park",
-    "props": [{ "e": "💥", "x": 58, "y": 70, "anim": "pop" }],
+    "props": [
+      {
+        "e": "💥",
+        "x": 58,
+        "y": 70,
+        "anim": "pop"
+      }
+    ],
     "actions": [
-      { "icon": "🙌", "label": "일으켜 주기", "good": true, "reply": "영차! {동생가} 다시 일어났어!" },
-      { "icon": "💬", "label": "\"괜찮아?\" 물어보기", "good": true, "reply": "괜찮아? 하고 물어보니까 {동생가} 웃었어!" },
-      { "icon": "🙈", "label": "모른 척하기", "good": false }
+      {
+        "icon": "🙌",
+        "label": "일으켜 주기",
+        "good": true,
+        "reply": "영차! {동생가} 다시 일어났어!"
+      },
+      {
+        "icon": "💬",
+        "label": "\"괜찮아?\" 물어보기",
+        "good": true,
+        "reply": "괜찮아? 하고 물어보니까 {동생가} 웃었어!"
+      },
+      {
+        "icon": "🙈",
+        "label": "모른 척하기",
+        "good": false
+      }
     ],
     "badReply": "{동생가} 아직 슬픈가 봐. 다른 걸 해 볼까?"
   },
   {
     "id": 11,
-    "modes": ["hyeong"],
+    "modes": [
+      "hyeong"
+    ],
     "story": "친구가 {형}의 그림을 보고 멋지다고 칭찬해 줬어!",
     "ask": "{형} 기분은 어떨까?",
     "emotion": "happy",
     "friend": "형",
     "bg": "room",
-    "others": [{ "kind": "chick", "x": 78, "mood": "happy", "anim": "none" }],
-    "props": [{ "e": "🖼️", "x": 60, "y": 40, "anim": "pop" }],
+    "others": [
+      {
+        "kind": "chick",
+        "x": 78,
+        "mood": "happy",
+        "anim": "none"
+      }
+    ],
+    "props": [
+      {
+        "e": "🖼️",
+        "x": 60,
+        "y": 40,
+        "anim": "pop"
+      }
+    ],
     "actions": [
-      { "icon": "🎨", "label": "친구 그림도 칭찬하기", "good": true, "reply": "서로 칭찬하니까 둘 다 기뻐졌어!" },
-      { "icon": "🙈", "label": "모른 척하기", "good": false }
+      {
+        "icon": "🎨",
+        "label": "친구 그림도 칭찬하기",
+        "good": true,
+        "reply": "서로 칭찬하니까 둘 다 기뻐졌어!"
+      },
+      {
+        "icon": "🙈",
+        "label": "모른 척하기",
+        "good": false
+      }
     ]
   },
   {
     "id": 12,
-    "modes": ["hyeong"],
+    "modes": [
+      "hyeong"
+    ],
     "story": "우르릉 쾅! 큰 천둥소리가 났어.",
     "emotion": "scared",
     "friend": "bear",
     "bg": "storm",
-    "props": [{ "e": "⚡", "x": 76, "y": 18, "anim": "rumble" }],
+    "props": [
+      {
+        "e": "⚡",
+        "x": 76,
+        "y": 18,
+        "anim": "rumble"
+      }
+    ],
     "actions": [
-      { "icon": "🏠", "label": "엄마 아빠에게 가기", "good": true, "reply": "엄마 아빠 품에 안기니까 안 무서워!" },
-      { "icon": "🤝", "label": "손잡아 주기", "good": true, "reply": "손을 잡아 주니까 용기가 생겼어!" },
-      { "icon": "😆", "label": "겁쟁이라고 놀리기", "good": false }
+      {
+        "icon": "🏠",
+        "label": "엄마 아빠에게 가기",
+        "good": true,
+        "reply": "엄마 아빠 품에 안기니까 안 무서워!"
+      },
+      {
+        "icon": "🤝",
+        "label": "손잡아 주기",
+        "good": true,
+        "reply": "손을 잡아 주니까 용기가 생겼어!"
+      },
+      {
+        "icon": "😆",
+        "label": "겁쟁이라고 놀리기",
+        "good": false
+      }
     ]
   },
   {
     "id": 13,
-    "modes": ["hyeong"],
+    "modes": [
+      "hyeong"
+    ],
     "story": "{형가} 열심히 만든 모래성이 파도에 무너졌어.",
     "ask": "{형} 기분은 어떨까?",
     "emotion": "upset",
     "friend": "형",
     "bg": "beach",
     "props": [
-      { "e": "🏰", "x": 64, "y": 60, "anim": "tumble" },
-      { "e": "🌊", "x": 84, "y": 64, "anim": "wave" }
+      {
+        "e": "🏰",
+        "x": 64,
+        "y": 60,
+        "anim": "tumble"
+      },
+      {
+        "e": "🌊",
+        "x": 84,
+        "y": 64,
+        "anim": "wave"
+      }
     ],
     "actions": [
-      { "icon": "🏰", "label": "같이 다시 만들기", "good": true, "reply": "같이 만드니까 더 멋진 성이 됐어!" },
-      { "icon": "🤲", "label": "토닥토닥 해 주기", "good": true, "reply": "토닥토닥. {형가} 다시 힘이 났어!" },
-      { "icon": "😝", "label": "메롱 하기", "good": false }
+      {
+        "icon": "🏰",
+        "label": "같이 다시 만들기",
+        "good": true,
+        "reply": "같이 만드니까 더 멋진 성이 됐어!"
+      },
+      {
+        "icon": "🤲",
+        "label": "토닥토닥 해 주기",
+        "good": true,
+        "reply": "토닥토닥. {형가} 다시 힘이 났어!"
+      },
+      {
+        "icon": "😝",
+        "label": "메롱 하기",
+        "good": false
+      }
     ],
     "badReply": "{형가} 아직 속상한가 봐. 다른 걸 해 볼까?"
   },
   {
     "id": 14,
-    "modes": ["dong", "hyeong"],
+    "modes": [
+      "dong",
+      "hyeong"
+    ],
     "story": "{형가} 비눗방울을 후~ 불었어. 비눗방울이 둥실둥실!",
     "ask": "{형} 기분은 어떨까?",
     "emotion": "happy",
     "friend": "형",
     "bg": "park",
     "props": [
-      { "e": "svg:bubble", "x": 62, "y": 40, "anim": "float" },
-      { "e": "svg:bubble", "x": 74, "y": 30, "anim": "float" }
+      {
+        "e": "svg:bubble",
+        "x": 62,
+        "y": 40,
+        "anim": "float"
+      },
+      {
+        "e": "svg:bubble",
+        "x": 74,
+        "y": 30,
+        "anim": "float"
+      }
     ],
     "actions": [
-      { "icon": "svg:bubble", "label": "같이 비눗방울 불기", "good": true, "reply": "같이 부니까 비눗방울이 더 많아졌어!" },
-      { "icon": "👊", "label": "비눗방울 다 터뜨리기", "good": false }
+      {
+        "icon": "svg:bubble",
+        "label": "같이 비눗방울 불기",
+        "good": true,
+        "reply": "같이 부니까 비눗방울이 더 많아졌어!"
+      },
+      {
+        "icon": "👊",
+        "label": "비눗방울 다 터뜨리기",
+        "good": false
+      }
     ]
   },
   {
     "id": 15,
-    "modes": ["dong", "hyeong"],
+    "modes": [
+      "dong",
+      "hyeong"
+    ],
     "story": "{동생가} 좋아하는 토끼 인형을 잃어버렸어.",
     "ask": "{동생} 기분이 어떨까?",
     "emotion": "sad",
     "friend": "동생",
     "bg": "room",
-    "props": [{ "e": "❓", "x": 64, "y": 36, "anim": "float" }],
+    "props": [
+      {
+        "e": "❓",
+        "x": 64,
+        "y": 36,
+        "anim": "float"
+      }
+    ],
     "actions": [
-      { "icon": "🔍", "label": "같이 찾아 주기", "good": true, "reply": "찾았다! 인형이 소파 밑에 있었어!" },
-      { "icon": "🙈", "label": "모른 척하기", "good": false }
+      {
+        "icon": "🔍",
+        "label": "같이 찾아 주기",
+        "good": true,
+        "reply": "찾았다! 인형이 소파 밑에 있었어!"
+      },
+      {
+        "icon": "🙈",
+        "label": "모른 척하기",
+        "good": false
+      }
     ],
     "badReply": "{동생가} 아직 슬픈가 봐. 다른 걸 해 볼까?"
+  },
+  {
+    "id": 16,
+    "modes": [
+      "dong",
+      "hyeong"
+    ],
+    "story": "할머니가 맛있는 떡을 만들어 주셨어!",
+    "ask": "할머니 기분은 어떨까?",
+    "emotion": "happy",
+    "friend": "grandma",
+    "bg": "room",
+    "props": [
+      {
+        "e": "🍡",
+        "x": 66,
+        "y": 56,
+        "anim": "pop"
+      }
+    ],
+    "actions": [
+      {
+        "icon": "🙏",
+        "label": "\"잘 먹겠습니다!\" 인사하기",
+        "good": true,
+        "reply": "할머니가 활짝 웃으셨어!"
+      },
+      {
+        "icon": "🙈",
+        "label": "인사 안 하고 먹기",
+        "good": false
+      }
+    ],
+    "badReply": "할머니가 조금 서운하신가 봐. 다른 걸 해 볼까?"
+  },
+  {
+    "id": 17,
+    "modes": [
+      "hyeong"
+    ],
+    "story": "할머니가 안경을 잃어버리셨어.",
+    "ask": "할머니 기분은 어떨까?",
+    "emotion": "upset",
+    "friend": "grandma",
+    "bg": "room",
+    "props": [
+      {
+        "e": "❓",
+        "x": 68,
+        "y": 30,
+        "anim": "float"
+      }
+    ],
+    "actions": [
+      {
+        "icon": "🔍",
+        "label": "같이 찾아 드리기",
+        "good": true,
+        "reply": "찾았다! 할머니가 고맙다고 하셨어!"
+      },
+      {
+        "icon": "🙈",
+        "label": "모른 척하기",
+        "good": false
+      },
+      {
+        "icon": "🏃",
+        "label": "혼자 놀러 가기",
+        "good": false
+      }
+    ],
+    "badReply": "할머니가 아직 속상하신가 봐. 다른 걸 해 볼까?"
+  },
+  {
+    "id": 18,
+    "modes": [
+      "dong",
+      "hyeong"
+    ],
+    "story": "할아버지 생신이라 케이크를 받으셨어!",
+    "ask": "할아버지 기분은 어떨까?",
+    "emotion": "happy",
+    "friend": "grandpa",
+    "bg": "room",
+    "props": [
+      {
+        "e": "🎂",
+        "x": 66,
+        "y": 58,
+        "anim": "pop"
+      },
+      {
+        "e": "🎈",
+        "x": 84,
+        "y": 24,
+        "anim": "float"
+      }
+    ],
+    "actions": [
+      {
+        "icon": "🎵",
+        "label": "생신 축하 노래 불러 드리기",
+        "good": true,
+        "reply": "할아버지가 박수를 치며 좋아하셨어!"
+      },
+      {
+        "icon": "🙈",
+        "label": "모른 척하기",
+        "good": false
+      }
+    ],
+    "badReply": "할아버지가 조금 서운하신가 봐. 다른 걸 해 볼까?"
+  },
+  {
+    "id": 19,
+    "modes": [
+      "dong",
+      "hyeong"
+    ],
+    "story": "엄마가 아끼던 컵이 깨졌어.",
+    "ask": "엄마 기분은 어떨까?",
+    "emotion": "sad",
+    "friend": "mom",
+    "bg": "room",
+    "props": [
+      {
+        "e": "☕",
+        "x": 66,
+        "y": 62,
+        "anim": "tumble"
+      }
+    ],
+    "actions": [
+      {
+        "icon": "🤗",
+        "label": "엄마 안아 드리기",
+        "good": true,
+        "reply": "엄마가 고마워, 하고 꼭 안아 주셨어!"
+      },
+      {
+        "icon": "🧹",
+        "label": "어른이랑 같이 치우기",
+        "good": true,
+        "reply": "조심조심! 엄마가 도와줘서 고맙대!"
+      },
+      {
+        "icon": "🙈",
+        "label": "모른 척하기",
+        "good": false
+      }
+    ],
+    "badReply": "엄마가 아직 슬프신가 봐. 다른 걸 해 볼까?"
+  },
+  {
+    "id": 20,
+    "modes": [
+      "hyeong"
+    ],
+    "story": "아빠가 상자를 열었더니 생일 선물이 짠!",
+    "ask": "아빠 기분은 어떨까?",
+    "emotion": "surprised",
+    "friend": "dad",
+    "bg": "room",
+    "props": [
+      {
+        "e": "🎁",
+        "x": 66,
+        "y": 58,
+        "anim": "jack"
+      }
+    ],
+    "actions": [
+      {
+        "icon": "🎉",
+        "label": "\"아빠 생일 축하해요!\" 말하기",
+        "good": true,
+        "reply": "아빠가 번쩍 안아 주셨어!"
+      },
+      {
+        "icon": "🙈",
+        "label": "모른 척하기",
+        "good": false
+      }
+    ],
+    "badReply": "아빠가 조금 서운하신가 봐. 다른 걸 해 볼까?"
+  },
+  {
+    "id": 21,
+    "modes": [
+      "hyeong"
+    ],
+    "story": "친구들이 너무 시끄러워서 선생님 이야기가 안 들려.",
+    "ask": "선생님 기분은 어떨까?",
+    "emotion": "upset",
+    "friend": "teacher",
+    "bg": "room",
+    "others": [
+      {
+        "kind": "chick",
+        "x": 72,
+        "mood": "happy",
+        "anim": "wobble"
+      }
+    ],
+    "props": [
+      {
+        "e": "📢",
+        "x": 84,
+        "y": 30,
+        "anim": "rumble"
+      }
+    ],
+    "actions": [
+      {
+        "icon": "🤫",
+        "label": "조용히 귀 기울이기",
+        "good": true,
+        "reply": "선생님이 고마워, 하고 웃으셨어!"
+      },
+      {
+        "icon": "📣",
+        "label": "더 크게 떠들기",
+        "good": false
+      }
+    ],
+    "badReply": "선생님이 아직 속상하신가 봐. 다른 걸 해 볼까?"
+  },
+  {
+    "id": 22,
+    "modes": [
+      "dong",
+      "hyeong"
+    ],
+    "story": "선생님이 우리가 그린 그림을 보고 칭찬하셨어!",
+    "ask": "선생님 기분은 어떨까?",
+    "emotion": "happy",
+    "friend": "teacher",
+    "bg": "room",
+    "props": [
+      {
+        "e": "🖼️",
+        "x": 68,
+        "y": 40,
+        "anim": "pop"
+      }
+    ],
+    "actions": [
+      {
+        "icon": "🙇",
+        "label": "\"고맙습니다!\" 인사하기",
+        "good": true,
+        "reply": "선생님이 엄지를 척 올려 주셨어!"
+      },
+      {
+        "icon": "🙈",
+        "label": "모른 척하기",
+        "good": false
+      }
+    ],
+    "badReply": "선생님이 조금 서운하신가 봐. 다른 걸 해 볼까?"
+  },
+  {
+    "id": 23,
+    "modes": [
+      "hyeong"
+    ],
+    "story": "{형가} 만든 블록 성을 {동생가} 실수로 무너뜨렸어.",
+    "ask": "{형} 기분은 어떨까?",
+    "emotion": "angry",
+    "friend": "형",
+    "bg": "room",
+    "others": [
+      {
+        "kind": "동생",
+        "x": 72,
+        "mood": "scared"
+      }
+    ],
+    "props": [
+      {
+        "e": "🧱",
+        "x": 56,
+        "y": 66,
+        "anim": "tumble"
+      },
+      {
+        "e": "🧱",
+        "x": 60,
+        "y": 60,
+        "anim": "tumble"
+      }
+    ],
+    "actions": [
+      {
+        "icon": "🙏",
+        "label": "\"미안해\" 하고 같이 다시 쌓기",
+        "good": true,
+        "reply": "{형가} 괜찮아, 하고 같이 쌓았어!"
+      },
+      {
+        "icon": "😤",
+        "label": "더 무너뜨리기",
+        "good": false
+      }
+    ],
+    "badReply": "{형가} 아직 화가 났나 봐. 다른 걸 해 볼까?"
+  },
+  {
+    "id": 24,
+    "modes": [
+      "dong",
+      "hyeong"
+    ],
+    "story": "{동생가} 처음으로 혼자 신발을 신었어!",
+    "ask": "{동생} 기분은 어떨까?",
+    "emotion": "happy",
+    "friend": "동생",
+    "bg": "park",
+    "props": [
+      {
+        "e": "👟",
+        "x": 62,
+        "y": 72,
+        "anim": "pop"
+      }
+    ],
+    "actions": [
+      {
+        "icon": "👏",
+        "label": "박수 치며 칭찬해 주기",
+        "good": true,
+        "reply": "{동생가} 으쓱으쓱 신이 났어!"
+      },
+      {
+        "icon": "🙈",
+        "label": "모른 척하기",
+        "good": false
+      }
+    ],
+    "badReply": "{동생가} 조금 서운한가 봐. 다른 걸 해 볼까?"
+  },
+  {
+    "id": 25,
+    "modes": [
+      "dong",
+      "hyeong"
+    ],
+    "story": "아빠가 출장 가셔서 오늘은 못 만나.",
+    "ask": "아빠 기분은 어떨까?",
+    "emotion": "sad",
+    "friend": "dad",
+    "bg": "night",
+    "props": [
+      {
+        "e": "🧳",
+        "x": 66,
+        "y": 64,
+        "anim": "none"
+      },
+      {
+        "e": "🌙",
+        "x": 82,
+        "y": 20,
+        "anim": "float"
+      }
+    ],
+    "actions": [
+      {
+        "icon": "📞",
+        "label": "영상 통화로 \"사랑해요\" 말하기",
+        "good": true,
+        "reply": "아빠가 하트를 보내 주셨어!"
+      },
+      {
+        "icon": "🙈",
+        "label": "모른 척하기",
+        "good": false
+      }
+    ],
+    "badReply": "아빠가 아직 보고 싶으신가 봐. 다른 걸 해 볼까?"
   }
 ]

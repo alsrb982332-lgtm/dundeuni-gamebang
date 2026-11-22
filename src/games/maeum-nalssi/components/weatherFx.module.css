@@ -1,0 +1,38 @@
+/* 날씨 효과 (장면 위에 겹침, 누르기는 막지 않음). 번쩍임 없이 천천히 */
+.fx { position: absolute; inset: 0; pointer-events: none; z-index: 5; overflow: hidden; border-radius: inherit; animation: fxOut 3.4s ease forwards }
+@keyframes fxOut { 0%, 80% { opacity: 1 } 100% { opacity: 0 } }
+
+/* 해 */
+.warm { position: absolute; inset: 0; background: radial-gradient(circle at 78% 18%, rgba(255, 221, 120, .65), rgba(255, 236, 170, .25) 45%, transparent 70%); animation: warmIn 1.2s ease both }
+@keyframes warmIn { from { opacity: 0 } }
+.sunBig { position: absolute; right: 4%; top: 4%; width: 34%; height: auto; animation: sunUp 1.2s cubic-bezier(.3, 1.4, .5, 1) both, spin 12s linear 1.2s infinite }
+@keyframes sunUp { from { transform: translateY(60%) scale(.4); opacity: 0 } }
+@keyframes spin { from { transform: rotate(0) } to { transform: rotate(360deg) } }
+.sparkle { position: absolute; color: #FFD84D; font-size: clamp(18px, 3vw, 30px); text-shadow: 0 0 6px rgba(255, 255, 255, .9); opacity: 0; animation: twinkle 1.4s ease-in-out both }
+@keyframes twinkle { 30% { opacity: 1; transform: scale(1.2) } 100% { opacity: 0; transform: scale(.6) translateY(-20px) } }
+
+/* 비 · 천둥 */
+.dim { position: absolute; inset: 0; background: linear-gradient(rgba(70, 90, 130, .28), rgba(70, 90, 130, .08)); animation: warmIn .8s ease both }
+.drop { position: absolute; top: -12%; width: 4px; height: 7%; border-radius: 4px; background: linear-gradient(transparent, #7DB7EE); animation: fall 1.1s linear infinite }
+@keyframes fall { to { transform: translateY(1500%) } }
+.cloudL, .cloudR { position: absolute; top: -2%; width: 30%; height: auto; animation: cloudIn 1s ease both }
+.cloudL { left: 4% }
+.cloudR { right: 6%; width: 24%; animation-delay: .2s }
+@keyframes cloudIn { from { transform: translateY(-80%); opacity: 0 } }
+.thunder .cloudL, .thunder .cloudR { animation: cloudIn 1s ease both, rumble .5s ease-in-out .9s 3 }
+@keyframes rumble { 25% { transform: translateX(-4px) } 75% { transform: translateX(4px) } }
+
+/* 안개 */
+.band { position: absolute; left: -60%; width: 120%; height: 18%; border-radius: 999px; background: radial-gradient(ellipse at center, rgba(235, 228, 252, .95), rgba(235, 228, 252, 0) 70%); animation: driftR 3.2s ease-in-out both }
+@keyframes driftR { from { transform: translateX(0); opacity: 0 } 30% { opacity: 1 } to { transform: translateX(70%) } }
+
+/* 무지개 */
+.arc { position: absolute; left: 8%; right: 8%; bottom: 18%; width: 84%; height: auto }
+.arc path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.2s ease forwards }
+@keyframes draw { to { stroke-dashoffset: 0 } }
+
+/* 구름 */
+.drift { position: absolute; left: -35%; height: auto; opacity: .95; animation: driftC 3.2s ease-in-out both }
+@keyframes driftC { to { transform: translateX(420%) } }
+
+@media (prefers-reduced-motion: reduce) { .fx * { animation-duration: .01ms !important; animation-iteration-count: 1 !important } }

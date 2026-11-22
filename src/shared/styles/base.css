@@ -169,6 +169,12 @@ svg { overflow: visible }
 :root {
   --btn-min: 96px;   /* 아이가 누르는 버튼 최소 크기 */
   --btn-coop: 120px; /* 협동 게임·습관 카드 */
-  --rail: 112px;     /* 게임 화면 「집으로 가기」 자리 (가로 화면: 왼쪽 세로 줄, 세로 화면: 위쪽 가로 줄) */
+  --home-size: 76px; /* 게임 화면 왼쪽 위에 떠 있는 「집으로 가기」 */
   --gap: 24px;
 }
+
+/* 게임 화면 안의 위 막대는 왼쪽 위 「집으로 가기」 자리를 비워 둠 */
+:root { --home-space: 0px }
+.top { padding-left: calc(16px + var(--home-space)) }
+/* 커졌다 작아졌다 반복하는 움직임은 산만해서 쓰지 않음 */
+.big-btn.bounce { animation: none }

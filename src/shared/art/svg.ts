@@ -12,7 +12,6 @@ const Ef = (cx: number, cy: number, rx: number, ry: number, f: string, op = 1) =
   `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="${f}" opacity="${op}"/>`
 const P = (d: string, f: string, w = 3) => `<path d="${d}" fill="${f}" ${st(w)}/>`
 const L = (d: string, c = OUT, w = 3) => `<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`
-const limb = (d: string, c: string, w: number) => L(d, OUT, w + 6) + L(d, c, w)
 
 export type Mood = 'neutral' | 'happy' | 'joy' | 'sad' | 'angry' | 'scared' | 'surprised' | 'upset' | 'sleepy'
 
@@ -74,32 +73,73 @@ export function face(x1: number, x2: number, y: number, r: number, my: number, m
   return s
 }
 
+/* ---------- 그림 공통 (2차): 부드러운 외곽선 · 그라데이션 · 하이라이트 · 그림자 ----------
+   외곽선을 검정 대신 몸 색을 진하게 한 색으로, 몸은 위쪽이 밝은 그라데이션 → 더 자연스럽고 말랑해 보이게 */
+function hexToRgb(h: string) { const n = parseInt(h.slice(1), 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255] }
+/** k < 0 이면 어둡게, k > 0 이면 밝게 */
+export function shade(h: string, k: number) {
+  const f = (v: number) => Math.max(0, Math.min(255, Math.round(k < 0 ? v * (1 + k) : v + (255 - v) * k)))
+  return '#' + hexToRgb(h).map((v) => f(v).toString(16).padStart(2, '0')).join('')
+}
+const gradId = (b: string) => 'ddg' + b.slice(1).toLowerCase()
+/** 같은 색이면 같은 id 라서 화면에 여러 개 있어도 문제없음 */
+const grad = (b: string) =>
+  `<defs><radialGradient id="${gradId(b)}" cx="36%" cy="28%" r="78%"><stop offset="0" stop-color="${shade(b, 0.38)}"/><stop offset=".6" stop-color="${b}"/><stop offset="1" stop-color="${shade(b, -0.1)}"/></radialGradient></defs>`
+const fillOf = (b: string) => `url(#${gradId(b)})`
+const so = (o: string, w = 3) => `stroke="${o}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"`
+const Eo = (cx: number, cy: number, rx: number, ry: number, f: string, o: string, rot = 0, w = 3) =>
+  `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="${f}" ${so(o, w)}${rot ? ` transform="rotate(${rot} ${cx} ${cy})"` : ''}/>`
+const Po = (d: string, f: string, o: string, w = 3) => `<path d="${d}" fill="${f}" ${so(o, w)}/>`
+const Lo = (d: string, c: string, w = 3) => `<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`
+const limbO = (d: string, c: string, o: string, w: number) => Lo(d, o, w + 5) + Lo(d, c, w)
+const shine = (cx: number, cy: number, rx: number, ry: number, rot = -24, op = 0.5) =>
+  `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="#fff" opacity="${op}" transform="rotate(${rot} ${cx} ${cy})"/>`
+const groundShadow = (cx: number, cy: number, rx: number) => `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${rx * 0.16}" fill="#1F2A44" opacity=".09"/>`
+
 /* ---------- 든든이 (초록 아기 공룡) ---------- */
-const DUN = { b: '#7DD08A', d: '#56B266', l: '#E4F7D8', h: '#FFCB2F' }
+const DUN = { b: '#7DD08A', d: '#5BB56B', l: '#EAF9E0', h: '#FFC93C' }
 export function dundunSVG(mood: Mood = 'neutral', wave = false) {
   const p = DUN
-  const spikes = (pts: number[][]) => pts.map(([x, y, h]) => P(`M${x - 9} ${y + 10} L${x} ${y - h} L${x + 9} ${y + 10} Z`, p.h)).join('')
+  const o = shade(p.b, -0.55)
+  const f = fillOf(p.b)
+  const ho = shade(p.h, -0.42)
+  const spike = (x: number, y: number, h: number, tilt = 0) => Po(`M${x - 10} ${y + 10} Q${x + tilt} ${y - h} ${x + 10} ${y + 10} Z`, p.h, ho, 2.5)
   return (
-    P('M60 118 Q26 124 12 100 Q32 108 62 100 Z', p.b) +
-    [[64, 82, 12], [78, 70, 14]].map(([x, y, h]) => P(`M${x - 9} ${y + 8} L${x - 2} ${y - h} L${x + 10} ${y + 4} Z`, p.h)).join('') +
-    E(96, 108, 44, 38, p.b) + Ef(106, 118, 26, 23, p.l) +
-    E(80, 146, 15, 8, p.d) + E(118, 146, 15, 8, p.d) +
-    (wave ? limb('M130 108 q14 -10 16 -28', p.b, 8) : limb('M128 112 q10 2 12 10', p.b, 8)) +
-    spikes([[96, 34, 14], [114, 24, 15], [134, 25, 14]]) +
-    E(124, 62, 40, 34, p.b) +
+    grad(p.b) +
+    groundShadow(100, 153, 52) +
+    Po('M62 116 Q30 128 8 104 Q34 110 66 98 Z', f, o) +
+    spike(40, 106, 8, -4) + spike(62, 92, 12, -3) + spike(80, 76, 14, -2) +
+    Eo(96, 108, 44, 38, f, o) + Ef(104, 119, 26, 22, p.l) +
+    Eo(78, 146, 15, 8, p.d, o) + Eo(118, 146, 15, 8, p.d, o) +
+    (wave ? limbO('M130 106 q14 -10 16 -28', p.b, o, 8) : limbO('M128 112 q10 2 12 10', p.b, o, 8)) +
+    spike(98, 34, 14, -2) + spike(116, 25, 16) + spike(136, 27, 14, 2) +
+    Eo(124, 62, 40, 34, f, o) +
+    shine(108, 42, 13, 6) + shine(80, 90, 11, 5, -30, 0.35) +
     face(110, 140, 58, 8.5, 77, mood)
   )
 }
 
-export type Kind = 'bear' | 'bunny' | 'chick' | 'cat' | 'puppy'
-export const KIND_COLORS: Record<Kind, { b: string; d: string; l: string }> = {
+/* ---------- 친구들 + 어른들 ----------
+   어른(엄마·아빠·선생님·할아버지·할머니)은 동물 친구 모양에 소품(안경·리본·넥타이·수염·머리 쪽)을 더해 구분 */
+export type BaseKind = 'bear' | 'bunny' | 'chick' | 'cat' | 'puppy'
+export type AdultKind = 'mom' | 'dad' | 'teacher' | 'grandpa' | 'grandma'
+export type Kind = BaseKind | AdultKind
+type Col = { b: string; d: string; l: string }
+export const KIND_COLORS: Record<Kind, Col> = {
   bear: { b: '#9CCBF2', d: '#6EA6DA', l: '#E3F1FC' },
   bunny: { b: '#C6E58A', d: '#9CC35A', l: '#F0F9DC' },
   chick: { b: '#FBDD72', d: '#E5BC3E', l: '#FFF6D2' },
   cat: { b: '#F6B4CF', d: '#DE86AC', l: '#FDE6F0' },
   puppy: { b: '#E2BE94', d: '#C29765', l: '#F7E8D6' },
+  mom: { b: '#F7BACB', d: '#E290A7', l: '#FDE9EF' },
+  dad: { b: '#A9C3E6', d: '#7E9DCB', l: '#E7EFFA' },
+  teacher: { b: '#CDB6F2', d: '#A68BDB', l: '#EFE7FC' },
+  grandpa: { b: '#DCCAB2', d: '#B9A386', l: '#F5EEE4' },
+  grandma: { b: '#EAD8EE', d: '#C9AECF', l: '#F9F2FA' },
 }
-export const PALETTE: Record<string, { b: string; d: string; l: string }> = {
+const ADULT_BASE: Record<AdultKind, BaseKind> = { mom: 'cat', dad: 'bear', teacher: 'bunny', grandpa: 'puppy', grandma: 'bunny' }
+export const isAdult = (k: Kind): k is AdultKind => k in ADULT_BASE
+export const PALETTE: Record<string, Col> = {
   sky: { b: '#9CCBF2', d: '#6EA6DA', l: '#E3F1FC' },
   lime: { b: '#C6E58A', d: '#9CC35A', l: '#F0F9DC' },
   pink: { b: '#F6B4CF', d: '#DE86AC', l: '#FDE6F0' },
@@ -108,30 +148,63 @@ export const PALETTE: Record<string, { b: string; d: string; l: string }> = {
   orange: { b: '#F9C08A', d: '#E59A55', l: '#FDEBD8' },
 }
 
-export function friendSVG(kind: Kind, mood: Mood = 'neutral', color?: { b: string; d: string; l: string }, wave = false) {
+const glasses = (y = 50) =>
+  `<g fill="rgba(255,255,255,.28)" stroke="#5B4636" stroke-width="2.6"><circle cx="46" cy="${y}" r="11"/><circle cx="74" cy="${y}" r="11"/></g>` +
+  Lo(`M57 ${y} q3 -3 6 0`, '#5B4636', 2.6)
+
+function adultExtras(k: AdultKind, c: Col, o: string) {
+  switch (k) {
+    case 'mom': /* 머리 리본 + 목걸이 */
+      return Po('M60 14 L42 4 L44 26 Z', '#FF8FB1', '#C9577D', 2.5) + Po('M60 14 L78 4 L76 26 Z', '#FF8FB1', '#C9577D', 2.5) +
+        `<circle cx="60" cy="15" r="6" fill="#FFB3CA" stroke="#C9577D" stroke-width="2.5"/>` +
+        [44, 52, 60, 68, 76].map((x, i) => `<circle cx="${x}" cy="${92 + Math.abs(i - 2) * -1.5 + 2}" r="3.2" fill="#fff" stroke="${o}" stroke-width="1.2"/>`).join('')
+    case 'dad': /* 안경 + 넥타이 */
+      return glasses() + Po('M56 88 L64 88 L66 94 L60 118 L54 94 Z', '#5B7BD0', '#34508F', 2.5) + Po('M55 86 L65 86 L63 92 L57 92 Z', '#6E8EE0', '#34508F', 2)
+    case 'teacher': /* 안경 + 가슴의 별 이름표 */
+      return glasses() + `<rect x="66" y="96" width="18" height="12" rx="3" fill="#fff" stroke="${o}" stroke-width="2"/>` +
+        Po('M75 98 l1.6 3.2 3.4 .4 -2.5 2.3 .7 3.4 -3.2 -1.7 -3.2 1.7 .7 -3.4 -2.5 -2.3 3.4 -.4 Z', '#FFC93C', '#C99A1E', 1)
+    case 'grandpa': /* 하얀 눈썹·콧수염 + 안경 */
+      return glasses(52) + Lo('M36 36 q8 -5 16 0 M68 36 q8 -5 16 0', '#FFFFFF', 5) +
+        Po('M44 72 Q52 64 60 70 Q68 64 76 72 Q68 78 60 74 Q52 78 44 72 Z', '#FFFFFF', '#B9A386', 2)
+    case 'grandma': /* 회색 머리 쪽 + 안경 + 진주 목걸이 */
+      return `<circle cx="60" cy="10" r="13" fill="#E4E4EA" stroke="#A9A9B6" stroke-width="2.5"/>` + Lo('M52 8 q8 -6 16 0', '#C9C9D3', 2) +
+        glasses() + [46, 53, 60, 67, 74].map((x) => `<circle cx="${x}" cy="94" r="3" fill="#FFFDF5" stroke="#C9AECF" stroke-width="1.2"/>`).join('')
+  }
+}
+
+export function friendSVG(kind: Kind, mood: Mood = 'neutral', color?: Col, wave = false) {
+  const base: BaseKind = isAdult(kind) ? ADULT_BASE[kind] : kind
   const c = color || KIND_COLORS[kind]
+  const o = shade(c.b, -0.52)
+  const f = fillOf(c.b)
   let ears = ''
   let extra = ''
-  if (kind === 'bear') ears = E(30, 26, 13, 13, c.b) + Ef(30, 26, 6, 6, c.l) + E(90, 26, 13, 13, c.b) + Ef(90, 26, 6, 6, c.l)
-  if (kind === 'bunny') ears = E(42, 10, 10, 26, c.b, -8) + Ef(42, 12, 4.5, 17, '#FFD3E2') + E(78, 10, 10, 26, c.b, 8) + Ef(78, 12, 4.5, 17, '#FFD3E2')
-  if (kind === 'cat') ears = P('M24 36 L30 6 L52 22 Z', c.b) + P('M96 36 L90 6 L68 22 Z', c.b)
-  if (kind === 'puppy') ears = E(24, 46, 11, 22, c.d, 18) + E(96, 46, 11, 22, c.d, -18)
-  if (kind === 'chick') ears = L('M58 16 q-6 -12 4 -14 M62 16 q4 -12 12 -8', OUT, 3)
-  if (kind === 'chick') extra = P('M52 66 L60 74 L68 66 Z', '#FFA64D', 2.5)
-  if (kind === 'puppy') extra = E(60, 64, 6, 4.5, PUPIL)
-  const armL = wave ? limb('M30 102 q-16 -10 -18 -28', c.b, 9) : limb('M32 104 q-10 8 -8 18', c.b, 9)
-  const armR = limb('M88 104 q10 8 8 18', c.b, 9)
+  if (base === 'bear') ears = Eo(28, 24, 14, 14, f, o) + Ef(28, 25, 7, 7, c.l) + Eo(92, 24, 14, 14, f, o) + Ef(92, 25, 7, 7, c.l)
+  if (base === 'bunny') ears = Eo(42, 6, 11, 28, f, o, -8) + Ef(42, 9, 5, 19, '#FFD3E2') + Eo(78, 6, 11, 28, f, o, 8) + Ef(78, 9, 5, 19, '#FFD3E2')
+  if (base === 'cat') ears = Po('M22 38 Q24 10 30 4 Q44 14 54 22 Z', f, o) + Po('M98 38 Q96 10 90 4 Q76 14 66 22 Z', f, o) +
+    Po('M28 28 L31 12 L42 20 Z', '#FFD3E2', 'none', 0) + Po('M92 28 L89 12 L78 20 Z', '#FFD3E2', 'none', 0)
+  if (base === 'puppy') ears = Eo(22, 48, 12, 24, c.d, o, 16) + Eo(98, 48, 12, 24, c.d, o, -16)
+  if (base === 'chick') ears = Lo('M58 16 q-6 -12 4 -14 M62 16 q4 -12 12 -8', o, 3)
+  if (base === 'chick') extra = Po('M52 66 Q60 76 68 66 Q60 62 52 66 Z', '#FFA64D', '#D9782A', 2.2)
+  if (base === 'bear' || base === 'puppy') extra = Ef(60, 66, 13, 9, c.l, 1) + `<ellipse cx="60" cy="62" rx="5.5" ry="4" fill="${PUPIL}"/>`
+  const armL = wave ? limbO('M30 100 q-16 -10 -18 -28', c.b, o, 9) : limbO('M32 102 q-10 8 -8 18', c.b, o, 9)
+  const armR = limbO('M88 102 q10 8 8 18', c.b, o, 9)
   return (
-    E(44, 136, 13, 7, c.d) + E(76, 136, 13, 7, c.d) +
+    grad(c.b) +
+    groundShadow(60, 144, 36) +
+    Eo(44, 136, 13, 7, c.d, o) + Eo(76, 136, 13, 7, c.d, o) +
     armL + armR +
-    E(60, 112, 32, 26, c.b) + Ef(60, 118, 18, 15, c.l) +
+    Eo(60, 110, 31, 26, f, o) + Ef(60, 116, 18, 15, c.l) +
     ears +
-    E(60, 52, 40, 36, c.b) +
-    face(46, 74, 50, 7, kind === 'chick' ? 78 : 68, mood) +
-    extra
+    Eo(60, 52, 41, 37, f, o) +
+    shine(44, 32, 13, 6) +
+    extra +
+    face(46, 74, 50, 7, base === 'chick' ? 80 : 70, mood) +
+    (isAdult(kind) ? adultExtras(kind, c, o) : '')
   )
 }
 
+/* ---------- 날씨 아이콘 ---------- */
 export type Weather = 'sun' | 'rain' | 'thunder' | 'fog' | 'rainbow' | 'cloud'
 const cloud = (f: string, dx = 0, dy = 0, s = 1) =>
   `<path transform="translate(${dx} ${dy}) scale(${s})" d="M26 72 Q10 72 11 58 Q12 45 27 46 Q29 29 48 29 Q63 29 67 42 Q81 38 87 51 Q95 54 93 63 Q91 72 80 72 Z" fill="${f}" ${st(3)}/>`
