@@ -1,0 +1,177 @@
+/* 마음 날씨 전용 스타일 (CSS Modules — cx() 로 이름을 바꿔 씀). 출처: legacy/maeum-nalssi/src/App.css (2026-11-22 옮김)
+   게임방 공통 이름(screen, hero, ask, big-btn, pressing …)은 :global 로 그대로 씀 */
+.root { --kc: #F0A33A; position: absolute; inset: 0; display: flex; flex-direction: column; overflow: hidden }
+
+.spk { font-size: 1.1em }
+:global(.screen)[data-scroll] { overflow-y: auto; justify-content: flex-start }
+
+/* 진행 점 */
+.dots { display: flex; gap: 10px; align-items: center; background: var(--sheet); border-radius: 999px; padding: 0 16px; height: 56px; box-shadow: 0 4px 0 var(--toy) }
+.dots i { width: 20px; height: 20px; border-radius: 50%; background: var(--grid) }
+.dots i.on { background: var(--kc) }
+.dots i.now { background: var(--sheet); box-shadow: inset 0 0 0 4px var(--kc); animation: invite 1.2s ease-in-out infinite }
+
+/* 시작 화면 */
+:global(.hero) { display: block; padding: 0 }
+:global(.hero.pressing) svg { animation: jump .6s ease }
+
+/* 모드 고르기 */
+.modes { display: flex; gap: clamp(20px, 5vw, 60px); flex-wrap: wrap; justify-content: center }
+.mode { width: min(40vw, 42vh, 320px); min-width: 150px; aspect-ratio: 4/5; border-radius: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 14px; box-shadow: 0 8px 0 var(--toy); color: var(--card-ink) }
+.mode svg { width: 78%; height: auto; flex: 1; min-height: 0 }
+.mode.dong { background: #EAF7D2; box-shadow: 0 8px 0 var(--toy), inset 0 0 0 6px #9CC35A; transform: rotate(-2deg); border-radius: 50% 50% 40px 40px }
+.mode.hyeong { background: #DDEEFC; box-shadow: 0 8px 0 var(--toy), inset 0 0 0 6px #6EA6DA; transform: rotate(2deg) }
+.mode:global(.pressing) { transform: scale(.96) }
+.mode .mn { font-size: clamp(26px, 4.6vh, 38px) }
+.mode .ms { font-size: clamp(16px, 2.6vh, 22px); letter-spacing: 2px }
+
+/* ---------- 게임 화면 ---------- */
+.game { justify-content: flex-start; gap: clamp(8px, 1.8vh, 18px) }
+.scene {
+  --sh: min(38vh, 50vw, 380px);
+  position: relative; width: min(100%, 900px); height: var(--sh); flex: 0 0 auto;
+  border-radius: 36px; overflow: hidden; box-shadow: 0 7px 0 var(--toy), inset 0 0 0 5px rgba(255,255,255,.6);
+}
+.scene .ground { position: absolute; left: 0; right: 0; bottom: 0; height: 30% }
+.bg-room { background: repeating-linear-gradient(90deg, #FFF3E0 0 40px, #FFEEDA 40px 80px) }
+.bg-room .ground { background: #EBCFA8; box-shadow: inset 0 6px 0 #DDBB8E }
+.bg-park { background: linear-gradient(#CDEBFF, #E6F6FF) }
+.bg-park .ground { background: #A9DB8F; box-shadow: inset 0 6px 0 #92CC78 }
+.bg-night { background: linear-gradient(#2F3768, #4A4F86) }
+.bg-night .ground { background: #3B3E66; box-shadow: inset 0 6px 0 #33355A }
+.bg-night .char.main { filter: brightness(.82) }
+.bg-storm { background: linear-gradient(#AEB8CF, #CDD5E4) }
+.bg-storm .ground { background: #93B486; box-shadow: inset 0 6px 0 #82A576 }
+.bg-beach { background: linear-gradient(#CDEBFF 0 58%, #9AD6F2 58% 72%, #F6E1A8 72%) }
+.bg-beach .ground { background: #F6E1A8; height: 28% }
+
+.char { position: absolute; bottom: 4%; height: 66%; aspect-ratio: 132/166; transform: translateX(-50%); transform-origin: 50% 100% }
+.char svg { width: 100%; height: 100%; display: block }
+.char.main { z-index: 3 }
+.char.main.nope svg { animation: softShake .6s }
+.char.main.cheer svg { animation: jump .8s cubic-bezier(.3,1.6,.5,1) 2 }
+.char.other { height: 58%; z-index: 2 }
+.char.other.big { height: 76% }
+.char .badge { position: absolute; left: 50%; top: -6%; width: 46%; aspect-ratio: 1; transform: translate(-50%, -60%); background: var(--sheet); border-radius: 50%; box-shadow: 0 4px 0 var(--toy); display: flex; align-items: center; justify-content: center; animation: badgeIn .45s cubic-bezier(.3,1.6,.5,1) both; z-index: 4 }
+.char .badge svg { width: 80%; height: 80% }
+.char .badge .qmark { font-size: calc(var(--sh) * .12); color: var(--kc) }
+@keyframes badgeIn { from { transform: translate(-50%, -30%) scale(.2); opacity: 0 } }
+.scene .char.main .badge { left: 96%; top: 24%; width: 40% }
+
+.dun { position: absolute; left: 3%; bottom: 3%; width: 22%; aspect-ratio: 5/4; z-index: 4 }
+.dun svg { width: 100%; height: 100%; display: block }
+.dun.cheer svg { animation: jump .7s cubic-bezier(.3,1.6,.5,1) 3 }
+
+.prop { position: absolute; transform: translate(-50%, -50%); line-height: 1; z-index: 3; filter: drop-shadow(0 4px 0 rgba(0,0,0,.12)) }
+
+/* 장면 움직임 (2~3초, 부드럽게) */
+.a-pop { animation: propPop .7s cubic-bezier(.3,1.6,.5,1) .3s both }
+@keyframes propPop { from { transform: translate(-50%, -50%) scale(0) rotate(-20deg) } }
+.a-fall { animation: propFall 1.4s ease-in .6s both }
+@keyframes propFall {
+  0% { transform: translate(-50%, -50%) rotate(0) }
+  70% { transform: translate(-50%, 160%) rotate(150deg) }
+  85% { transform: translate(-50%, 140%) rotate(165deg) scale(1.1, .85) }
+  100% { transform: translate(-50%, 160%) rotate(170deg) scale(1.15, .8) }
+}
+.a-away { animation: propAway 3s ease-in-out .5s both }
+@keyframes propAway { 0% { transform: translate(-50%, -50%) } 100% { transform: translate(40%, -380%) rotate(12deg) scale(.6); opacity: .25 } }
+.a-float { animation: propFloat 2.6s ease-in-out infinite }
+@keyframes propFloat { 50% { transform: translate(-50%, -70%) } }
+.a-snatch { animation: propSnatch 2.2s ease-in-out .8s both }
+@keyframes propSnatch { 0% { transform: translate(-50%, -50%) } 40% { transform: translate(60%, -60%) } 100% { transform: translate(260%, -50%); opacity: .4 } }
+.a-leave { animation: charLeave 2.2s ease-in-out .9s both }
+@keyframes charLeave { 0% { transform: translateX(-50%) } 30% { transform: translateX(-90%) } 100% { transform: translateX(40%); opacity: .5 } }
+.a-hug { animation: charHug 1.4s ease-out .3s both }
+@keyframes charHug { from { transform: translateX(40%); opacity: 0 } to { transform: translateX(-50%) } }
+.a-tumble { animation: propTumble 1.3s cubic-bezier(.4,0,.6,1) calc(.6s + var(--i) * .15s) both }
+@keyframes propTumble { to { transform: translate(calc(-50% + 60% * (var(--i) + 1)), calc(-50% + 50% * var(--i))) rotate(calc(40deg + var(--i) * 50deg)) } }
+.a-jack { animation: propJack .8s cubic-bezier(.3,1.8,.5,1) 1.2s both }
+@keyframes propJack { 0% { transform: translate(-50%, 30%) scale(.2); opacity: 0 } 100% { transform: translate(-50%, -50%) } }
+.a-wobble { animation: propWobble .3s ease-in-out .2s 4 }
+@keyframes propWobble { 25% { transform: translate(-50%, -50%) rotate(-8deg) } 75% { transform: translate(-50%, -50%) rotate(8deg) } }
+.a-rumble { animation: propWobble .4s ease-in-out .4s 5 }
+.a-wave { animation: propWave 3s ease-in-out infinite }
+@keyframes propWave { 50% { transform: translate(-90%, -50%) } }
+
+/* 보기 카드 */
+.cards { display: flex; gap: clamp(14px, 2.6vw, 28px); flex-wrap: wrap; justify-content: center; align-items: stretch; width: min(100%, 980px) }
+.cards.placeholder { min-height: 96px }
+.ecard {
+  --cw: min(22vw, 24vh, 210px);
+  width: max(var(--cw), 96px); min-height: max(calc(var(--cw) * 1.12), 110px);
+  background: var(--eb); color: var(--card-ink);
+  box-shadow: 0 7px 0 var(--toy), inset 0 0 0 5px var(--ed);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 12px 10px; position: relative;
+  transition: transform .2s;
+}
+.cards.n2 .ecard { --cw: min(34vw, 25vh, 250px) }
+.ecard .fc { width: 62%; height: auto }
+.ecard .wx { position: absolute; top: -10px; right: -10px; width: 42%; aspect-ratio: 1; background: var(--sheet); border-radius: 50%; box-shadow: 0 4px 0 var(--toy), inset 0 0 0 3px var(--ed); display: flex; align-items: center; justify-content: center }
+.ecard .wx svg { width: 80%; height: 80% }
+.ecard .lb { font-size: clamp(20px, 3.4vh, 28px) }
+.ecard:global(.pressing), .acard:global(.pressing) { transform: scale(.95) }
+.ecard.hi, .acard.hi { transform: translateY(-8px) scale(1.04) }
+.ecard.hint, .acard.hint { animation: glowPulse 1.2s ease-in-out infinite }
+.ecard.wobble, .acard.wobble { animation: softShake .6s }
+.ecard.correct { transform: scale(1.08); box-shadow: 0 7px 0 var(--toy), inset 0 0 0 7px var(--green), 0 0 0 8px rgba(67,194,104,.35) }
+
+.acard {
+  --cw: min(26vw, 26vh, 240px);
+  width: max(var(--cw), 110px); min-height: max(calc(var(--cw) * .95), 100px);
+  background: var(--sheet); border-radius: 30px; box-shadow: 0 7px 0 var(--toy), inset 0 0 0 4px var(--grid);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 12px; transition: transform .2s;
+}
+.acard .ai { font-size: clamp(48px, 9vh, 86px); line-height: 1 }
+.acard .lb { font-size: clamp(18px, 3vh, 24px); text-align: center; word-break: keep-all; line-height: 1.2 }
+.acard.good { transform: scale(1.08); box-shadow: 0 7px 0 var(--toy), inset 0 0 0 7px var(--yellow), 0 0 0 8px rgba(255,203,47,.35) }
+
+/* 칭찬 */
+.praise { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 20; background: rgba(255,255,255,.35); animation: fadeIn .3s ease }
+.praise-card { background: var(--sheet); border-radius: 40px; padding: 22px 32px; box-shadow: 0 10px 0 var(--toy), inset 0 0 0 6px var(--kc); display: flex; flex-direction: column; align-items: center; gap: 8px; animation: wpIn .5s cubic-bezier(.3,1.6,.5,1); position: relative }
+.praise-card .pd { width: min(50vw, 30vh, 260px); height: auto; animation: jump .8s cubic-bezier(.3,1.6,.5,1) .2s 2 }
+.praise-card .ps { position: absolute; right: 8%; top: 6%; width: min(18vw, 12vh, 100px); animation: starIn .9s cubic-bezier(.3,1.7,.5,1) .3s both }
+.praise-card h2 { font-size: clamp(26px, 4.6vh, 38px); text-align: center; word-break: keep-all }
+@keyframes wpIn { from { transform: scale(.3); opacity: 0 } }
+@keyframes starIn { 0% { transform: scale(0) rotate(-120deg) } 70% { transform: scale(1.25) rotate(10deg) } }
+
+/* 마무리 */
+.finish-card { background: var(--sheet); border-radius: 40px; padding: 24px 30px; box-shadow: 0 10px 0 var(--toy), inset 0 0 0 6px var(--kc); display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: min(94vw, 640px) }
+.finish-card .fd { width: min(50vw, 26vh, 240px); height: auto; animation: bob 1.6s ease-in-out infinite }
+.finish-card h2 { font-size: clamp(30px, 5vh, 44px) }
+.star-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center }
+.star-row svg { width: clamp(48px, 9vh, 76px); height: auto; animation: starIn .7s cubic-bezier(.3,1.7,.5,1) both }
+
+/* 스티커 모음판 */
+.board { gap: 16px }
+.day { width: min(100%, 900px); background: var(--sheet); border-radius: 28px; padding: 14px 18px; box-shadow: 0 5px 0 var(--toy) }
+.day h3 { font-size: 22px; color: var(--muted); margin-bottom: 6px }
+.star-grid { display: flex; flex-wrap: wrap; gap: 6px; align-items: center }
+.star-grid svg { width: 52px; height: 52px }
+.star-grid .more { font-size: 22px; color: var(--muted) }
+
+/* 세로 화면 / 작은 화면 */
+@media (max-aspect-ratio: 1/1) {
+  .scene { --sh: min(30vh, 72vw, 380px) }
+  .game .cards { gap: 12px }
+  .ecard { --cw: min(40vw, 17vh, 210px); min-height: max(var(--cw), 96px) }
+  .cards.n2 .ecard { --cw: min(42vw, 24vh, 250px) }
+  .ecard .lb { font-size: clamp(18px, 2.6vh, 26px) }
+  .acard { --cw: min(42vw, 19vh, 240px) }
+  .acard .ai { font-size: clamp(40px, 7vh, 80px) }
+}
+@media (max-height: 640px) and (min-aspect-ratio: 1/1) {
+  .game { flex-direction: row; flex-wrap: wrap; align-content: center; justify-content: center }
+  .scene { --sh: min(58vh, 46vw); width: 48vw }
+  .game .cards { width: 46vw }
+  .game :global(.ask) { order: -1; width: 100% }
+}
+.finish-card :global(.big-btn.soft) { background: var(--chip) }
+
+/* 게임방 base.css 에 있는 움직임을 이 파일 안에서도 씀 (CSS Modules 는 움직임 이름을 파일 안으로 한정) */
+@keyframes invite { 50% { transform: scale(1.06) } }
+@keyframes jump { 30% { transform: translateY(-14%) rotate(-6deg) scale(1.05) } 60% { transform: translateY(0) scale(1.06,.94) } }
+@keyframes softShake { 20% { transform: translateX(-8px) } 40% { transform: translateX(8px) } 60% { transform: translateX(-4px) } 80% { transform: translateX(4px) } }
+@keyframes glowPulse { 50% { box-shadow: 0 7px 0 var(--toy), 0 0 0 8px rgba(255,203,47,.7) } }
+@keyframes fadeIn { from { opacity: 0 } }
+@keyframes bob { 50% { transform: translateY(-8px) rotate(2deg) } }

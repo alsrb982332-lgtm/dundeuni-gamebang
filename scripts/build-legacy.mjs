@@ -128,7 +128,7 @@ function buildHtmlGames() {
 
 /* ---------- Vite 게임 3개 ---------- */
 const VITE_GAMES = [
-  { id: 'maeum-nalssi', src: 'maeum-nalssi', settingsKey: 'maeum.settings' },
+  /* maeum-nalssi: 2단계로 옮김 (src/games/maeum-nalssi) → 더 이상 복사본을 만들지 않음 */
   { id: 'hyeonga-rang', src: 'hyeonga-rang-gachi', settingsKey: 'hyeonga.settings' },
   { id: 'banjjak-habits', src: 'banjjak-habits', settingsKey: 'banjjak.settings' },
 ]
